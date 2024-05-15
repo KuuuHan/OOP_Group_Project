@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ui.gp.SceneController.Customer.PolicyHolderHomeController;
+import ui.gp.user.*;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -26,6 +27,8 @@ public class HomeController {
     private TextField homeLoginName;
     @FXML
     private PasswordField homeLoginPassword;
+    @FXML
+    private Label statusText;
     private FXMLLoader loader;
     private Parent root;
     Stage stage;
@@ -37,8 +40,9 @@ public class HomeController {
 
         if (!username.isEmpty() && !password.isEmpty()){
             // cho nay cho reset mat khau ho
-            // search nguoi o day
+            // search tai khoan o day
 
+            // cho nay de tu dong login cho may cai da duoc mac dinh roi
             if (username.equals("admin") && password.equals("admin")){
                 try {
                     loader = new FXMLLoader();
@@ -99,6 +103,8 @@ public class HomeController {
                     e.printStackTrace();
                 }
             }
+            // --------------------------------------
+
 
             // khuc nay de login ne (link voi database hoac la lam txt luon idk?
 
@@ -120,11 +126,7 @@ public class HomeController {
     }
 
     private void loginErrorMsg(){
-        Alert loginAlert = new Alert(Alert.AlertType.ERROR);
-        loginAlert.setTitle("Login Error");
-        loginAlert.setHeaderText("Invalid Username or Password");
-        loginAlert.setContentText("Please try again!");
-        loginAlert.showAndWait();
+        statusText.setText("Invalid username or password. Please try again.");
     }
 
 //    private void getLoginName(String name){
