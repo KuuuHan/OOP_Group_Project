@@ -12,5 +12,8 @@ module ui.gp {
     requires com.almasb.fxgl.all;
 
     opens ui.gp to javafx.fxml;
+    opens ui.gp.SceneController to javafx.fxml;
+
     exports ui.gp;
+    exports ui.gp.SceneController;
 }

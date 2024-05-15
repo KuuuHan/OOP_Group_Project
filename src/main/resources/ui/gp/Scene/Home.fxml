@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="homeScene" prefHeight="574.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.SceneController.HomeController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="365.0" prefHeight="52.0" prefWidth="895.0" text="Welcome to the Insurance App!" textAlignment="CENTER" AnchorPane.bottomAnchor="157.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="365.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="366.0" fitWidth="882.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="208.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../Image/baninsurance2023822154749.jpg" />
+         </image></ImageView>
+      <GridPane layoutX="195.0" layoutY="418.0" prefHeight="53.0" prefWidth="498.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="435.1259460449219" minWidth="10.0" prefWidth="110.22279357910156" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="755.5946350097656" minWidth="10.0" prefWidth="387.77720642089844" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints />
+            <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="29.16412353515625" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="29.16412353515625" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="492.0" text="User Name:" textAlignment="CENTER" GridPane.rowIndex="1" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="492.0" text="Password:" textAlignment="CENTER" GridPane.rowIndex="2" />
+            <TextField fx:id="homeLoginName" prefHeight="26.0" prefWidth="655.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <PasswordField fx:id="homeLoginPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <ToolBar layoutX="344.0" layoutY="487.0" prefHeight="38.0" prefWidth="200.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="344.0" AnchorPane.rightAnchor="337.0" AnchorPane.topAnchor="487.0">
+        <items>
+            <Button mnemonicParsing="false" text="Login" />
+          <Button mnemonicParsing="false" text="New Register" />
+            <Button fx:id="exitHomeButton" mnemonicParsing="false" onAction="#exit" text="Exit" />
+        </items>
+      </ToolBar>
+   </children>
+</AnchorPane>
