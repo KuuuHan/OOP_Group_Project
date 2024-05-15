@@ -85,6 +85,19 @@ public class HomeController {
                 }
 
                 System.out.println("Login Successful");
+            } else if (username.equals("owner") && password.equals("owner")) {
+                try {
+                    loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/ui/gp/Scene/Customer/PolicyOwner.fxml"));
+                    AnchorPane root = new AnchorPane();
+                    loader.setRoot(root);
+                    root = loader.load();
+                    getLoginName(username);
+                    stage = (Stage) homeScene.getScene().getWindow();
+                    stage.getScene().setRoot(root);
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
             }
 
             // khuc nay de login ne (link voi database hoac la lam txt luon idk?
