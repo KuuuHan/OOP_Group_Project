@@ -7,9 +7,11 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import ui.gp.SceneController.Customer.CustomerHomeController;
+import ui.gp.SceneController.Customer.PolicyHolderHomeController;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class HomeController {
     @FXML
@@ -53,10 +55,25 @@ public class HomeController {
 
                 System.out.println("Login Successful");
 
-            } else if (username.equals("user") && password.equals("user")){
+            } else if (username.equals("policyholder") && password.equals("policyholder")) {
                 try {
                     loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/ui/gp/Scene/Customer/CustomerHome.fxml"));
+                    loader.setLocation(getClass().getResource("/ui/gp/Scene/Customer/PolicyHolder.fxml"));
+                    AnchorPane root = new AnchorPane();
+                    loader.setRoot(root);
+                    root = loader.load();
+                    getLoginName(username);
+                    stage = (Stage) homeScene.getScene().getWindow();
+                    stage.getScene().setRoot(root);
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+
+                System.out.println("Login Successful");
+            } else if (username.equals("dependents") && password.equals("dependents")) {
+                try {
+                    loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/ui/gp/Scene/Customer/Dependents.fxml"));
                     AnchorPane root = new AnchorPane();
                     loader.setRoot(root);
                     root = loader.load();
@@ -97,10 +114,32 @@ public class HomeController {
         loginAlert.showAndWait();
     }
 
-    private void getLoginName(String name){
-        CustomerHomeController customerHomeController = loader.getController();
-        if (customerHomeController != null){
-            customerHomeController.bannerNameView(name);
+//    private void getLoginName(String name){
+//        PolicyHolderHomeController policyHolderHomeController = loader.getController();
+//        if (policyHolderHomeController != null){
+//            policyHolderHomeController.bannerNameView(name);
+//        }
+//    }
+
+    private void getLoginName(String name) {
+        try {
+            // Convert the username to CamelCase to match the controller class name
+            String className = name.substring(0, 1).toUpperCase() + name.substring(1) + "HomeController";
+
+            // Get the controller class dynamically
+            Class<?> controllerClass = Class.forName("ui.gp.SceneController.Customer." + className);
+
+            // Get the controller instance from the FXMLLoader
+            Object controller = loader.getController();
+
+            // Check if the controller is an instance of the expected controller class
+            if (controllerClass.isInstance(controller)) {
+                // Cast the controller to the expected controller class and call the bannerNameView method
+                Method method = controllerClass.getMethod("bannerNameView", String.class);
+                method.invoke(controller, name);
+            }
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 }
