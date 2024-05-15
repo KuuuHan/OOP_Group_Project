@@ -2,20 +2,17 @@ package ui.gp.SceneController.Customer;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import ui.gp.SceneController.SceneUtil;
 
 import java.io.IOException;
 
-public class OwnerHomeController {
+public class ManagerHomeController {
     @FXML
     Label welcomeBannerUser;
     @FXML
-    AnchorPane ownerHomeScene;
-    @FXML
-    Button logoutButton;
+    AnchorPane managerHomeScene;
 
 
     public void bannerNameView(String username) {
@@ -24,6 +21,6 @@ public class OwnerHomeController {
 
     @FXML
     public void logoutOwner(ActionEvent logoutAction) throws IOException {
-        SceneUtil.logout(ownerHomeScene);
+        SceneUtil.logout(managerHomeScene);
     }
 }

@@ -7,8 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import ui.gp.SceneController.Customer.PolicyHolderHomeController;
-import ui.gp.user.*;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -56,52 +54,90 @@ public class HomeController {
                 } catch (IOException e){
                     e.printStackTrace();
                 }
-
                 System.out.println("Login Successful");
 
-            } else if (username.equals("policyholder") && password.equals("policyholder")) {
-                try {
-                    loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/ui/gp/Scene/Customer/PolicyHolder.fxml"));
-                    AnchorPane root = new AnchorPane();
-                    loader.setRoot(root);
-                    root = loader.load();
-                    getLoginName(username);
-                    stage = (Stage) homeScene.getScene().getWindow();
-                    stage.getScene().setRoot(root);
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
-
+            } else
+                if (username.equals("holder") && password.equals("holder")) {
+                    try {
+                        loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource("/ui/gp/Scene/Customer/PolicyHolder.fxml"));
+                        AnchorPane root = new AnchorPane();
+                        loader.setRoot(root);
+                        root = loader.load();
+                        getLoginName(username);
+                        stage = (Stage) homeScene.getScene().getWindow();
+                        stage.getScene().setRoot(root);
+                    } catch (IOException e){
+                        e.printStackTrace();
+                    }
                 System.out.println("Login Successful");
-            } else if (username.equals("dependents") && password.equals("dependents")) {
-                try {
-                    loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/ui/gp/Scene/Customer/Dependents.fxml"));
-                    AnchorPane root = new AnchorPane();
-                    loader.setRoot(root);
-                    root = loader.load();
-                    getLoginName(username);
-                    stage = (Stage) homeScene.getScene().getWindow();
-                    stage.getScene().setRoot(root);
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
 
-                System.out.println("Login Successful");
-            } else if (username.equals("owner") && password.equals("owner")) {
-                try {
-                    loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/ui/gp/Scene/Customer/PolicyOwner.fxml"));
-                    AnchorPane root = new AnchorPane();
-                    loader.setRoot(root);
-                    root = loader.load();
-                    getLoginName(username);
-                    stage = (Stage) homeScene.getScene().getWindow();
-                    stage.getScene().setRoot(root);
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
+            } else
+                if (username.equals("dependents") && password.equals("dependents")) {
+                    try {
+                        loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource("/ui/gp/Scene/Customer/Dependents.fxml"));
+                        AnchorPane root = new AnchorPane();
+                        loader.setRoot(root);
+                        root = loader.load();
+                        getLoginName(username);
+                        stage = (Stage) homeScene.getScene().getWindow();
+                        stage.getScene().setRoot(root);
+                    } catch (IOException e){
+                        e.printStackTrace();
+                    }
+                    System.out.println("Login Successful");
+
+            } else
+                if (username.equals("owner") && password.equals("owner")) {
+                    try {
+                        loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource("/ui/gp/Scene/Customer/PolicyOwner.fxml"));
+                        AnchorPane root = new AnchorPane();
+                        loader.setRoot(root);
+                        root = loader.load();
+                        getLoginName(username);
+                        stage = (Stage) homeScene.getScene().getWindow();
+                        stage.getScene().setRoot(root);
+                    } catch (IOException e){
+                        e.printStackTrace();
+                    }
+                    System.out.println("Login Successful");
+
+            } else
+                if (username.equals("manager") && password.equals("manager")) {
+                    try {
+                        loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource("/ui/gp/Scene/Customer/Manager.fxml"));
+                        AnchorPane root = new AnchorPane();
+                        loader.setRoot(root);
+                        root = loader.load();
+                        getLoginName(username);
+                        stage = (Stage) homeScene.getScene().getWindow();
+                        stage.getScene().setRoot(root);
+                    } catch (IOException e){
+                        e.printStackTrace();
+                    }
+                    System.out.println("Login Successful");
+
+            } else
+                if (username.equals("surveyor") && password.equals("surveyor")) {
+                    try {
+                        loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource("/ui/gp/Scene/Customer/Surveyor.fxml"));
+                        AnchorPane root = new AnchorPane();
+                        loader.setRoot(root);
+                        root = loader.load();
+                        getLoginName(username);
+                        stage = (Stage) homeScene.getScene().getWindow();
+                        stage.getScene().setRoot(root);
+                    } catch (IOException e){
+                        e.printStackTrace();
+                    }
+                    System.out.println("Login Successful");
+
+                } else {
+                loginErrorMsg();
             }
             // --------------------------------------
 
@@ -130,7 +166,7 @@ public class HomeController {
     }
 
 //    private void getLoginName(String name){
-//        PolicyHolderHomeController policyHolderHomeController = loader.getController();
+//        HolderHomeController policyHolderHomeController = loader.getController();
 //        if (policyHolderHomeController != null){
 //            policyHolderHomeController.bannerNameView(name);
 //        }

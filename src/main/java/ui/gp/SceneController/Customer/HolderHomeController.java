@@ -8,7 +8,7 @@ import ui.gp.SceneController.SceneUtil;
 
 import java.io.IOException;
 
-public class PolicyHolderHomeController {
+public class HolderHomeController {
     @FXML
     Label welcomeBannerUser;
     @FXML

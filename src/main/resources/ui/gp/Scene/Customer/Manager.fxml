@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root fx:id="ownerHomeScene" prefHeight="574.0" prefWidth="881.0" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.SceneController.Customer.OwnerHomeController">
+<fx:root fx:id="managerHomeScene" prefHeight="574.0" prefWidth="881.0" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.SceneController.Customer.ManagerHomeController">
     <children>
         <ImageView disable="true" fitHeight="73.0" fitWidth="881.0" focusTraversable="true" layoutY="-3.0" opacity="0.45" pickOnBounds="true" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <image>

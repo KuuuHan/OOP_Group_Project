@@ -15,16 +15,16 @@
 
 <AnchorPane fx:id="homeScene" prefHeight="574.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.SceneController.HomeController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="365.0" prefHeight="52.0" prefWidth="895.0" text="Welcome to the Insurance App!" textAlignment="CENTER" AnchorPane.bottomAnchor="157.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="365.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="365.0" prefHeight="52.0" prefWidth="895.0" text="Welcome to the Insurance App!" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ImageView fitHeight="366.0" fitWidth="882.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="208.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="366.0" fitWidth="882.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="208.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../Image/baninsurance2023822154749.jpg" />
          </image></ImageView>
-      <GridPane layoutX="195.0" layoutY="418.0" prefHeight="53.0" prefWidth="498.0">
+      <GridPane layoutX="195.0" layoutY="418.0" prefHeight="53.0" prefWidth="498.0" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="188.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="435.1259460449219" minWidth="10.0" prefWidth="110.22279357910156" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="755.5946350097656" minWidth="10.0" prefWidth="387.77720642089844" />
@@ -41,13 +41,13 @@
             <PasswordField fx:id="homeLoginPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <ToolBar layoutX="348.0" layoutY="501.0" prefHeight="38.0" prefWidth="188.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="348.0" AnchorPane.rightAnchor="345.0" AnchorPane.topAnchor="501.0">
+      <ToolBar layoutX="348.0" layoutY="501.0" prefHeight="38.0" prefWidth="188.0" AnchorPane.bottomAnchor="35.0">
         <items>
             <Button mnemonicParsing="false" onAction="#login" text="Login" />
           <Button mnemonicParsing="false" text="New Register" />
             <Button fx:id="exitHomeButton" mnemonicParsing="false" onAction="#exit" text="Exit" />
         </items>
       </ToolBar>
-      <Label fx:id="statusText" layoutX="348.0" layoutY="484.0" text="Enter your user name and password." />
+      <Label fx:id="statusText" alignment="CENTER" contentDisplay="CENTER" layoutX="348.0" layoutY="484.0" prefHeight="17.0" prefWidth="531.0" text="Enter your user name and password." textAlignment="CENTER" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="484.0" />
    </children>
 </AnchorPane>
