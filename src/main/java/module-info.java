@@ -16,4 +16,6 @@ module ui.gp {
 
     exports ui.gp;
     exports ui.gp.SceneController;
+    exports ui.gp.SceneController.Customer;
+    opens ui.gp.SceneController.Customer to javafx.fxml;
 }

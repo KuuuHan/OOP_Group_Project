@@ -3,14 +3,13 @@ package ui.gp.SceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import ui.gp.SceneController.Customer.CustomerHomeController;
 
 import java.io.IOException;
-import java.nio.Buffer;
 
 public class HomeController {
     @FXML
@@ -22,30 +21,52 @@ public class HomeController {
     @FXML
     private AnchorPane homeScene;
     @FXML
-    private TextField usernameField;
+    private TextField homeLoginName;
     @FXML
-    private PasswordField passwordField;
+    private PasswordField homeLoginPassword;
+    private FXMLLoader loader;
+    private Parent root;
     Stage stage;
 
     @FXML
     public void login(ActionEvent loginAction) throws IOException {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String username = homeLoginName.getText();
+        String password = homeLoginPassword.getText();
 
         if (!username.isEmpty() && !password.isEmpty()){
             // cho nay cho reset mat khau ho
             // search nguoi o day
 
             if (username.equals("admin") && password.equals("admin")){
-                System.out.println("Login Successful");
                 try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Admin.fxml"));
+                    loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/ui/gp/Scene/Admin/AdminHome.fxml"));
+                    AnchorPane root = new AnchorPane();
+                    loader.setRoot(root);
+                    root = loader.load();
+                    getLoginName(username);
                     stage = (Stage) homeScene.getScene().getWindow();
-                    stage.getScene().setRoot(fxmlLoader.load());
+                    stage.getScene().setRoot(root);
                 } catch (IOException e){
                     e.printStackTrace();
                 }
+
+                System.out.println("Login Successful");
+
             } else if (username.equals("user") && password.equals("user")){
+                try {
+                    loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/ui/gp/Scene/Customer/CustomerHome.fxml"));
+                    AnchorPane root = new AnchorPane();
+                    loader.setRoot(root);
+                    root = loader.load();
+                    getLoginName(username);
+                    stage = (Stage) homeScene.getScene().getWindow();
+                    stage.getScene().setRoot(root);
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+
                 System.out.println("Login Successful");
             }
 
@@ -74,5 +95,12 @@ public class HomeController {
         loginAlert.setHeaderText("Invalid Username or Password");
         loginAlert.setContentText("Please try again!");
         loginAlert.showAndWait();
+    }
+
+    private void getLoginName(String name){
+        CustomerHomeController customerHomeController = loader.getController();
+        if (customerHomeController != null){
+            customerHomeController.bannerNameView(name);
+        }
     }
 }
