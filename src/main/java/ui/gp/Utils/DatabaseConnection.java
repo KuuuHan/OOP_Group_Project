@@ -1,8 +1,8 @@
 package ui.gp.Utils;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import ui.gp.Models.Role;
+
+import java.sql.*;
 
 public class DatabaseConnection
 {
@@ -23,5 +23,111 @@ public class DatabaseConnection
             e.printStackTrace();
         }
         return connection;
+    }
+
+    public ResultSet getDependentData(String username, String password)
+    {
+        Statement statement;
+        ResultSet resultSet = null;
+        try
+        {
+            statement = getConnection().createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Users WHERE username = '" + username + "' AND password = '" + password + "' AND role = 'Dependent'");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    public ResultSet getAdminData(String username, String password)
+    {
+        Statement statement;
+        ResultSet resultSet = null;
+        try
+        {
+            statement = getConnection().createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Users WHERE username = '" + username + "' AND password = '" + password + "' AND role = 'System_Admin'");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    public ResultSet getPolicyHolderData(String username, String password)
+    {
+        Statement statement;
+        ResultSet resultSet = null;
+        try
+        {
+            statement = getConnection().createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Users WHERE username = '" + username + "' AND password = '" + password + "' AND role = 'Policy_Holder'");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    public ResultSet getPolicyOwnerData(String username, String password)
+    {
+        Statement statement;
+        ResultSet resultSet = null;
+        try
+        {
+            statement = getConnection().createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Users WHERE username = '" + username + "' AND password = '" + password + "' AND role = 'Policy_Owner'");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    public ResultSet getInsuranceManagerData(String username, String password)
+    {
+        Statement statement;
+        ResultSet resultSet = null;
+        try
+        {
+            statement = getConnection().createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Users WHERE username = '" + username + "' AND password = '" + password + "' AND role = 'Insurance_Manager'");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    public ResultSet getInsuranceSurveyorData(String username, String password)
+    {
+        Statement statement;
+        ResultSet resultSet = null;
+        try
+        {
+            statement = getConnection().createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Users WHERE username = '" + username + "' AND password = '" + password + "' AND role = 'Insurance_Surveyor'");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+    public Role getUserRole(String username)
+    {
+        Connection connection = getConnection();
+        Role role = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT role FROM Users WHERE username = ?");
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                role = Role.valueOf(resultSet.getString("role"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return role;
     }
 }
