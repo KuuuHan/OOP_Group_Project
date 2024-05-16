@@ -52,4 +52,36 @@ public abstract class User
     public String getPassword() {
         return password;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

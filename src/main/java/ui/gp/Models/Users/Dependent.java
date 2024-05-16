@@ -38,4 +38,6 @@ public class Dependent extends Customer
     public String getAddress() {
         return super.getAddress();
     }
+
+
 }
