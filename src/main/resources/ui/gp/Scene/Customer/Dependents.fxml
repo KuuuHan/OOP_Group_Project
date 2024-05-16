@@ -37,7 +37,7 @@
                 <Font name="System Bold" size="22.0" />
             </font>
         </Label>
-        <Button layoutX="815.0" layoutY="48.0" mnemonicParsing="false" onAction="#dependentsLogout" text="Logout" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="815.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="48.0" />
+        <Button layoutX="796.0" layoutY="48.0" mnemonicParsing="false" onAction="#dependentsLogout" prefHeight="26.0" prefWidth="73.0" text="Logout" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="796.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="48.0" />
         <TabPane fx:id="dependentsTabPane" layoutY="130.0" prefHeight="444.0" prefWidth="881.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
             <tabs>
                 <Tab text="View claim">
@@ -136,5 +136,6 @@
                </content></Tab>
             </tabs>
         </TabPane>
+      <Button layoutX="677.0" layoutY="48.0" mnemonicParsing="false" onAction="#loadingTest" prefHeight="26.0" prefWidth="97.0" text="Loading test" />
     </children>
 </fx:root>

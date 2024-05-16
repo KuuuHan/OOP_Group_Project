@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import ui.gp.Models.Users.Dependent;
 import ui.gp.SceneController.Customer.Dependent.DependentController;
+import ui.gp.SceneController.LoadingSceneController;
 import ui.gp.SceneController.SceneUtil;
 
 import java.io.IOException;
@@ -34,7 +35,6 @@ public class DependentsHomeController {
     private TextField emailField;
     @FXML
     private TextField phoneField;
-
     @FXML
     private Tab profileTab;
 
@@ -52,6 +52,11 @@ public class DependentsHomeController {
     public void dependentsLogout(ActionEvent logoutAction) throws IOException {
         System.out.println("Dependents logout");
         SceneUtil.logout(dependentsHomeScene);
+    }
+
+    public void loadingTest(ActionEvent loadingTestEvent) throws IOException { //Mo phong server dang chay
+        LoadingSceneController loadingSceneController = new LoadingSceneController();
+        loadingSceneController.serverRespondingHold();
     }
 
 
