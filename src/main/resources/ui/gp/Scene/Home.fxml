@@ -41,10 +41,9 @@
             <PasswordField fx:id="homeLoginPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <ToolBar layoutX="348.0" layoutY="501.0" prefHeight="38.0" prefWidth="188.0" AnchorPane.bottomAnchor="35.0">
+      <ToolBar layoutX="391.0" layoutY="501.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="98.0" AnchorPane.bottomAnchor="35.0">
         <items>
             <Button mnemonicParsing="false" onAction="#login" text="Login" />
-          <Button mnemonicParsing="false" text="New Register" />
             <Button fx:id="exitHomeButton" mnemonicParsing="false" onAction="#exit" text="Exit" />
         </items>
       </ToolBar>
