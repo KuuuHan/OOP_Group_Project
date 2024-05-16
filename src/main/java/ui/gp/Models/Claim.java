@@ -1,6 +1,6 @@
 package ui.gp.Models;
 
-import ui.gp.Models.Users.Customer;
+import ui.gp.Models.Users.*;
 
 import java.util.Date;
 import java.util.Set;
