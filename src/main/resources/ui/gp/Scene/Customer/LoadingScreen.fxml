@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="307.0" prefWidth="492.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.Scene.Customer.LoadingScreen">
+<fx:root prefHeight="307.0" prefWidth="492.0" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.SceneController.LoadingSceneController">
    <children>
       <Label layoutX="206.0" layoutY="215.0" text="Loading..." AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="206.0" AnchorPane.rightAnchor="206.31068420410156" AnchorPane.topAnchor="215.0">
          <font>
@@ -20,4 +19,4 @@
          </image>
       </ImageView>
    </children>
-</AnchorPane>
+</fx:root>
