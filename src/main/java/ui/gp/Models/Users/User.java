@@ -24,4 +24,32 @@ public abstract class User
         this.phonenumber = phonenumber;
         this.address = address;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }

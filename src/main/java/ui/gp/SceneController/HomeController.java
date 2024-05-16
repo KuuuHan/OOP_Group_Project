@@ -11,6 +11,10 @@ import javafx.stage.Stage;
 import ui.gp.Models.Model;
 import ui.gp.Models.Role;
 
+import ui.gp.Models.Users.Dependent;
+import ui.gp.SceneController.Customer.Dependent.DependentController;
+import ui.gp.SceneController.Customer.DependentsHomeController;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -60,6 +64,10 @@ public class HomeController {
                         root = loader.load();
                         stage = (Stage) homeScene.getScene().getWindow();
                         stage.getScene().setRoot(root);
+                        DependentsHomeController controller = loader.getController();
+                        Dependent dependent = model.getDependent();
+                        DependentController dependentController = new DependentController(dependent);
+                        controller.initialize(dependent, dependentController);
 
                     } catch (IOException e) {
                         e.printStackTrace();

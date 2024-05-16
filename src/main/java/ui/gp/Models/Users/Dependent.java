@@ -19,14 +19,23 @@ public class Dependent extends Customer
         this.policyOwner = policyOwner;
     }
 
-    public Claim retrieveClaim(String claimId)
-    {
-        return null;
+    public String getId() {
+        return super.getId();
     }
 
-    public String getInformation()
-    {
-       return null;
+    public String getFullname() {
+        return super.getFullname();
     }
 
+    public String getEmail() {
+        return super.getEmail();
+    }
+
+    public String getPhonenumber() {
+        return super.getPhonenumber();
+    }
+
+    public String getAddress() {
+        return super.getAddress();
+    }
 }
