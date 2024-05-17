@@ -117,7 +117,21 @@
                 </Tab>
                 <Tab text="Claim Management">
                     <content>
-                        <BorderPane />
+                        <BorderPane>
+                     <top>
+                        <TableView prefHeight="418.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="id" />
+                            <TableColumn prefWidth="75.0" text="Date" />
+                              <TableColumn prefWidth="125.59992980957031" text="insured person" />
+                              <TableColumn prefWidth="100.800048828125" text="Exam Date " />
+                              <TableColumn prefWidth="88.0" text="documents" />
+                              <TableColumn prefWidth="132.0" text="claim amount" />
+                              <TableColumn prefWidth="119.99993896484375" text="status" />
+                              <TableColumn prefWidth="165.60009765625" text="receive Banking into" />
+                          </columns>
+                        </TableView>
+                     </top></BorderPane>
                     </content>
                 </Tab>
                 <Tab text="Payment Calculation">
