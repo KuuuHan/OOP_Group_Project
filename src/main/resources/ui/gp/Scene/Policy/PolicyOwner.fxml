@@ -115,11 +115,11 @@
                         </BorderPane>
                     </content>
                 </Tab>
-                <Tab text="Claim Management">
+                <Tab fx:id="ClaimManage" text="Claim Management">
                     <content>
                         <BorderPane>
-                     <top>
-                        <TableView prefHeight="418.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                     <bottom>
+                        <TableView prefHeight="334.0" prefWidth="863.0" BorderPane.alignment="CENTER">
                           <columns>
                             <TableColumn prefWidth="75.0" text="id" />
                             <TableColumn prefWidth="75.0" text="Date" />
@@ -131,6 +131,15 @@
                               <TableColumn prefWidth="165.60009765625" text="receive Banking into" />
                           </columns>
                         </TableView>
+                     </bottom>
+                     <top>
+                        <ToolBar prefHeight="82.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                          <items>
+                            <Button mnemonicParsing="false" text="ADD NEW CLAIM" />
+                              <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="112.0" text="DELETE CLAIM" />
+                              <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="112.0" text="UPDATE CLAIM" />
+                          </items>
+                        </ToolBar>
                      </top></BorderPane>
                     </content>
                 </Tab>
