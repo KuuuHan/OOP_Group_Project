@@ -12,16 +12,9 @@ module ui.gp {
     requires java.sql;
 
     exports ui.gp;
-    exports ui.gp.SceneController;
-    exports ui.gp.SceneController.Customer;
-    exports ui.gp.SceneController.Customer.Dependent;
     exports ui.gp.Database;
     exports ui.gp.Models.Users;
-
     opens ui.gp to javafx.fxml;
-    opens ui.gp.SceneController to javafx.fxml;
-    opens ui.gp.SceneController.Customer to javafx.fxml;
-    opens ui.gp.SceneController.Customer.Dependent to javafx.fxml;
     exports ui.gp.Tab;
     exports ui.gp.SceneController.Policy;
     opens ui.gp.SceneController.Policy to javafx.fxml;
