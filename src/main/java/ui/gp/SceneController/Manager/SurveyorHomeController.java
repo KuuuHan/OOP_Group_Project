@@ -19,7 +19,7 @@ public class SurveyorHomeController {
     }
     @FXML
     public void surveyorLogout(ActionEvent logoutAction) throws IOException {
-        System.out.println("Surveyor logout");
         SceneUtil.logout(surveyorHomeScene);
+        System.out.println("Insurance Surveyor logout");
     }
 }

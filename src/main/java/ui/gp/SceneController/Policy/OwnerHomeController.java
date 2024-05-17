@@ -25,5 +25,6 @@ public class OwnerHomeController {
     @FXML
     public void logoutOwner(ActionEvent logoutAction) throws IOException {
         SceneUtil.logout(ownerHomeScene);
+        System.out.println("Policy Owner logout");
     }
 }
