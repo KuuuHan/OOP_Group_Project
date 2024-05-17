@@ -29,17 +29,22 @@
         <Button layoutX="815.0" layoutY="48.0" mnemonicParsing="false" onAction="#logoutOwner" text="Logout" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="815.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="48.0" />
         <TabPane layoutY="130.0" prefHeight="444.0" prefWidth="881.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
             <tabs>
-                <Tab text="File a claim">
+            <Tab text="Your Information">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+                <Tab text="Beneficiary Management">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                 </Tab>
-                <Tab text="View claim">
+                <Tab text="Claims Management">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                 </Tab>
-                <Tab text="Your Information">
+                <Tab text="Insurance Calculation">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
