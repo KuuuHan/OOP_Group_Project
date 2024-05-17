@@ -152,7 +152,7 @@
                     <content>
                         <BorderPane>
                      <bottom>
-                        <TableView prefHeight="334.0" prefWidth="863.0" BorderPane.alignment="CENTER">
+                        <TableView prefHeight="378.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                           <columns>
                             <TableColumn prefWidth="75.0" text="id" />
                             <TableColumn prefWidth="75.0" text="Date" />
@@ -166,11 +166,11 @@
                         </TableView>
                      </bottom>
                      <top>
-                        <ToolBar prefHeight="82.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                        <ToolBar prefHeight="29.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                           <items>
-                            <Button mnemonicParsing="false" text="ADD NEW CLAIM" />
-                              <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="112.0" text="DELETE CLAIM" />
-                              <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="112.0" text="UPDATE CLAIM" />
+                            <Button mnemonicParsing="false" text="Add claim" />
+                              <Button mnemonicParsing="false" prefHeight="14.0" prefWidth="106.0" text="Delete claim" />
+                              <Button mnemonicParsing="false" prefHeight="9.0" prefWidth="108.0" text="Update claim" />
                           </items>
                         </ToolBar>
                      </top></BorderPane>
