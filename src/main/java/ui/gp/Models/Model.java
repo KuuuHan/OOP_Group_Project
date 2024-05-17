@@ -1,8 +1,8 @@
 package ui.gp.Models;
 
 import ui.gp.Models.Users.*;
-import ui.gp.Utils.*;
-import ui.gp.View.*;
+import ui.gp.Database.*;
+import ui.gp.Tab.*;
 
 import java.sql.ResultSet;
 

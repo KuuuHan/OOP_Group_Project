@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import ui.gp.Models.Users.Dependent;
-import ui.gp.SceneController.Customer.Dependent.DependentController;
+import ui.gp.SceneController.Controllers.DependentController;
 
 public class retrieveInformation_DependentTest
 {

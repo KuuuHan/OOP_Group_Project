@@ -11,7 +11,7 @@ import java.io.IOException;
 public class ApplicationStart extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(ApplicationStart.class.getResource("/ui/gp/Scene/Home.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ApplicationStart.class.getResource("/ui/gp/Scene/Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Group Project");
         stage.setResizable(false);

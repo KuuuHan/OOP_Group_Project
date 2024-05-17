@@ -1,5 +1,5 @@
 import org.junit.jupiter.api.Test;
-import ui.gp.Utils.DatabaseConnection;
+import ui.gp.Database.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.SQLException;
