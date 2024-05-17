@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,119 +16,117 @@
 <?import javafx.scene.text.Font?>
 
 <fx:root fx:id="ownerHomeScene" prefHeight="574.0" prefWidth="881.0" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.SceneController.Policy.OwnerHomeController">
-    <ImageView disable="true" fitHeight="73.0" fitWidth="881.0" focusTraversable="true" layoutY="-3.0" opacity="0.45" pickOnBounds="true" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <Image url="@../../Image/baninsurance2023822154749.jpg" />
-    </ImageView>
-    <Label fx:id="welcomeBannerUser" layoutX="17.0" layoutY="3.0" prefHeight="57.0" prefWidth="567.0" text="Welcome! PolicyOwner" wrapText="true" AnchorPane.bottomAnchor="504.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="3.0">
-        <font>
-            <Font name="System Bold" size="22.0" />
-        </font>
-    </Label>
-    <Label layoutY="73.0" prefHeight="57.0" prefWidth="881.0" text="Have a great day!" wrapText="true" AnchorPane.bottomAnchor="444.0" AnchorPane.topAnchor="73.0">
-        <font>
-            <Font name="System Bold" size="22.0" />
-        </font>
-        <padding>
-        <Insets left="10.0" right="10.0" />
-        </padding>
-    </Label>
-    <Button layoutX="815.0" layoutY="48.0" mnemonicParsing="false" onAction="#logoutOwner" text="Logout" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="815.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="48.0" />
-    <TabPane layoutY="130.0" prefHeight="444.0" prefWidth="881.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
-        <Tab text="Your Information">
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                <GridPane layoutY="7.0" prefHeight="410.0" prefWidth="881.0" AnchorPane.leftAnchor="0.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="448.0" text="Full Name" GridPane.rowIndex="1" />
-                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="449.0" text="Username" GridPane.rowIndex="2" />
-                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="503.0" text="Password" GridPane.rowIndex="3" />
-                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="460.0" text="ID" />
-                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="522.0" text="Address" GridPane.rowIndex="4" />
-                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="613.0" text="Email" GridPane.rowIndex="5" />
-                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="545.0" text="Phone Number" GridPane.rowIndex="6" />
-                    <TextField fx:id="idField" alignment="CENTER" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="350.0" GridPane.columnIndex="1" />
-                    <TextField fx:id="fullnameField" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <TextField fx:id="usernameField" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <TextField fx:id="passwordField" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                    <TextField fx:id="addressField" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                    <TextField fx:id="emailField" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                    <TextField fx:id="phonenumberField" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                </GridPane>
-            </AnchorPane>
-        </Tab>
-        <Tab text="Claim Management">
-            <TabPane />
-        </Tab>
-        <Tab text="Payment Calculation">
-            <BorderPane />
-        </Tab>
-        <Tab text="Benificaries Management">
-            <BorderPane>
-                <bottom>
-                    <VBox prefHeight="149.0" prefWidth="881.0" BorderPane.alignment="CENTER">
-                        <GridPane>
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="114.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <Button mnemonicParsing="false" prefHeight="196.0" prefWidth="621.0" text="View Bene" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <children>
+        <ImageView disable="true" fitHeight="73.0" fitWidth="881.0" focusTraversable="true" layoutY="-3.0" opacity="0.45" pickOnBounds="true" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../../Image/baninsurance2023822154749.jpg" />
+            </image>
+        </ImageView>
+        <Label fx:id="welcomeBannerUser" layoutX="17.0" layoutY="3.0" prefHeight="57.0" prefWidth="567.0" text="Welcome! PolicyOwner" wrapText="true" AnchorPane.bottomAnchor="504.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="3.0">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Label>
+        <Label layoutY="73.0" prefHeight="57.0" prefWidth="881.0" text="Have a great day!" wrapText="true" AnchorPane.bottomAnchor="444.0" AnchorPane.topAnchor="73.0">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+        </Label>
+        <Button layoutX="815.0" layoutY="48.0" mnemonicParsing="false" onAction="#logoutOwner" text="Logout" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="815.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="48.0" />
+        <TabPane layoutY="130.0" prefHeight="444.0" prefWidth="881.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+            <tabs>
+                <Tab text="Profile">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+                <Tab text="Benificaries Management">
+                    <content>
+                  <BorderPane>
+                     <bottom>
+                        <VBox prefHeight="149.0" prefWidth="881.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <GridPane>
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="114.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="196.0" prefWidth="621.0" text="View Bene" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </bottom>
+                     <center>
+                        <GridPane prefHeight="259.0" prefWidth="881.0" BorderPane.alignment="CENTER">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="400.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="0.0" prefWidth="58.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="400.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="114.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="114.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <padding>
+                              <Insets left="20.0" right="20.0" top="10.0" />
+                           </padding>
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="197.0" prefWidth="478.0" text="Add new Policy Holder">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="212.0" prefWidth="435.0" text="Update Information&#10;of Beneficiary " textAlignment="CENTER" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="260.0" prefWidth="453.0" text="Add new Dependent&#10;" textAlignment="CENTER" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Button>
+                              <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="256.0" prefWidth="478.0" text="Remove a Specific &#10;Beneficiary" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Button>
+                           </children>
                         </GridPane>
-                    </VBox>
-                </bottom>
-                <center>
-                    <GridPane prefHeight="259.0" prefWidth="881.0" BorderPane.alignment="CENTER">
-                        <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="400.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="0.0" prefWidth="58.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="400.0" />
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="114.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="114.0" vgrow="SOMETIMES" />
-                        </rowConstraints>
-                        <padding>
-                            <Insets left="20.0" right="20.0" top="10.0" />
-                        </padding>
-                        <Button mnemonicParsing="false" prefHeight="197.0" prefWidth="478.0" text="Add new Policy Holder">
-                            <font>
-                                <Font size="28.0" />
-                            </font>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="212.0" prefWidth="435.0" text="Update Information&#10;of Beneficiary " textAlignment="CENTER" GridPane.rowIndex="2">
-                            <font>
-                                <Font size="25.0" />
-                            </font>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="260.0" prefWidth="453.0" text="Add new Dependent&#10;" textAlignment="CENTER" GridPane.columnIndex="2">
-                            <font>
-                                <Font size="28.0" />
-                            </font>
-                        </Button>
-                        <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="256.0" prefWidth="478.0" text="Remove a Specific &#10;Beneficiary" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                            <font>
-                                <Font size="28.0" />
-                            </font>
-                        </Button>
-                    </GridPane>
-                </center>
-            </BorderPane>
-        </Tab>
-    </TabPane>
+                     </center>
+                  </BorderPane>
+                    </content>
+                </Tab>
+                <Tab text="Claim Management">
+                    <content>
+                  <TabPane>
+                     <tabs>
+                        <Tab>
+                           <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+                    </content>
+                </Tab>
+            <Tab text="Payment Calculation">
+              <content>
+                  <BorderPane />
+              </content>
+            </Tab>
+            </tabs>
+        </TabPane>
+    </children>
 </fx:root>
