@@ -64,6 +64,7 @@
                               <TableColumn fx:id="examDateView" prefWidth="89.0" text="Exam Date" />
                               <TableColumn fx:id="claimStatusView" prefWidth="84.0" text="Status" />
                               <TableColumn fx:id="claimInsuredPersonView" prefWidth="315.0" text="Insured Person" />
+                              <TableColumn fx:id="claimInsuredPersonView1" prefWidth="315.0" text="Insured Person" />
                           </columns>
                         </TableView>
                      </center>
