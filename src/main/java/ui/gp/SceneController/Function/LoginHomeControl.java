@@ -17,7 +17,7 @@ import ui.gp.View.ViewFactory;
 
 import java.io.IOException;
 
-public class LoginControl {
+public class LoginHomeControl {
     @FXML
     private Button loginButton;
     @FXML
