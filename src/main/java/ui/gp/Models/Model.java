@@ -2,7 +2,7 @@ package ui.gp.Models;
 
 import ui.gp.Models.Users.*;
 import ui.gp.Database.*;
-import ui.gp.Tab.*;
+import ui.gp.View.ViewFactory;
 
 import java.sql.ResultSet;
 

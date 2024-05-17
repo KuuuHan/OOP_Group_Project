@@ -13,6 +13,7 @@ import ui.gp.Models.Role;
 import ui.gp.Models.Users.Dependent;
 import ui.gp.SceneController.Controllers.DependentController;
 import ui.gp.SceneController.Policy.DependentsHomeController;
+import ui.gp.View.ViewFactory;
 
 import java.io.IOException;
 
@@ -42,6 +43,7 @@ public class LoginControl {
         String password = homeLoginPassword.getText();
 
         Model model = Model.getInstance();
+        ViewFactory view = new ViewFactory();
         model.evaluateUserCred(username, password);
 
         if (model.getLoginSuccess()) {
@@ -49,96 +51,22 @@ public class LoginControl {
             switch (role)
             {
                 case Dependent:
-                    try
-                    {
-                        loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource("/ui/gp/Scene/Policy/Dependents.fxml"));
-                        AnchorPane root = new AnchorPane();
-                        loader.setRoot(root);
-                        root = loader.load();
-                        stage = (Stage) homeScene.getScene().getWindow();
-                        stage.getScene().setRoot(root);
-                        DependentsHomeController controller = loader.getController();
-                        Dependent dependent = model.getDependent();
-                        DependentController dependentController = new DependentController(dependent);
-                        controller.initialize(dependent, dependentController);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println("Login Successful!");
+                    view.showDependentWindow(model, homeScene);
                     break;
                 case Policy_Owner:
-                    try {
-                        loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource("/ui/gp/Scene/Policy/PolicyOwner.fxml"));
-                        AnchorPane root = new AnchorPane();
-                        loader.setRoot(root);
-                        root = loader.load();
-                        stage = (Stage) homeScene.getScene().getWindow();
-                        stage.getScene().setRoot(root);
-                    } catch (IOException e){
-                        e.printStackTrace();
-                    }
-                    System.out.println("Login Successful");
+                    view.showPolicyOwnerWindow(model, homeScene);
                     break;
                 case Policy_Holder:
-                    try {
-                        loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource("/ui/gp/Scene/Policy/PolicyHolder.fxml"));
-                        AnchorPane root = new AnchorPane();
-                        loader.setRoot(root);
-                        root = loader.load();
-                        stage = (Stage) homeScene.getScene().getWindow();
-                        stage.getScene().setRoot(root);
-                    } catch (IOException e){
-                        e.printStackTrace();
-                    }
-                    System.out.println("Login Successful");
+                    view.showPolicyHolderWindow(model, homeScene);
                     break;
                 case Insurance_Manager:
-                    try {
-                        loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource("/ui/gp/Scene/Manager/Manager.fxml"));
-                        AnchorPane root = new AnchorPane();
-                        loader.setRoot(root);
-                        root = loader.load();
-                        stage = (Stage) homeScene.getScene().getWindow();
-                        stage.getScene().setRoot(root);
-                    } catch (IOException e){
-                        e.printStackTrace();
-                    }
-                    System.out.println("Login Successful");
+                    view.showInsuranceManagerWindow(model, homeScene);
                     break;
                 case Insurance_Surveyor:
-                    try {
-                        loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource("/ui/gp/Scene/Manager/Surveyor.fxml"));
-                        AnchorPane root = new AnchorPane();
-                        loader.setRoot(root);
-                        root = loader.load();
-                        stage = (Stage) homeScene.getScene().getWindow();
-                        stage.getScene().setRoot(root);
-                    } catch (IOException e){
-                        e.printStackTrace();
-                    }
-                    System.out.println("Login Successful");
+                    view.showInsuranceSurveyorWindow(model, homeScene);
                     break;
                 case System_Admin:
-                    try
-                    {
-                        loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource("/ui/gp/Scene/Manager/AdminHome.fxml"));
-                        AnchorPane root = new AnchorPane();
-                        loader.setRoot(root);
-                        root = loader.load();
-                        stage = (Stage) homeScene.getScene().getWindow();
-                        stage.getScene().setRoot(root);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println("Login Successful!");
+                    view.showSystemAdminWindow(model, homeScene);
                     break;
                 default:
                     statusText.setText("Invalid role");
