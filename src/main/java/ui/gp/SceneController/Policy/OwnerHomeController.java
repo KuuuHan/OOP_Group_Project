@@ -4,12 +4,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import ui.gp.SceneController.Function.SceneUtil;
 
 import java.io.IOException;
 
 public class OwnerHomeController {
+    public TextField idField;
+    public TextField fullnameField;
+    public TextField usernameField;
+    public TextField passwordField;
+    public TextField addressField;
+    public TextField emailField;
+    public TextField phonenumberField;
     @FXML
     Label welcomeBannerUser;
     @FXML
