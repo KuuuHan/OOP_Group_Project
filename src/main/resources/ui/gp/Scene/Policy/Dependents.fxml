@@ -118,7 +118,7 @@
                         <Label text="Full Name" GridPane.rowIndex="1" />
                         <Label text="Username" GridPane.rowIndex="2" />
                         <Label text="Password" GridPane.rowIndex="3" />
-                        <Label text="Adress" GridPane.rowIndex="4" />
+                        <Label text="Address" GridPane.rowIndex="4" />
                         <Label text="Email" GridPane.rowIndex="5" />
                         <Label text="Phone Number" GridPane.rowIndex="6" />
                         <TextField fx:id="idField" GridPane.columnIndex="1" />

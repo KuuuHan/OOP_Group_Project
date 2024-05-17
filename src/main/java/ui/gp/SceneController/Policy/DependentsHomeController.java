@@ -50,8 +50,8 @@ public class DependentsHomeController {
     }
 
     public void dependentsLogout(ActionEvent logoutAction) throws IOException {
-        System.out.println("Dependents logout");
         SceneUtil.logout(dependentsHomeScene);
+        System.out.println("Dependents logout");
     }
 
     public void loadingTest(ActionEvent loadingTestEvent) throws IOException { //Mo phong server dang chay

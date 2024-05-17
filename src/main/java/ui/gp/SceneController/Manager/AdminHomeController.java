@@ -12,7 +12,7 @@ public class AdminHomeController {
     @FXML
     AnchorPane adminHomeScene;
     public void adminLogout(ActionEvent logoutAction) throws IOException {
-        System.out.println("Dependents logout");
         SceneUtil.logout(adminHomeScene);
+        System.out.println("System Admin logout");
     }
 }

@@ -22,5 +22,6 @@ public class ManagerHomeController {
     @FXML
     public void logoutOwner(ActionEvent logoutAction) throws IOException {
         SceneUtil.logout(managerHomeScene);
+        System.out.println("Insurance Manager logout");
     }
 }
