@@ -3,8 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -110,21 +117,74 @@
                 </Tab>
                 <Tab text="Claim Management">
                     <content>
-                  <TabPane>
-                     <tabs>
-                        <Tab>
-                           <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                           </content>
-                        </Tab>
-                     </tabs>
-                  </TabPane>
+                  <BorderPane />
                     </content>
                 </Tab>
             <Tab text="Payment Calculation">
-              <content>
-                  <BorderPane />
-              </content>
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <left>
+                        <VBox prefHeight="415.0" prefWidth="217.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <VBox prefHeight="242.0" prefWidth="296.0">
+                                 <children>
+                                    <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="196.0" prefWidth="296.0" text="Your Annual Payment:" textAlignment="CENTER">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="296.0" prefWidth="296.0">
+                                 <children>
+                                    <Label fx:id="annualPaymentNum" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="287.0" prefWidth="313.0" text="\$ 12000" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="43.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </left>
+                     <right>
+                        <VBox prefHeight="415.0" prefWidth="666.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <VBox prefHeight="41.0" prefWidth="100.0">
+                                 <children>
+                                    <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                      <items>
+                                          <TextField fx:id="claimSearch" prefHeight="25.0" prefWidth="260.0" promptText="Search Claim" />
+                                          <Separator orientation="VERTICAL" prefHeight="10.0" prefWidth="2.0" />
+                                          <MenuButton fx:id="statusChooseMenuBox" mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" text="Status">
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" text="Action 1" />
+                                              <MenuItem mnemonicParsing="false" text="Action 2" />
+                                            </items>
+                                          </MenuButton>
+                                      </items>
+                                    </ToolBar>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="380.0" prefWidth="647.0">
+                                 <children>
+                                    <TableView fx:id="PaymentCalTable" prefHeight="377.0" prefWidth="298.0">
+                                      <columns>
+                                        <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
+                                          <TableColumn fx:id="Amount" prefWidth="138.0" text="Amount" />
+                                          <TableColumn fx:id="Role" prefWidth="94.0" text="Role" />
+                                          <TableColumn fx:id="ExamDate" prefWidth="129.0" text="Exam Date" />
+                                        <TableColumn fx:id="Date" prefWidth="135.0" text="Date" />
+                                          <TableColumn fx:id="Status" prefWidth="94.0" text="Status" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </right>
+                  </BorderPane>
+               </content>
             </Tab>
             </tabs>
         </TabPane>
