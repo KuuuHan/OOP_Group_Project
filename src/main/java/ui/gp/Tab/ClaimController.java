@@ -1,6 +1,8 @@
 package ui.gp.Tab;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -17,5 +19,9 @@ public class ClaimController
         stage.setScene(scene);
         stage.show();
     }
-
+    public void NotConfirmClaim(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+    }
 }

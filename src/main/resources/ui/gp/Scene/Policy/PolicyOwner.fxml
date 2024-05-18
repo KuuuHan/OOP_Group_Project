@@ -121,7 +121,7 @@
                     <content>
                         <BorderPane>
                      <bottom>
-                        <TableView prefHeight="378.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                        <TableView fx:id="TaView" prefHeight="378.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                           <columns>
                             <TableColumn fx:id="idClaimPoilicyOwnerTable" prefWidth="75.0" text="ID" />
                             <TableColumn fx:id="datePoilicyOwnerTable" prefWidth="75.0" text="Date" />

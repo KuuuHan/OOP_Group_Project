@@ -63,7 +63,7 @@
                     <Button fx:id="viewDocumentButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="View File" />
                 </items>
             </SplitPane>
-        </children>
+            <Button mnemonicParsing="false" onAction="#NotConfirmClaim" text="Nah, i'd not Confirm" GridPane.columnIndex="1" GridPane.rowIndex="13" />        </children>
     </GridPane>
    <columnConstraints>
       <ColumnConstraints />

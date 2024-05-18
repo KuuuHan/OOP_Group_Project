@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import ui.gp.Models.Claim;
 import ui.gp.SceneController.Function.SceneUtil;
 import ui.gp.Tab.ClaimController;
 import ui.gp.View.ViewFactory;
@@ -23,6 +24,12 @@ public class OwnerHomeController {
     public Button deleteBeneficiaryButton;
     public Button updateBeneficiaryButton;
     public Button showInfoBeneficiaryButton;
+    @FXML
+    TableView<Claim> TaView; // replace Claim with the actual type of your table rows
+    @FXML
+    Button deleteClaimPoilicyOwnerButton;
+    @FXML
+    Button updateClaimPoilicyOwnerButton;
     public ComboBox filterBeneficiaryBox;
     @FXML
     Label welcomeBannerUser;
@@ -50,6 +57,11 @@ public class OwnerHomeController {
 
     public void AddDependentButton() throws IOException {
         view.showDependentForm();
+    }
+    public void initialize() {
+        // Create a new Claim
+        //chiu chua biet data luu kieu deo gi
+        // cant blur update and delete yet
     }
     @FXML
     Button addItemButton;
