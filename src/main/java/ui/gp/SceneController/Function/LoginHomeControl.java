@@ -60,34 +60,37 @@ public class LoginHomeControl {
             model.evaluateUserCred(username, password);
             Platform.runLater(() -> loadingSceneController.closeLoadingScene());
 
-            if (model.getLoginSuccess()) {
-                Role role = model.getLoginRole();
-                switch (role) {
-                    case Dependent:
-                        view.showDependentWindow(model, homeScene);
-                        break;
-                    case Policy_Owner:
-                        view.showPolicyOwnerWindow(model, homeScene);
-                        break;
-                    case Policy_Holder:
-                        view.showPolicyHolderWindow(model, homeScene);
-                        break;
-                    case Insurance_Manager:
-                        view.showInsuranceManagerWindow(model, homeScene);
-                        break;
-                    case Insurance_Surveyor:
-                        view.showInsuranceSurveyorWindow(model, homeScene);
-                        break;
-                    case System_Admin:
-                        view.showSystemAdminWindow(model, homeScene);
-                        break;
-                    default:
-                        statusText.setText("Invalid role");
-                        break;
-                }
-            } else {
+            if (user == null || password.isEmpty()){
                 Platform.runLater(() -> statusText.setText("Invalid username or password. Please try again!"));
-            }
+            } else
+                if (model.getLoginSuccess()) {
+                    Role role = model.getLoginRole();
+                    switch (role) {
+                        case Dependent:
+                            view.showDependentWindow(model, homeScene);
+                            break;
+                        case Policy_Owner:
+                            view.showPolicyOwnerWindow(user, homeScene);
+                            break;
+                        case Policy_Holder:
+                            view.showPolicyHolderWindow(model, homeScene);
+                            break;
+                        case Insurance_Manager:
+                            view.showInsuranceManagerWindow(model, homeScene);
+                            break;
+                        case Insurance_Surveyor:
+                            view.showInsuranceSurveyorWindow(model, homeScene);
+                            break;
+                        case System_Admin:
+                            view.showSystemAdminWindow(model, homeScene);
+                            break;
+                        default:
+                            statusText.setText("Invalid role");
+                            break;
+                    }
+                } else {
+                    Platform.runLater(() -> statusText.setText("Invalid username or password. Please try again!"));
+                }
         }).start();
     }
 
