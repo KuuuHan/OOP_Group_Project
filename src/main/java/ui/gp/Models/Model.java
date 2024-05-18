@@ -88,22 +88,22 @@ public class Model {
         if (role != null) {
             switch (role) {
                 case Dependent:
-                 //   resultSet = databaseConnection.getDependentData(username, password);
+                    resultSet = databaseConnection.getDependentData(username, password);
                     break;
                 case System_Admin:
-                 //   resultSet = databaseConnection.getAdminData(username, password);
+                   resultSet = databaseConnection.getAdminData(username, password);
                     break;
                 case Policy_Owner:
                     resultSet = databaseConnection.getPolicyOwnerData(username, password);
                     break;
                 case Policy_Holder:
-                  //  resultSet = databaseConnection.getPolicyHolderData(username, password);
+                    resultSet = databaseConnection.getPolicyHolderData(username, password);
                     break;
                 case Insurance_Manager:
-                 //   resultSet = databaseConnection.getInsuranceManagerData(username, password);
+                   resultSet = databaseConnection.getInsuranceManagerData(username, password);
                     break;
                 case Insurance_Surveyor:
-                  //  resultSet = databaseConnection.getInsuranceSurveyorData(username, password);
+                    resultSet = databaseConnection.getInsuranceSurveyorData(username, password);
                     break;
             }
 

@@ -4,8 +4,7 @@ import ui.gp.Models.Role;
 
 import java.sql.*;
 
-import ui.gp.Models.Users.PolicyOwner;
-import ui.gp.Models.Users.User;
+import ui.gp.Models.Users.*;
 import ui.gp.SceneController.Function.LoadingSceneController;
 
 public class DatabaseConnection
@@ -210,19 +209,19 @@ public class DatabaseConnection
                 switch (role)
                 {
                     case Dependent:
-                       //Load Dependent data
+                        user = new Dependent(id, username, password, role, fullname, email, phoneNumber, address);
                         break;
                     case System_Admin:
-                        //Load Admin data
+                        user = new SystemAdmin(id, username, password, role, fullname, email, phoneNumber, address);
                         break;
                     case Insurance_Surveyor:
-                        //Load Surveyor data
+                        user = new InsuranceSurveyor(id, username, password, role, fullname, email, phoneNumber, address);
                         break;
                     case Insurance_Manager:
-                        //Load Manager data
+                        user = new InsuranceManager(id, username, password, role, fullname, email, phoneNumber, address);
                         break;
                     case Policy_Holder:
-                        //Load Policy Holder data
+                        user = new PolicyHolder(id, username, password, role, fullname, email, phoneNumber, address);
                         break;
                     case Policy_Owner:
                         user = new PolicyOwner(id, username, password, role, fullname, email, phoneNumber, address);
