@@ -103,8 +103,8 @@
                      <top>
                         <ToolBar prefHeight="29.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                            <items>
-                              <Button fx:id="addPolicyHolderButton" mnemonicParsing="false" text="Add new policy holder" />
-                              <Button fx:id="addDependentButton" mnemonicParsing="false" text="Add new dependent" />
+                               <Button fx:id="addPolicyHolderButton" onAction="#AddPolicyHolderButton" mnemonicParsing="false" text="Add new policy holder" />
+                               <Button fx:id="addDependentButton" onAction="#AddDependentButton" mnemonicParsing="false" text="Add new dependent" />
                               <Button fx:id="deleteBeneficiaryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Delete beneficiary" />
                               <Button fx:id="updateBeneficiaryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Update beneficiary" />
                               <Button fx:id="showInfoBeneficiaryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Show specific beneficiary" />

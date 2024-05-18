@@ -1,6 +1,7 @@
 package ui.gp.View;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -12,19 +13,16 @@ import ui.gp.SceneController.Controllers.DependentController;
 import ui.gp.SceneController.Policy.DependentsHomeController;
 
 import java.io.IOException;
+import java.net.PortUnreachableException;
 
 public class ViewFactory {
 
-    public void showLoginScene()
-    {
+    public void showLoginScene() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Login.fxml"));
         Scene scene = null;
-        try
-        {
+        try {
             scene = new Scene(loader.load());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         Stage stage = new Stage();
@@ -35,10 +33,8 @@ public class ViewFactory {
         stage.show();
     }
 
-    public void showDependentWindow(Model model,AnchorPane homeScene)
-    {
-        try
-        {
+    public void showDependentWindow(Model model, AnchorPane homeScene) {
+        try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/ui/gp/Scene/Policy/Dependents.fxml"));
             AnchorPane root = new AnchorPane();
@@ -57,8 +53,7 @@ public class ViewFactory {
         System.out.println("Login Successful!");
     }
 
-    public void showPolicyOwnerWindow(Model model, AnchorPane homeScene)
-    {
+    public void showPolicyOwnerWindow(Model model, AnchorPane homeScene) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/ui/gp/Scene/Policy/PolicyOwner.fxml"));
@@ -67,7 +62,7 @@ public class ViewFactory {
             root = loader.load();
             Stage stage = (Stage) homeScene.getScene().getWindow();
             stage.getScene().setRoot(root);
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println("Login Successful");
@@ -88,8 +83,7 @@ public class ViewFactory {
         System.out.println("Login Successful");
     }
 
-    public void showInsuranceManagerWindow(Model model, AnchorPane homeScene)
-    {
+    public void showInsuranceManagerWindow(Model model, AnchorPane homeScene) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/ui/gp/Scene/Manager/Manager.fxml"));
@@ -98,7 +92,7 @@ public class ViewFactory {
             root = loader.load();
             Stage stage = (Stage) homeScene.getScene().getWindow();
             stage.getScene().setRoot(root);
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println("Login Successful");
@@ -119,10 +113,8 @@ public class ViewFactory {
         System.out.println("Login Successful");
     }
 
-    public void showSystemAdminWindow(Model model, AnchorPane homeScene)
-    {
-        try
-        {
+    public void showSystemAdminWindow(Model model, AnchorPane homeScene) {
+        try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/ui/gp/Scene/Manager/AdminHome.fxml"));
             AnchorPane root = new AnchorPane();
@@ -135,5 +127,31 @@ public class ViewFactory {
             e.printStackTrace();
         }
         System.out.println("Login Successful!");
+    }
+
+    public void showPolicyHolderForm() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/PolicyHolderAddingForm.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Add New Policy Holder");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showDependentForm() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/DependentAddingForm.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Add New Dependent");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

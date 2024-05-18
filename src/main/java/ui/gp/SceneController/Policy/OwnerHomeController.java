@@ -2,28 +2,34 @@ package ui.gp.SceneController.Policy;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import ui.gp.SceneController.Function.SceneUtil;
+import ui.gp.View.ViewFactory;
 
 import java.io.IOException;
 
 public class OwnerHomeController {
-    public TextField idField;
-    public TextField fullnameField;
-    public TextField usernameField;
-    public TextField passwordField;
-    public TextField addressField;
-    public TextField emailField;
-    public TextField phonenumberField;
+    public TextField idFieldInfo;
+    public TextField fullnameFieldInfo;
+    public TextField usernameFieldInfo;
+    public TextField passwordFieldID;
+    public TextField phonenumberFieldID;
+    public TextField addressFieldID;
+    public TextField emailFiieldID;
+    public Button addPolicyHolderButton;
+    public Button addDependentButton;
+    public Button deleteBeneficiaryButton;
+    public Button updateBeneficiaryButton;
+    public Button showInfoBeneficiaryButton;
+    public ComboBox filterBeneficiaryBox;
     @FXML
     Label welcomeBannerUser;
     @FXML
     AnchorPane ownerHomeScene;
     @FXML
     Button logoutButton;
+    ViewFactory view = new ViewFactory();
 
 
     public void bannerNameView(String username) {
@@ -34,5 +40,13 @@ public class OwnerHomeController {
     public void logoutOwner(ActionEvent logoutAction) throws IOException {
         SceneUtil.logout(ownerHomeScene);
         System.out.println("Policy Owner logout");
+    }
+
+    public void AddPolicyHolderButton() throws IOException {
+        view.showPolicyHolderForm();
+    }
+
+    public void AddDependentButton() throws IOException {
+        view.showDependentForm();
     }
 }
