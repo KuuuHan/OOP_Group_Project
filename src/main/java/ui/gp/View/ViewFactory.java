@@ -45,7 +45,7 @@ public class ViewFactory {
         stage.show();
     }
 
-    public void showDependentWindow(Model model, AnchorPane homeScene) {
+    public void showDependentWindow(User model, AnchorPane homeScene) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/ui/gp/Scene/Policy/Dependents.fxml"));
@@ -55,9 +55,9 @@ public class ViewFactory {
             Stage stage = (Stage) homeScene.getScene().getWindow();
             stage.getScene().setRoot(root);
             DependentsHomeController controller = loader.getController();
-            Dependent dependent = model.getDependent();
-            DependentController dependentController = new DependentController(dependent);
-            controller.initialize(dependent, dependentController);
+         //   Dependent dependent = model.getDependent();
+        //    DependentController dependentController = new DependentController(dependent);
+         //   controller.initialize(dependent, dependentController);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,7 +84,7 @@ public class ViewFactory {
         System.out.println("Login Successful");
     }
 
-    public void showPolicyHolderWindow(Model model, AnchorPane homeScene) {
+    public void showPolicyHolderWindow(User model, AnchorPane homeScene) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/ui/gp/Scene/Policy/PolicyHolder.fxml"));
@@ -99,7 +99,7 @@ public class ViewFactory {
         System.out.println("Login Successful");
     }
 
-    public void showInsuranceManagerWindow(Model model, AnchorPane homeScene) {
+    public void showInsuranceManagerWindow(User model, AnchorPane homeScene) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/ui/gp/Scene/Manager/Manager.fxml"));
@@ -114,7 +114,7 @@ public class ViewFactory {
         System.out.println("Login Successful");
     }
 
-    public void showInsuranceSurveyorWindow(Model model, AnchorPane homeScene) {
+    public void showInsuranceSurveyorWindow(User model, AnchorPane homeScene) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/ui/gp/Scene/Manager/Surveyor.fxml"));
@@ -129,7 +129,7 @@ public class ViewFactory {
         System.out.println("Login Successful");
     }
 
-    public void showSystemAdminWindow(Model model, AnchorPane homeScene) {
+    public void showSystemAdminWindow(User model, AnchorPane homeScene) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/ui/gp/Scene/Manager/AdminHome.fxml"));

@@ -67,22 +67,22 @@ public class LoginHomeControl {
                     Role role = model.getLoginRole();
                     switch (role) {
                         case Dependent:
-                            view.showDependentWindow(model, homeScene);
+                            view.showDependentWindow(user, homeScene);
                             break;
                         case Policy_Owner:
                             view.showPolicyOwnerWindow(user, homeScene);
                             break;
                         case Policy_Holder:
-                            view.showPolicyHolderWindow(model, homeScene);
+                            view.showPolicyHolderWindow(user, homeScene);
                             break;
                         case Insurance_Manager:
-                            view.showInsuranceManagerWindow(model, homeScene);
+                            view.showInsuranceManagerWindow(user, homeScene);
                             break;
                         case Insurance_Surveyor:
-                            view.showInsuranceSurveyorWindow(model, homeScene);
+                            view.showInsuranceSurveyorWindow(user, homeScene);
                             break;
                         case System_Admin:
-                            view.showSystemAdminWindow(model, homeScene);
+                            view.showSystemAdminWindow(user, homeScene);
                             break;
                         default:
                             statusText.setText("Invalid role");
