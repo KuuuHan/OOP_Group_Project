@@ -148,4 +148,18 @@ public class DatabaseConnection
         }
         return role;
     }
+
+    public void performOperation() { //dummy method to simulate loading screen
+        openLoadingScene();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        closeLoadingScene();
+    }
+
+    public boolean isLoadingScreenDisplayed() {
+        return loadingSceneController.isLoadingScreenDisplayed();
+    }
 }
