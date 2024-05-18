@@ -24,4 +24,13 @@ public class ClaimController
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
+
+    public void processClaim(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/ClaimProcessor.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
 }
