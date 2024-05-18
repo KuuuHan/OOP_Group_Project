@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.Tab.ClaimController">
-    <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.Tab.ClaimController">
+    <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="765.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -30,22 +31,99 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="ID" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Insured Person" GridPane.rowIndex="2" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Insurance Card - Card Numer" GridPane.rowIndex="3" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Insurance Card - Card Holder" GridPane.rowIndex="4" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Insurance Card - Policy Owner" GridPane.rowIndex="5" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Claim Date" GridPane.rowIndex="1" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Insurance Card - Expiration Date" GridPane.rowIndex="6" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="300.0" text="Documents" GridPane.rowIndex="7" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Claim Amount" GridPane.rowIndex="8" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Status" GridPane.rowIndex="9" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Bank - Name" GridPane.rowIndex="10" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Bank - Card Owner" GridPane.rowIndex="11" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Bank - Card Number" GridPane.rowIndex="12" />
+            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="ID">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <padding>
+               <Insets left="30.0" />
+            </padding></Label>
+            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Insured Person" GridPane.rowIndex="2">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <padding>
+               <Insets left="30.0" />
+            </padding></Label>
+            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Insurance Card - Card Numer" GridPane.rowIndex="3">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <padding>
+               <Insets left="30.0" />
+            </padding></Label>
+            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Insurance Card - Card Holder" GridPane.rowIndex="4">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <padding>
+               <Insets left="30.0" />
+            </padding></Label>
+            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Insurance Card - Policy Owner" GridPane.rowIndex="5">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <padding>
+               <Insets left="30.0" />
+            </padding></Label>
+            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Claim Date" GridPane.rowIndex="1">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <padding>
+               <Insets left="30.0" />
+            </padding></Label>
+            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Insurance Card - Expiration Date" GridPane.rowIndex="6">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <padding>
+               <Insets left="30.0" />
+            </padding></Label>
+            <Label contentDisplay="CENTER" prefHeight="0.0" prefWidth="300.0" text="Documents" GridPane.rowIndex="7">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <padding>
+               <Insets left="30.0" />
+            </padding></Label>
+            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Claim Amount" GridPane.rowIndex="8">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <padding>
+               <Insets left="30.0" />
+            </padding></Label>
+            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Status" GridPane.rowIndex="9">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <padding>
+               <Insets left="30.0" />
+            </padding></Label>
+            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Bank - Name" GridPane.rowIndex="10">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <padding>
+               <Insets left="30.0" />
+            </padding></Label>
+            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Bank - Card Owner" GridPane.rowIndex="11">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <padding>
+               <Insets left="30.0" />
+            </padding></Label>
+            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Bank - Card Number" GridPane.rowIndex="12">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <padding>
+               <Insets left="30.0" />
+            </padding></Label>
             <TextField fx:id="idFiieldClaim" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" />
             <TextField fx:id="claimDateFieldClaim" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="insuredPersonFieldClaim" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -63,19 +141,20 @@
                     <ChoiceBox fx:id="documentChoiceBoxClaim" prefWidth="250.0" />
                     <Button fx:id="viewDocumentButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="View File" />
                 </items>
-            </SplitPane>
-            <Button mnemonicParsing="false" onAction="#NotConfirmClaim" prefHeight="26.0" prefWidth="126.0" text="Exit" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="13">
-            <children>
-               <Button mnemonicParsing="false" text="approve Claim" />
-               <Button mnemonicParsing="false" text="Send to Manager" />
-            </children>
-         </HBox>        </children>
+            </SplitPane>        </children>
     </GridPane>
+   <ToolBar prefHeight="48.0" prefWidth="733.0" GridPane.rowIndex="1">
+     <items>
+         <Button mnemonicParsing="false" onAction="#NotConfirmClaim" prefHeight="26.0" prefWidth="126.0" text="Exit" />
+         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Send to Manager" />
+         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="approve Claim" />
+     </items>
+   </ToolBar>
     <columnConstraints>
         <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints />
+      <RowConstraints minHeight="30.0" percentHeight="0.0" />
     </rowConstraints>
 </GridPane>
