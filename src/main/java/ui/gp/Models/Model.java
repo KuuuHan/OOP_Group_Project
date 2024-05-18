@@ -15,7 +15,7 @@ public class Model {
     private SystemAdmin admin;
     private PolicyOwner policyOwner;
     private PolicyHolder policyHolder;
-    private InsuranceManager insuranceManager;
+    private Manager insuranceManager;
     private InsuranceSurveyor insuranceSurveyor;
     private boolean loginSuccess;
 
@@ -26,7 +26,7 @@ public class Model {
         this.admin = new SystemAdmin("", "", "", Role.System_Admin, "", "", "", "");
         this.policyOwner = new PolicyOwner("", "", "", Role.Policy_Owner, "", "", "", "");
         this.policyHolder = new PolicyHolder("", "", "", Role.Policy_Holder, "", "", "", "");
-        this.insuranceManager = new InsuranceManager("", "", "", Role.Insurance_Manager, "", "", "", "");
+        this.insuranceManager = new Manager("", "", "", Role.Insurance_Manager, "", "", "", "");
         this.insuranceSurveyor = new InsuranceSurveyor("", "", "", Role.Insurance_Surveyor, "", "", "", "");
         this.loginSuccess = false;
     }
@@ -47,7 +47,7 @@ public class Model {
         return policyHolder;
     }
 
-    public InsuranceManager getInsuranceManager() {
+    public Manager getInsuranceManager() {
         return insuranceManager;
     }
 

@@ -4,8 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -50,10 +48,10 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <GridPane prefHeight="386.0" prefWidth="894.0">
+                        <GridPane prefHeight="405.0" prefWidth="894.0">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.20001220703125" minWidth="10.0" prefWidth="109.60000610351562" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="785.5999938964844" minWidth="10.0" prefWidth="785.5999938964844" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.20001220703125" minWidth="10.0" prefWidth="104.60000610351562" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="789.3999938964844" minWidth="10.0" prefWidth="789.3999938964844" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -186,28 +184,19 @@
                                             <children>
                                                 <ToolBar prefHeight="40.0" prefWidth="200.0">
                                                     <items>
-                                                        <TextField fx:id="claimSearch" prefHeight="25.0" prefWidth="260.0" promptText="Search Claim" />
+                                                        <TextField fx:id="claimSearch" prefHeight="25.0" prefWidth="260.0" promptText="Search Holder" />
                                                         <Separator orientation="VERTICAL" prefHeight="10.0" prefWidth="2.0" />
-                                                        <MenuButton fx:id="statusChooseMenuBox" mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" text="Status">
-                                                            <items>
-                                                                <MenuItem mnemonicParsing="false" text="Action 1" />
-                                                                <MenuItem mnemonicParsing="false" text="Action 2" />
-                                                            </items>
-                                                        </MenuButton>
                                                     </items>
                                                 </ToolBar>
                                             </children>
                                         </VBox>
                                         <VBox prefHeight="380.0" prefWidth="647.0">
                                             <children>
-                                                <TableView fx:id="PaymentCalTable" prefHeight="377.0" prefWidth="298.0">
+                                                <TableView fx:id="paymentTable" prefHeight="377.0" prefWidth="653.0">
                                                     <columns>
-                                                        <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
-                                                        <TableColumn fx:id="Amount" prefWidth="138.0" text="Amount" />
-                                                        <TableColumn fx:id="Role" prefWidth="94.0" text="Role" />
-                                                        <TableColumn fx:id="ExamDate" prefWidth="129.0" text="Exam Date" />
-                                                        <TableColumn fx:id="Date" prefWidth="135.0" text="Date" />
-                                                        <TableColumn fx:id="Status" prefWidth="94.0" text="Status" />
+                                                        <TableColumn fx:id="holderAmountId" prefWidth="75.0" text="ID" />
+                                                        <TableColumn fx:id="holderAmountName" prefWidth="314.40001678466797" text="Holder Name" />
+                                                        <TableColumn fx:id="holderAmount" prefWidth="270.4000549316406" text="Amount" />
                                                     </columns>
                                                 </TableView>
                                             </children>

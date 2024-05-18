@@ -9,13 +9,16 @@ import javafx.stage.Stage;
 import ui.gp.ApplicationStart;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.Dependent;
+import ui.gp.Models.Users.Manager;
 import ui.gp.Models.Users.PolicyOwner;
 import ui.gp.Models.Users.User;
 import ui.gp.SceneController.Controllers.DependentController;
 //import ui.gp.SceneController.Function.DependentAddingFormController;
+import ui.gp.SceneController.Controllers.ManagerController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.PolicyHolderAddingFormController;
 import ui.gp.Database.DatabaseConnection;
+import ui.gp.SceneController.Manager.ManagerHomeController;
 import ui.gp.SceneController.Policy.DependentsHomeController;
 import ui.gp.SceneController.Policy.OwnerHomeController;
 
@@ -99,7 +102,7 @@ public class ViewFactory {
         System.out.println("Login Successful");
     }
 
-    public void showInsuranceManagerWindow(User model, AnchorPane homeScene) {
+    public void showManagerWindow(User model, AnchorPane homeScene) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/ui/gp/Scene/Manager/Manager.fxml"));
@@ -108,6 +111,10 @@ public class ViewFactory {
             root = loader.load();
             Stage stage = (Stage) homeScene.getScene().getWindow();
             stage.getScene().setRoot(root);
+            ManagerHomeController controller = loader.getController();
+            Manager manager = (Manager) model;
+            ManagerController managerController = new ManagerController(manager,databaseConnection.getConnection());
+            controller.initialize(manager, managerController);
         } catch (IOException e) {
             e.printStackTrace();
         }

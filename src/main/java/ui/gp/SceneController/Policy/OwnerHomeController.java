@@ -25,6 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OwnerHomeController {
+    public TableColumn holderAmountId;
+    public TableColumn holderAmountName;
+    public TableColumn holderAmount;
+    public TableView paymentTable;
     public TableColumn idPolicyOwnerTable;
     public TableColumn fullnamePolicyOwnerTable;
     public TableColumn usernamePoilicyOwnerTable;
@@ -130,6 +134,21 @@ public class OwnerHomeController {
 
         policyOwnerTable.setItems(data);
     }
+
+//    public void showAmountTable() {
+//        List<Customer> holders = policyOwnerController.retrieveBeneficiaries();
+//        ObservableList<Customer> data = FXCollections.observableArrayList(holders);
+//        for (Customer holder : holders) {
+//            double amount = policyOwner.calculateYearlyPayment(holder); // Method to get the amount for the customer
+//            holder.setAmount(amount); // Assuming there's a setter for the amount in Customer class
+//            data.add(holder);
+//        }
+//        holderAmountId.setCellValueFactory(new PropertyValueFactory<>("id"));
+//        holderAmountName.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+//        holderAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+//
+//        policyOwnerTable.setItems(data);
+//    }
     @FXML
     public void addItemOnClick(ActionEvent event) throws IOException {
         ClaimController claimController = new ClaimController();
