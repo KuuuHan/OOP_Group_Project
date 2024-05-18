@@ -19,6 +19,7 @@ import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.SceneUtil;
 import ui.gp.Tab.ClaimController;
 import ui.gp.View.ViewFactory;
+import ui.gp.Database.DatabaseConnection;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class OwnerHomeController {
     public TableColumn rolePoilicyOwnerTable;
     private  PolicyOwner policyOwner;
     private PolicyOwnerController policyOwnerController;
+    private DatabaseConnection databaseConnection;
     public TextField idFieldInfo;
     public TextField fullnameFieldInfo;
     public TextField usernameFieldInfo;
@@ -81,6 +83,7 @@ public class OwnerHomeController {
     }
 
     public OwnerHomeController() {
+        this.databaseConnection = DatabaseConnection.getInstance();
        this.view = new ViewFactory(Model.getInstance().getDatabaseConnection());
     }
 
@@ -100,6 +103,7 @@ public class OwnerHomeController {
 
 
     public void AddDependentButton() throws IOException {
+        ViewFactory view = new ViewFactory(databaseConnection);
         view.showDependentForm();
     }
 
