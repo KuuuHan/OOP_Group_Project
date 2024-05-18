@@ -20,8 +20,8 @@ public class Model {
     private boolean loginSuccess;
 
     public Model() {
-        this.view = new ViewFactory();
-        this.databaseConnection = new DatabaseConnection();
+        this.databaseConnection = DatabaseConnection.getInstance();
+        this.view = new ViewFactory(databaseConnection);
         this.dependent = new Dependent("", "", "", Role.Dependent, "", "", "", "", null, null, null, null);
         this.admin = new SystemAdmin("", "", "", Role.System_Admin, "", "", "", "");
         this.policyOwner = new PolicyOwner("", "", "", Role.Policy_Owner, "", "", "", "", null);
@@ -88,22 +88,22 @@ public class Model {
         if (role != null) {
             switch (role) {
                 case Dependent:
-                    resultSet = databaseConnection.getDependentData(username, password);
+                 //   resultSet = databaseConnection.getDependentData(username, password);
                     break;
                 case System_Admin:
-                    resultSet = databaseConnection.getAdminData(username, password);
+                 //   resultSet = databaseConnection.getAdminData(username, password);
                     break;
                 case Policy_Owner:
                     resultSet = databaseConnection.getPolicyOwnerData(username, password);
                     break;
                 case Policy_Holder:
-                    resultSet = databaseConnection.getPolicyHolderData(username, password);
+                  //  resultSet = databaseConnection.getPolicyHolderData(username, password);
                     break;
                 case Insurance_Manager:
-                    resultSet = databaseConnection.getInsuranceManagerData(username, password);
+                 //   resultSet = databaseConnection.getInsuranceManagerData(username, password);
                     break;
                 case Insurance_Surveyor:
-                    resultSet = databaseConnection.getInsuranceSurveyorData(username, password);
+                  //  resultSet = databaseConnection.getInsuranceSurveyorData(username, password);
                     break;
             }
 

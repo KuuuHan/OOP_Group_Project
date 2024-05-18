@@ -11,11 +11,21 @@ public class DatabaseConnection
     private static final String username = "postgres.jmutagfxtwjwqftxmqob";
     private static final String password = "Wataru0109911";
     private LoadingSceneController loadingSceneController;
+    private static Connection connection;
+    private  static DatabaseConnection instance;
 
-    public DatabaseConnection()
-    {
-        this.loadingSceneController = new LoadingSceneController();
-    }
+      private DatabaseConnection() {
+          this.loadingSceneController = new LoadingSceneController();
+          connection();
+      }
+
+      public static DatabaseConnection getInstance() {
+          if (instance == null) {
+              instance = new DatabaseConnection();
+          }
+          return instance;
+      }
+
 
     public void openLoadingScene()
     {
@@ -26,9 +36,8 @@ public class DatabaseConnection
         loadingSceneController.closeLoadingScene();
     }
 
-    public static Connection getConnection()
+    public static Connection connection()
     {
-        Connection connection = null;
         try
         {
             connection = DriverManager.getConnection(URL,username,password);
@@ -39,6 +48,23 @@ public class DatabaseConnection
             e.printStackTrace();
         }
         return connection;
+    }
+
+    public void disconnect()
+    {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public  Connection getConnection()
+    {
+        return connection;
+
     }
 
     public ResultSet getDependentData(String username, String password)
@@ -152,7 +178,7 @@ public class DatabaseConnection
     public void performOperation() { //dummy method to simulate loading screen
         openLoadingScene();
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

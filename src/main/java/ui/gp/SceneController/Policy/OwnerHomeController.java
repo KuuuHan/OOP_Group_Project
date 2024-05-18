@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import ui.gp.Models.Model;
 import ui.gp.SceneController.Function.SceneUtil;
 import ui.gp.View.ViewFactory;
 
@@ -29,8 +30,11 @@ public class OwnerHomeController {
     AnchorPane ownerHomeScene;
     @FXML
     Button logoutButton;
-    ViewFactory view = new ViewFactory();
+    ViewFactory view;
 
+    public OwnerHomeController() {
+       this.view = new ViewFactory(Model.getInstance().getDatabaseConnection());
+    }
 
     public void bannerNameView(String username) {
         welcomeBannerUser.setText("Welcome " + username);

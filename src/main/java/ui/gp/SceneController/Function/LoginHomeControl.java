@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.Model;
 import ui.gp.Models.Role;
 
@@ -38,13 +39,15 @@ public class LoginHomeControl {
     Stage stage;
     private LoadingSceneController loadingSceneController = new LoadingSceneController();
 
+    DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
+    ViewFactory view = new ViewFactory(databaseConnection);
     @FXML
     public void login(ActionEvent event) {
         String username = homeLoginName.getText();
         String password = homeLoginPassword.getText();
 
         Model model = Model.getInstance();
-        ViewFactory view = new ViewFactory();
+        ViewFactory view = new ViewFactory(databaseConnection);
 
         loadingSceneController.serverRespondingHold();
 

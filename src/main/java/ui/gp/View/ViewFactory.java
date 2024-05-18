@@ -10,12 +10,19 @@ import ui.gp.ApplicationStart;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.Dependent;
 import ui.gp.SceneController.Controllers.DependentController;
+import ui.gp.SceneController.Function.PolicyHolderAddingFormController;
+import ui.gp.Database.DatabaseConnection;
 import ui.gp.SceneController.Policy.DependentsHomeController;
 
 import java.io.IOException;
 import java.net.PortUnreachableException;
 
 public class ViewFactory {
+    private DatabaseConnection databaseConnection;
+
+    public ViewFactory(DatabaseConnection databaseConnection) {
+        this.databaseConnection = databaseConnection;
+    }
 
     public void showLoginScene() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Login.fxml"));
@@ -137,6 +144,9 @@ public class ViewFactory {
             stage.setScene(new Scene(root));
             stage.setTitle("Add New Policy Holder");
             stage.show();
+
+            PolicyHolderAddingFormController controller = loader.getController();
+            controller.setDatabaseConnection(databaseConnection);
         } catch (IOException e) {
             e.printStackTrace();
         }
