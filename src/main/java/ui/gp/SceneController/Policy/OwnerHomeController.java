@@ -10,6 +10,7 @@ import ui.gp.Models.Users.PolicyOwner;
 import ui.gp.SceneController.Controllers.DependentController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.SceneUtil;
+import ui.gp.Tab.ClaimController;
 import ui.gp.View.ViewFactory;
 
 import java.io.IOException;
@@ -82,4 +83,10 @@ public class OwnerHomeController {
             addressFieldInfo.setText(information[6].split(": ")[1]);
         }
     }
+    @FXML
+    public void addItemOnClick(ActionEvent event) throws IOException {
+        ClaimController claimController = new ClaimController();
+        claimController.addItemOnClick();
+    }
+
 }

@@ -57,12 +57,12 @@
                     <Button fx:id="viewDocumentButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="View File" />
                 </items>
             </SplitPane>
-            <Button mnemonicParsing="false" onAction="#NotConfirmClaim" prefHeight="26.0" prefWidth="140.0" text="Exit" GridPane.columnIndex="1" GridPane.rowIndex="13" />        </children>
+            <Button mnemonicParsing="false" onAction="#NotConfirmClaim" prefHeight="26.0" prefWidth="126.0" text="Exit" GridPane.columnIndex="1" GridPane.rowIndex="13" />        </children>
     </GridPane>
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
 </GridPane>
