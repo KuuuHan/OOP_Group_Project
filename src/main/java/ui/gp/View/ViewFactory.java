@@ -10,11 +10,14 @@ import ui.gp.ApplicationStart;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.Dependent;
 import ui.gp.Models.Users.PolicyOwner;
+import ui.gp.Models.Users.User;
 import ui.gp.SceneController.Controllers.DependentController;
 //import ui.gp.SceneController.Function.DependentAddingFormController;
+import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.PolicyHolderAddingFormController;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.SceneController.Policy.DependentsHomeController;
+import ui.gp.SceneController.Policy.OwnerHomeController;
 
 import java.io.IOException;
 import java.net.PortUnreachableException;
@@ -62,7 +65,7 @@ public class ViewFactory {
         System.out.println("Login Successful!");
     }
 
-    public void showPolicyOwnerWindow(Model model, AnchorPane homeScene) {
+    public void showPolicyOwnerWindow(User model, AnchorPane homeScene) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/ui/gp/Scene/Policy/PolicyOwner.fxml"));
@@ -71,7 +74,10 @@ public class ViewFactory {
             root = loader.load();
             Stage stage = (Stage) homeScene.getScene().getWindow();
             stage.getScene().setRoot(root);
-            PolicyOwner policyOwner = model.getPolicyOwner();
+            OwnerHomeController controller = loader.getController();
+            PolicyOwner policyOwner = (PolicyOwner) model;
+            PolicyOwnerController policyOwnerController = new PolicyOwnerController(policyOwner);
+            controller.initialize(policyOwner, policyOwnerController);
         } catch (IOException e) {
             e.printStackTrace();
         }
