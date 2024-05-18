@@ -50,10 +50,10 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <GridPane prefHeight="429.0" prefWidth="894.0">
+                        <GridPane prefHeight="386.0" prefWidth="894.0">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.20001220703125" minWidth="10.0" prefWidth="109.60000610351562" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="785.5999938964844" minWidth="10.0" prefWidth="785.5999938964844" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -72,13 +72,13 @@
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Email" GridPane.rowIndex="4" />
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Phone Number" GridPane.rowIndex="5" />
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Address" GridPane.rowIndex="6" />
-                              <TextField fx:id="idFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" />
-                              <TextField fx:id="fullnameFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="usernameFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="passwordFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <TextField fx:id="emailFiieldInfo" editable="false" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <TextField fx:id="phonenumberFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <TextField fx:id="addressFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <TextField fx:id="idFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="fullnameFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="usernameFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="passwordFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="emailFiieldInfo" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="phonenumberFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="addressFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                            </children>
                         </GridPane>
                      </children></AnchorPane>
