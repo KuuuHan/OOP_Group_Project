@@ -24,7 +24,7 @@ public class Model {
         this.view = new ViewFactory(databaseConnection);
         this.dependent = new Dependent("", "", "", Role.Dependent, "", "", "", "", null, null, null, null);
         this.admin = new SystemAdmin("", "", "", Role.System_Admin, "", "", "", "");
-        this.policyOwner = new PolicyOwner("", "", "", Role.Policy_Owner, "", "", "", "", null);
+        this.policyOwner = new PolicyOwner("", "", "", Role.Policy_Owner, "", "", "", "");
         this.policyHolder = new PolicyHolder("", "", "", Role.Policy_Holder, "", "", "", "", null, null, null, null);
         this.insuranceManager = new InsuranceManager("", "", "", Role.Insurance_Manager, "", "", "", "");
         this.insuranceSurveyor = new InsuranceSurveyor("", "", "", Role.Insurance_Surveyor, "", "", "", "");

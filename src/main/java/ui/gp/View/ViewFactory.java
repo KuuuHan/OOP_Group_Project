@@ -9,7 +9,9 @@ import javafx.stage.Stage;
 import ui.gp.ApplicationStart;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.Dependent;
+import ui.gp.Models.Users.PolicyOwner;
 import ui.gp.SceneController.Controllers.DependentController;
+//import ui.gp.SceneController.Function.DependentAddingFormController;
 import ui.gp.SceneController.Function.PolicyHolderAddingFormController;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.SceneController.Policy.DependentsHomeController;
@@ -69,6 +71,7 @@ public class ViewFactory {
             root = loader.load();
             Stage stage = (Stage) homeScene.getScene().getWindow();
             stage.getScene().setRoot(root);
+            PolicyOwner policyOwner = model.getPolicyOwner();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -160,6 +163,8 @@ public class ViewFactory {
             stage.setScene(new Scene(root));
             stage.setTitle("Add New Dependent");
             stage.show();
+          //  DependentAddingFormController controller = loader.getController();
+           // controller.setDatabaseConnection(databaseConnection);
         } catch (IOException e) {
             e.printStackTrace();
         }

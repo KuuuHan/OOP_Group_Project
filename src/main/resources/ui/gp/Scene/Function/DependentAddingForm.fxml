@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.SceneController.Function.DependentAddingFormController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -33,7 +33,7 @@
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Phone Number" GridPane.rowIndex="5" />
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Full Name" GridPane.rowIndex="1" />
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Address" GridPane.rowIndex="6" />
-      <TextField fx:id="idFiieldDependent" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" />
+      <TextField fx:id="idFieldDependent" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" />
       <TextField fx:id="fullnameFieldDependent" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <TextField fx:id="usernameFieldDependent" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextField fx:id="passwordFieldDependent" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -41,7 +41,7 @@
       <TextField fx:id="phonenumberFieldDependent" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <TextField fx:id="addressFieldDependent" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Policy Holder" GridPane.rowIndex="7" />
-      <ChoiceBox fx:id="policyHolderBoxDependet" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <ChoiceBox fx:id="policyHolderBoxDependent" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <VBox alignment="TOP_RIGHT" maxWidth="-Infinity" prefHeight="44.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
          <children>
             <Button fx:id="submitButtonAddDependent" mnemonicParsing="false" text="Submit" />

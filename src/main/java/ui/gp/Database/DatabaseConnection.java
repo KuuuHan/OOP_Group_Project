@@ -3,6 +3,9 @@ package ui.gp.Database;
 import ui.gp.Models.Role;
 
 import java.sql.*;
+
+import ui.gp.Models.Users.PolicyOwner;
+import ui.gp.Models.Users.User;
 import ui.gp.SceneController.Function.LoadingSceneController;
 
 public class DatabaseConnection
@@ -68,7 +71,7 @@ public class DatabaseConnection
     }
 
     public ResultSet getDependentData(String username, String password)
-    { //openLoadingScene() and closeLoadingScene() in this method is to call the loading scene when the database is being queried
+    {
         openLoadingScene();
         Statement statement;
         ResultSet resultSet = null;
@@ -187,5 +190,48 @@ public class DatabaseConnection
 
     public boolean isLoadingScreenDisplayed() {
         return loadingSceneController.isLoadingScreenDisplayed();
+    }
+
+    public User getUser(String username, String password) {
+        User user = null;
+        try {
+            PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM Users WHERE username = ? AND password = ?");
+            statement.setString(1, username);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                    String id = resultSet.getString("id");
+                    String fullname = resultSet.getString("fullname");
+                    String email = resultSet.getString("email");
+                    String phoneNumber = resultSet.getString("phoneNumber");
+                    String address = resultSet.getString("address");
+                    Role role = Role.valueOf(resultSet.getString("role"));
+
+                switch (role)
+                {
+                    case Dependent:
+                       //Load Dependent data
+                        break;
+                    case System_Admin:
+                        //Load Admin data
+                        break;
+                    case Insurance_Surveyor:
+                        //Load Surveyor data
+                        break;
+                    case Insurance_Manager:
+                        //Load Manager data
+                        break;
+                    case Policy_Holder:
+                        //Load Policy Holder data
+                        break;
+                    case Policy_Owner:
+                        user = new PolicyOwner(id, username, password, role, fullname, email, phoneNumber, address);
+                        break;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }

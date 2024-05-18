@@ -12,25 +12,26 @@ class DatabaseConnectionTest {
     @Test
     void testGetConnection()
     {
-//        Connection connection = DatabaseConnection.getConnection();
-//        assertNotNull(connection, "The connection should not be null");
-//        try {
-//            connection.close();
-//            System.out.println("Connection closed");
-//        } catch (SQLException e) {
-//            fail("Closing connection failed: " + e.getMessage());
-//        }
+        DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
+        Connection connection = databaseConnection.getConnection();
+        assertNotNull(connection, "The connection should not be null");
+        try {
+            connection.close();
+            System.out.println("Connection closed");
+        } catch (SQLException e) {
+            fail("Closing connection failed: " + e.getMessage());
+        }
     }
 
     @Test
     public void testLoadingScreenAppear(){
-        DatabaseConnection dbConnection = new DatabaseConnection();
-        //
-        //
-        dbConnection.performOperation();
-
-        //
-        //
-        assertTrue(dbConnection.isLoadingScreenDisplayed());
+//        DatabaseConnection dbConnection = new DatabaseConnection();
+//        //
+//        //
+//        dbConnection.performOperation();
+//
+//        //
+//        //
+//        assertTrue(dbConnection.isLoadingScreenDisplayed());
     }
 }

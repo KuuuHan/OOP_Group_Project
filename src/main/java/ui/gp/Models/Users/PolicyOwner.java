@@ -7,14 +7,11 @@ import java.util.ArrayList;
 
 public class PolicyOwner extends Customer
 {
-    private List <Customer> beneficiaries;
 
     public PolicyOwner(String id, String username, String password, Role role,
-                       String fullname, String email, String phonenumber, String address,
-                       List<Customer> beneficiaries)
+                       String fullname, String email, String phonenumber, String address)
     {
         super(id, username, password, Role.Policy_Owner, fullname, email, phonenumber, address,null, null);
-        this.beneficiaries = beneficiaries;
     }
 
     public void fileClaim(String beneficiaryId, Claim claim)

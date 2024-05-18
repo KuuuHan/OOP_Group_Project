@@ -13,6 +13,7 @@ import ui.gp.Models.Model;
 import ui.gp.Models.Role;
 
 import ui.gp.Models.Users.Dependent;
+import ui.gp.Models.Users.User;
 import ui.gp.SceneController.Controllers.DependentController;
 import ui.gp.SceneController.Policy.DependentsHomeController;
 import ui.gp.View.ViewFactory;
@@ -45,6 +46,10 @@ public class LoginHomeControl {
     public void login(ActionEvent event) {
         String username = homeLoginName.getText();
         String password = homeLoginPassword.getText();
+
+        User user = databaseConnection.getUser(username, password);
+
+        Session.getInstance().setUser(user);
 
         Model model = Model.getInstance();
         ViewFactory view = new ViewFactory(databaseConnection);

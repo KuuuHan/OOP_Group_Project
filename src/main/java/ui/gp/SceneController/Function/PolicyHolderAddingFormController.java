@@ -7,9 +7,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.Role;
+import ui.gp.Models.Users.User;
+import ui.gp.View.ViewFactory;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class PolicyHolderAddingFormController {
     public TextField fullnameFieldAddPolicyHolder;
@@ -35,15 +39,20 @@ public class PolicyHolderAddingFormController {
         String address = addressFieldAddPolicyHolder.getText();
 
         new Thread(() -> {
-            addPolicyHolder(fullname, username, password, email, phoneNumber, address);
+            String policyHolderID =  addPolicyHolder(fullname, username, password, email, phoneNumber, address);
+            Session session = Session.getInstance();
+            User user = session.getUser();
+            String policyOwnerID = user.getId();
+            addPolicyOwner(policyOwnerID,policyHolderID);
             Platform.runLater(() -> {
                 Stage stage = (Stage) submitButtonAddPolicyOwner.getScene().getWindow();
                 stage.close();
             });
         }).start();
     }
-    private void addPolicyHolder(String fullname, String username, String password, String email, String phoneNumber, String address)
-    {
+
+    public String addPolicyHolder(String fullname, String username, String password, String email, String phoneNumber, String address) {
+        String id = null;
         try {
             String query = "INSERT INTO Users (fullname, username, password, email, phoneNumber, address,role) VALUES ( ?, ?, ?, ?, ?, ?,?)";
             PreparedStatement statement = databaseConnection.getConnection().prepareStatement(query);
@@ -57,8 +66,30 @@ public class PolicyHolderAddingFormController {
             statement.setString(7, String.valueOf(Role.Policy_Holder));
 
             statement.executeUpdate();
+            Statement idStatement = databaseConnection.getConnection().createStatement();
+            ResultSet rs = idStatement.executeQuery("SELECT id FROM Users WHERE username = '" + username + "'");
+            if (rs.next()) {
+                id = rs.getString(1);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return id;
+    }
+
+    public void addPolicyOwner(String policyOwnerID, String policyHolderID) {
+        try {
+            String query = "INSERT INTO policyowner (policyOwnerID, policyHolderID) VALUES ( ?, ?)";
+            PreparedStatement statement = databaseConnection.getConnection().prepareStatement(query);
+
+            statement.setString(1, policyOwnerID);
+            statement.setString(2, policyHolderID);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            {
+            }
         }
     }
 }
