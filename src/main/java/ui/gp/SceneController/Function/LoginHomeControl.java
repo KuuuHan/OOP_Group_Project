@@ -67,7 +67,7 @@ public class LoginHomeControl {
                         view.showDependentWindow(model, homeScene);
                         break;
                     case Policy_Owner:
-                        view.showPolicyOwnerWindow(Session.getInstance().getUser(), homeScene);
+                        view.showPolicyOwnerWindow(model, homeScene);
                         break;
                     case Policy_Holder:
                         view.showPolicyHolderWindow(model, homeScene);
