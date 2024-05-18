@@ -90,28 +90,27 @@
                      <bottom>
                         <TableView prefHeight="378.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="ID" />
-                              <TableColumn prefWidth="75.0" text="Date" />
-                              <TableColumn prefWidth="125.59992980957031" text="Insured Person" />
-                              <TableColumn prefWidth="100.800048828125" text="Exam Date " />
-                              <TableColumn prefWidth="88.0" text="Documents" />
-                              <TableColumn prefWidth="132.0" text="Claim Amount" />
-                              <TableColumn prefWidth="119.99993896484375" text="Status" />
-                              <TableColumn prefWidth="165.60009765625" text="Banking Info" />
+                              <TableColumn fx:id="idPolicyOwnerTable" prefWidth="75.0" text="ID" />
+                              <TableColumn fx:id="fullnamePolicyOwnerTable" prefWidth="145.0" text="Full Name" />
+                              <TableColumn fx:id="usernamePoilicyOwnerTable" text="Username" />
+                              <TableColumn fx:id="passwordPoilicyOwnerTable" text="Password" />
+                              <TableColumn fx:id="emailPoilicyOwnerTable" prefWidth="180.0" text="Email" />
+                              <TableColumn fx:id="phonenumberPoilicyOwnerTable" minWidth="5.0" prefWidth="125.0" text="Phone Number" />
+                              <TableColumn fx:id="addressPoilicyOwnerTable" prefWidth="195.0" text="Address" />
                            </columns>
                         </TableView>
                      </bottom>
                      <top>
                         <ToolBar prefHeight="29.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                            <items>
-                              <Button mnemonicParsing="false" text="Add new policy holder" />
-                              <Button mnemonicParsing="false" text="Add new dependent" />
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Delete beneficiary" />
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Update beneficiary" />
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Show specific beneficiary" />
+                              <Button fx:id="addPolicyHolderButton" mnemonicParsing="false" text="Add new policy holder" />
+                              <Button fx:id="addDependentButton" mnemonicParsing="false" text="Add new dependent" />
+                              <Button fx:id="deleteBeneficiaryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Delete beneficiary" />
+                              <Button fx:id="updateBeneficiaryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Update beneficiary" />
+                              <Button fx:id="showInfoBeneficiaryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Show specific beneficiary" />
                               <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
                               <Label text="Filter" />
-                              <ComboBox prefWidth="150.0" />
+                              <ComboBox fx:id="filterBeneficiaryBox" prefWidth="150.0" />
                            </items>
                         </ToolBar>
                      </top>
@@ -124,29 +123,29 @@
                      <bottom>
                         <TableView prefHeight="378.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="ID" />
-                            <TableColumn prefWidth="75.0" text="Date" />
-                              <TableColumn prefWidth="125.59992980957031" text="Insured Person" />
-                              <TableColumn prefWidth="100.800048828125" text="Exam Date " />
-                              <TableColumn prefWidth="88.0" text="Documents" />
-                              <TableColumn prefWidth="132.0" text="Claim Amount" />
-                              <TableColumn prefWidth="119.99993896484375" text="Status" />
-                              <TableColumn prefWidth="165.60009765625" text="Banking Info" />
+                            <TableColumn fx:id="idClaimPoilicyOwnerTable" prefWidth="75.0" text="ID" />
+                            <TableColumn fx:id="datePoilicyOwnerTable" prefWidth="75.0" text="Date" />
+                              <TableColumn fx:id="insuredPersonPoilicyOwnerTable" prefWidth="125.59992980957031" text="Insured Person" />
+                              <TableColumn fx:id="examDatePoilicyOwnerTable" prefWidth="100.800048828125" text="Exam Date " />
+                              <TableColumn fx:id="documentsPoilicyOwnerTable" prefWidth="88.0" text="Documents" />
+                              <TableColumn fx:id="claimAmountPoilicyOwnerTable" prefWidth="132.0" text="Claim Amount" />
+                              <TableColumn fx:id="statusPoilicyOwnerTable" prefWidth="119.99993896484375" text="Status" />
+                              <TableColumn fx:id="bankingInfoPoilicyOwnerTable" prefWidth="165.60009765625" text="Banking Info" />
                           </columns>
                         </TableView>
                      </bottom>
                      <top>
                         <ToolBar prefHeight="29.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                           <items>
-                              <TextField promptText="Searching..." />
+                              <TextField fx:id="searchingClaimPolicyOwner" promptText="Searching..." />
                               <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
-                            <Button mnemonicParsing="false" text="Add new claim" />
-                              <Button mnemonicParsing="false" prefHeight="14.0" prefWidth="106.0" text="Delete claim" />
-                              <Button mnemonicParsing="false" prefHeight="9.0" prefWidth="108.0" text="Update claim" />
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" text="Show specific claim" />
+                            <Button fx:id="addClaimPoilicyOwnerButton" mnemonicParsing="false" text="Add new claim" />
+                              <Button fx:id="deleteClaimPoilicyOwnerButton" mnemonicParsing="false" prefHeight="14.0" prefWidth="106.0" text="Delete claim" />
+                              <Button fx:id="updateClaimPoilicyOwnerButton" mnemonicParsing="false" prefHeight="9.0" prefWidth="108.0" text="Update claim" />
+                              <Button fx:id="showClaimPoilicyOwnerButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" text="Show specific claim" />
                               <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
                               <Label text="Filter" />
-                              <ComboBox prefWidth="150.0" />
+                              <ComboBox fx:id="filterClaimPoilicyOwnerBox" prefWidth="150.0" />
                           </items>
                         </ToolBar>
                      </top></BorderPane>
