@@ -3,12 +3,28 @@ package ui.gp.Database;
 import ui.gp.Models.Role;
 
 import java.sql.*;
+import ui.gp.SceneController.Function.LoadingSceneController;
 
 public class DatabaseConnection
 {
     private static final String URL = "jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres?user=postgres.jmutagfxtwjwqftxmqob&password=Wataru0109911";
     private static final String username = "postgres.jmutagfxtwjwqftxmqob";
     private static final String password = "Wataru0109911";
+    private LoadingSceneController loadingSceneController;
+
+    public DatabaseConnection()
+    {
+        this.loadingSceneController = new LoadingSceneController();
+    }
+
+    public void openLoadingScene()
+    {
+        loadingSceneController.openLoadingScene();
+    }
+    public void closeLoadingScene()
+    {
+        loadingSceneController.closeLoadingScene();
+    }
 
     public static Connection getConnection()
     {
@@ -26,7 +42,8 @@ public class DatabaseConnection
     }
 
     public ResultSet getDependentData(String username, String password)
-    {
+    { //openLoadingScene() and closeLoadingScene() in this method is to call the loading scene when the database is being queried
+        openLoadingScene();
         Statement statement;
         ResultSet resultSet = null;
         try
@@ -37,6 +54,7 @@ public class DatabaseConnection
         catch (SQLException e) {
             e.printStackTrace();
         }
+        closeLoadingScene();
         return resultSet;
     }
 
@@ -129,5 +147,19 @@ public class DatabaseConnection
             e.printStackTrace();
         }
         return role;
+    }
+
+    public void performOperation() { //dummy method to simulate loading screen
+        openLoadingScene();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        closeLoadingScene();
+    }
+
+    public boolean isLoadingScreenDisplayed() {
+        return loadingSceneController.isLoadingScreenDisplayed();
     }
 }

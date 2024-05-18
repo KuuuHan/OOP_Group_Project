@@ -12,31 +12,43 @@ import java.io.IOException;
 
 public class LoadingSceneController {
     private Stage stage;
+    private boolean isLoadingScreenDisplayed;
     private LoadingSceneController loadingSceneController;
     @FXML
     AnchorPane loadingPane;
+
     public void openLoadingScene() {
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/LoadingScreen.fxml"));
-            AnchorPane root = new AnchorPane();
-            fxmlLoader.setRoot(root);
-            fxmlLoader.load();
-            stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL); // Prevent user from interacting with other windows
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+        Platform.runLater(() -> {
+            isLoadingScreenDisplayed = true;
+            try{
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/LoadingScreen.fxml"));
+                AnchorPane root = new AnchorPane();
+                fxmlLoader.setRoot(root);
+                fxmlLoader.load();
+                stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL); // Prevent user from interacting with other windows
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        });
     }
 
     public void closeLoadingScene() {
-//        if (stage != null) {
-//            stage.close();
-//        }
         Platform.runLater(() -> {
+            isLoadingScreenDisplayed = false;
+            if (stage != null) {
                 stage.close();
+            }
         });
+//        isLoadingScreenDisplayed = false;
+////        if (stage != null) {
+////            stage.close();
+////        }
+//        Platform.runLater(() -> {
+//                stage.close();
+//        });
     }
 
     public void serverRespondingHold(){
@@ -51,5 +63,9 @@ public class LoadingSceneController {
             }
             closeLoadingScene();
         }).start();
+    }
+
+    public boolean isLoadingScreenDisplayed() {
+        return isLoadingScreenDisplayed;
     }
 }
