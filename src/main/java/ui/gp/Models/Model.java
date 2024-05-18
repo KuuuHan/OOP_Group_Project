@@ -22,10 +22,10 @@ public class Model {
     public Model() {
         this.databaseConnection = DatabaseConnection.getInstance();
         this.view = new ViewFactory(databaseConnection);
-        this.dependent = new Dependent("", "", "", Role.Dependent, "", "", "", "", null, null, null, null);
+        this.dependent = new Dependent("", "", "", Role.Dependent, "", "", "", "");
         this.admin = new SystemAdmin("", "", "", Role.System_Admin, "", "", "", "");
         this.policyOwner = new PolicyOwner("", "", "", Role.Policy_Owner, "", "", "", "");
-        this.policyHolder = new PolicyHolder("", "", "", Role.Policy_Holder, "", "", "", "", null, null, null, null);
+        this.policyHolder = new PolicyHolder("", "", "", Role.Policy_Holder, "", "", "", "");
         this.insuranceManager = new InsuranceManager("", "", "", Role.Insurance_Manager, "", "", "", "");
         this.insuranceSurveyor = new InsuranceSurveyor("", "", "", Role.Insurance_Surveyor, "", "", "", "");
         this.loginSuccess = false;
@@ -121,7 +121,7 @@ public class Model {
                                     String email = resultSet.getString("email");
                                     String phoneNumber = resultSet.getString("phonenumber");
                                     String address = resultSet.getString("address");
-                                    this.dependent = new Dependent(id, username, password, role, fullname, email, phoneNumber, address, null, null, null, null);
+                                    this.dependent = new Dependent(id, username, password, role, fullname, email, phoneNumber, address);
                                 }
                                     break;
                                     case System_Admin:

@@ -1,19 +1,24 @@
 package ui.gp.SceneController.Function;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.Role;
+import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.User;
+import ui.gp.SceneController.Policy.OwnerHomeController;
 import ui.gp.View.ViewFactory;
 
+import java.io.Console;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class PolicyHolderAddingFormController {
     public TextField fullnameFieldAddPolicyHolder;
@@ -24,6 +29,7 @@ public class PolicyHolderAddingFormController {
     public TextField addressFieldAddPolicyHolder;
     public Button submitButtonAddPolicyOwner;
     private DatabaseConnection databaseConnection;
+
 
     public void setDatabaseConnection(DatabaseConnection databaseConnection)
     {
@@ -51,6 +57,7 @@ public class PolicyHolderAddingFormController {
         }).start();
     }
 
+
     public String addPolicyHolder(String fullname, String username, String password, String email, String phoneNumber, String address) {
         String id = null;
         try {
@@ -70,6 +77,7 @@ public class PolicyHolderAddingFormController {
             ResultSet rs = idStatement.executeQuery("SELECT id FROM Users WHERE username = '" + username + "'");
             if (rs.next()) {
                 id = rs.getString(1);
+                System.out.println(id);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,11 +87,11 @@ public class PolicyHolderAddingFormController {
 
     public void addPolicyOwner(String policyOwnerID, String policyHolderID) {
         try {
-            String query = "INSERT INTO policyowner (policyOwnerID, policyHolderID) VALUES ( ?, ?)";
+            String query = "INSERT INTO policyowner (policyholderid, policyownerid) VALUES ( ?, ?)";
             PreparedStatement statement = databaseConnection.getConnection().prepareStatement(query);
 
-            statement.setString(1, policyOwnerID);
-            statement.setString(2, policyHolderID);
+            statement.setString(1, policyHolderID);
+            statement.setString(2, policyOwnerID);
 
             statement.executeUpdate();
         } catch (SQLException e) {

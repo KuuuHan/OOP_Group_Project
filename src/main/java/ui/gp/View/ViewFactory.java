@@ -76,7 +76,7 @@ public class ViewFactory {
             stage.getScene().setRoot(root);
             OwnerHomeController controller = loader.getController();
             PolicyOwner policyOwner = (PolicyOwner) model;
-            PolicyOwnerController policyOwnerController = new PolicyOwnerController(policyOwner);
+            PolicyOwnerController policyOwnerController = new PolicyOwnerController(policyOwner,databaseConnection.getConnection());
             controller.initialize(policyOwner, policyOwnerController);
         } catch (IOException e) {
             e.printStackTrace();

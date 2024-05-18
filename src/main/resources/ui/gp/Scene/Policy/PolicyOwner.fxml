@@ -84,19 +84,20 @@
                      </children></AnchorPane>
                     </content>
                 </Tab>
-            <Tab fx:id="ClaimManage1" text="Beneficiaries Management">
+            <Tab fx:id="BeneficiaryTab" text="Beneficiaries Management">
                <content>
                   <BorderPane>
                      <bottom>
-                        <TableView prefHeight="378.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                        <TableView fx:id="policyOwnerTable" prefHeight="378.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                            <columns>
-                              <TableColumn fx:id="idPolicyOwnerTable" prefWidth="75.0" text="ID" />
-                              <TableColumn fx:id="fullnamePolicyOwnerTable" prefWidth="145.0" text="Full Name" />
-                              <TableColumn fx:id="usernamePoilicyOwnerTable" text="Username" />
-                              <TableColumn fx:id="passwordPoilicyOwnerTable" text="Password" />
-                              <TableColumn fx:id="emailPoilicyOwnerTable" prefWidth="180.0" text="Email" />
-                              <TableColumn fx:id="phonenumberPoilicyOwnerTable" minWidth="5.0" prefWidth="125.0" text="Phone Number" />
-                              <TableColumn fx:id="addressPoilicyOwnerTable" prefWidth="195.0" text="Address" />
+                              <TableColumn fx:id="idPolicyOwnerTable" prefWidth="63.0" text="ID" />
+                              <TableColumn fx:id="fullnamePolicyOwnerTable" prefWidth="95.0" text="Full Name" />
+                              <TableColumn fx:id="usernamePoilicyOwnerTable" prefWidth="102.0" text="Username" />
+                              <TableColumn fx:id="passwordPoilicyOwnerTable" prefWidth="94.0" text="Password" />
+                              <TableColumn fx:id="emailPoilicyOwnerTable" prefWidth="155.0" text="Email" />
+                              <TableColumn fx:id="phonenumberPoilicyOwnerTable" minWidth="5.0" prefWidth="112.0" text="Phone Number" />
+                              <TableColumn fx:id="addressPoilicyOwnerTable" prefWidth="150.0" text="Address" />
+                              <TableColumn fx:id="rolePoilicyOwnerTable" prefWidth="109.0" text="Role" />
                            </columns>
                         </TableView>
                      </bottom>

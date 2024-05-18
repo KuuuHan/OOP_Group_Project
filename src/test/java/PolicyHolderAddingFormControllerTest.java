@@ -24,8 +24,7 @@ class PolicyHolderAddingFormControllerTest {
         controller.setDatabaseConnection(databaseConnection);
 
         String policyHolderID = controller.addPolicyHolder("fullname", "username", "password", "email", "phoneNumber", "address");
-        String policyOwnerID = "id_test";
-        controller.addPolicyOwner(policyOwnerID, policyHolderID);
+        String policyOwnerID = "id_test";        controller.addPolicyOwner(policyOwnerID, policyHolderID);
 
         assertNotNull(policyOwnerID, "PolicyOwnerID should not be null");
     }
