@@ -4,9 +4,7 @@ import ui.gp.Models.Role;
 import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.PolicyOwner;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,4 +57,22 @@ public class PolicyOwnerController {
         }
         return beneficiaries;
     }
+    public void deleteBeneficiary(String id) {
+        try {
+            // Delete the beneficiary from the local database
+            String query = "DELETE FROM Users WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, id);
+            int rowsAffected = statement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Beneficiary with ID: " + id + " deleted successfully from the local database.");
+            } else {
+                System.out.println("No beneficiary found with ID: " + id + " in the local database.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

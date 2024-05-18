@@ -117,6 +117,24 @@ public class OwnerHomeController {
             addressFieldInfo.setText(information[6].split(": ")[1]);
         }
     }
+    @FXML
+    public void deleteBeneficiaryButtonAction() {
+        Customer selectedBeneficiary = (Customer) policyOwnerTable.getSelectionModel().getSelectedItem();
+        if (selectedBeneficiary != null) {
+            policyOwnerController.deleteBeneficiary(selectedBeneficiary.getId());
+            populatePolicyOwnerTable();
+        } else {
+            // Show an error message if no beneficiary is selected
+            showErrorDialog("No beneficiary selected.");
+        }
+    }
+    public void showErrorDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
     public void populatePolicyOwnerTable() {
 
