@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import ui.gp.SceneController.Function.SceneUtil;
+import ui.gp.Tab.ClaimController;
 import ui.gp.View.ViewFactory;
 
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class OwnerHomeController {
     @FXML
     Button logoutButton;
     ViewFactory view = new ViewFactory();
+    ClaimController claimController = new ClaimController();
 
 
     public void bannerNameView(String username) {
@@ -49,4 +51,12 @@ public class OwnerHomeController {
     public void AddDependentButton() throws IOException {
         view.showDependentForm();
     }
+    @FXML
+    Button addItemButton;
+
+    @FXML
+    public void addItemOnClick(ActionEvent event) throws IOException {
+        claimController.addItemOnClick();
+    }
+
 }

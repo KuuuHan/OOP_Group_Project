@@ -1,30 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<fx:root fx:id="adminHomeScene" prefHeight="574.0" prefWidth="881.0" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.SceneController.Manager.AdminHomeController">
+<fx:root fx:id="adminHomeScene" prefHeight="574.0" prefWidth="881.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.SceneController.Manager.AdminHomeController">
     <children>
         <ImageView disable="true" fitHeight="73.0" fitWidth="881.0" focusTraversable="true" layoutY="-3.0" opacity="0.45" pickOnBounds="true" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <image>
@@ -244,12 +226,12 @@
                           <columns>
                               <TableColumn fx:id="viewAccountID" prefWidth="37.0" text="ID" />
                               <TableColumn prefWidth="176.0" text="Full Name" />
-                              <TableColumn fx:id="claimDateView1" minWidth="4.0" prefWidth="88.0" text="username" />
-                              <TableColumn fx:id="examDateView1" minWidth="1.0" prefWidth="113.0" text="password" />
-                              <TableColumn fx:id="claimStatusView1" prefWidth="87.0" text="role" />
-                              <TableColumn fx:id="claimInsuredPersonView1" prefWidth="153.0" text="phone number" />
-                              <TableColumn prefWidth="106.0" text="mail" />
-                              <TableColumn prefWidth="120.0" text="adress" />
+                              <TableColumn fx:id="claimDateView1" minWidth="4.0" prefWidth="88.0" text="Username" />
+                              <TableColumn fx:id="examDateView1" minWidth="1.0" prefWidth="113.0" text="Password" />
+                              <TableColumn fx:id="claimStatusView1" prefWidth="87.0" text="Role" />
+                              <TableColumn fx:id="claimInsuredPersonView1" prefWidth="153.0" text="Phone Number" />
+                              <TableColumn prefWidth="106.0" text="Mail" />
+                              <TableColumn prefWidth="120.0" text="Address" />
                           </columns>
                         </TableView>
                      </center>
