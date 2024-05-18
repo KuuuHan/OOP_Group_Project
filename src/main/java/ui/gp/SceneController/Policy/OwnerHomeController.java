@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OwnerHomeController {
+
     public TableColumn idPolicyOwnerTable;
     public TableColumn fullnamePolicyOwnerTable;
     public TableColumn usernamePoilicyOwnerTable;
@@ -58,6 +59,8 @@ public class OwnerHomeController {
     @FXML
     Button logoutButton;
     ViewFactory view;
+    private ObservableList<Customer> masterData = FXCollections.observableArrayList();
+
 
     public void initialize(PolicyOwner policyOwner, PolicyOwnerController policyOwnerController) {
         this.policyOwner = policyOwner;
@@ -94,6 +97,7 @@ public class OwnerHomeController {
     public void AddPolicyHolderButton() throws IOException {
         view.showPolicyHolderForm();
     }
+
 
     public void AddDependentButton() throws IOException {
         view.showDependentForm();

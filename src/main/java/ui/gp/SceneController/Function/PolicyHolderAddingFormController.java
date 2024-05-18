@@ -1,24 +1,24 @@
 package ui.gp.SceneController.Function;
 
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.Role;
-import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.User;
-import ui.gp.SceneController.Policy.OwnerHomeController;
-import ui.gp.View.ViewFactory;
+import ui.gp.Tab.ErrorMessageController;
 
-import java.io.Console;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 public class PolicyHolderAddingFormController {
     public TextField fullnameFieldAddPolicyHolder;
@@ -35,14 +35,31 @@ public class PolicyHolderAddingFormController {
     {
         this.databaseConnection = databaseConnection;
     }
-    public void handleSubmitButton(ActionEvent event)
-    {
+    public void handleSubmitButton(ActionEvent event) {
         String fullname = fullnameFieldAddPolicyHolder.getText();
         String username = usernameFieldAddPolicyHolder.getText();
         String password = passwordFieldAddPolicyHolder.getText();
         String email = emailFieldAddPolicyHolder.getText();
         String phoneNumber = phonenumberFieldAddPolicyHolder.getText();
         String address = addressFieldAddPolicyHolder.getText();
+
+        // Check if all fields are filled out
+        if (fullname.isEmpty() || username.isEmpty() || password.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || address.isEmpty()) {
+            showErrorDialog("All fields must be filled out.");
+            return;
+        }
+
+        // Check if the email ends with "@gmail.com"
+        if (!email.endsWith("@gmail.com")) {
+            showErrorDialog("Email must end with '@gmail.com'.");
+            return;
+        }
+
+        // Check if the phone number has exactly 10 digits
+        if (phoneNumber.length() != 10) {
+            showErrorDialog("Phone number must have exactly 10 digits.");
+            return;
+        }
 
         new Thread(() -> {
             String policyHolderID =  addPolicyHolder(fullname, username, password, email, phoneNumber, address);
@@ -100,4 +117,21 @@ public class PolicyHolderAddingFormController {
             }
         }
     }
+    private void showErrorDialog(String errorMessage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/ErrorHandling/ErrorMessage.fxml"));
+            Parent parent = fxmlLoader.load();
+            ErrorMessageController dialogController = fxmlLoader.getController();
+            dialogController.setErrorMessage(errorMessage);
+            Scene scene = new Scene(parent, 300, 200);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
