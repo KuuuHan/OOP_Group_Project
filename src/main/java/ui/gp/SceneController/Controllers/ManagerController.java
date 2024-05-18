@@ -2,6 +2,7 @@ package ui.gp.SceneController.Controllers;
 
 import ui.gp.Models.Role;
 import ui.gp.Models.Users.Customer;
+import ui.gp.Models.Users.Manager;
 import ui.gp.Models.Users.PolicyOwner;
 
 import java.sql.Connection;
@@ -10,23 +11,23 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PolicyOwnerController {
-    private PolicyOwner policyOwner;
+public class ManagerController {
+    private Manager manager;
     private Connection connection;
 
-    public PolicyOwnerController(PolicyOwner policyOwner, Connection connection) {
-        this.policyOwner = policyOwner;
+    public ManagerController(Manager manager, Connection connection) {
+        this.manager = manager;
         this.connection = connection;
     }
 
     public String retrieveInformation() {
-        return "ID: " + policyOwner.getId() + "\n" +
-                "Full Name: " + policyOwner.getFullname() + "\n" +
-                "Username: " + policyOwner.getUsername() + "\n" +
-                "Password: " + policyOwner.getPassword() + "\n" +
-                "Email: " + policyOwner.getEmail() + "\n" +
-                "Phone Number: " + policyOwner.getPhonenumber() + "\n" +
-                "Address: " + policyOwner.getAddress();
+        return "ID: " + manager.getId() + "\n" +
+                "Full Name: " + manager.getFullname() + "\n" +
+                "Username: " + manager.getUsername() + "\n" +
+                "Password: " + manager.getPassword() + "\n" +
+                "Email: " + manager.getEmail() + "\n" +
+                "Phone Number: " + manager.getPhonenumber() + "\n" +
+                "Address: " + manager.getAddress();
     }
 
 
@@ -35,12 +36,7 @@ public class PolicyOwnerController {
         List<Customer> beneficiaries = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM users WHERE id IN " +
-                    "(SELECT policyholderid FROM policyowner WHERE policyownerid = '" + policyOwner.getId() + "') " +
-                    "UNION " +
-                    "SELECT * FROM users WHERE id IN " +
-                    "(SELECT dependentid FROM policyholder WHERE policyholderid IN " +
-                    "(SELECT policyholderid FROM policyowner WHERE policyownerid = '" + policyOwner.getId() + "'))";
+            String query = "SELECT * FROM users WHERE role IN ('Policy Holder', 'Dependent');";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 Role role = Role.valueOf(resultSet.getString("role"));

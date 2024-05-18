@@ -4,10 +4,10 @@ import ui.gp.Models.*;
 
 import java.util.List;
 
-public class InsuranceManager extends Provider
+public class Manager extends Provider
 {
-    public InsuranceManager(String id, String username, String password, Role role,
-                            String fullname, String email, String phonenumber, String address)
+    public Manager(String id, String username, String password, Role role,
+                   String fullname, String email, String phonenumber, String address)
     {
         super(id, username, password, Role.Insurance_Manager, fullname, email, phonenumber, address);
     }

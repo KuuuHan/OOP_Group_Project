@@ -17,7 +17,7 @@ public class InsuranceSurveyor extends Provider
 
     }
 
-    public void proposeClaimToManager(Claim claim, InsuranceManager manager)
+    public void proposeClaimToManager(Claim claim, Manager manager)
     {
 
     }
