@@ -20,7 +20,7 @@ public class HolderHomeController {
     }
 
     @FXML
-    public void logoutCustomer(ActionEvent logoutAction) throws IOException {
+    public void logoutOwner(ActionEvent logoutAction) throws IOException {
         SceneUtil.logout(policyHolderHomeScene);
         System.out.println("Policy Holder logout");
     }
