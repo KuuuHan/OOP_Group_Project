@@ -25,4 +25,5 @@ module ui.gp {
     exports ui.gp.SceneController.Controllers;
     opens ui.gp.SceneController.Controllers to javafx.fxml;
     exports ui.gp.View;
+    opens ui.gp.Tab to javafx.fxml;
 }
