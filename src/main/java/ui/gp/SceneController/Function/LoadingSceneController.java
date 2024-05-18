@@ -15,6 +15,7 @@ public class LoadingSceneController {
     private LoadingSceneController loadingSceneController;
     @FXML
     AnchorPane loadingPane;
+
     public void openLoadingScene() {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/LoadingScreen.fxml"));
