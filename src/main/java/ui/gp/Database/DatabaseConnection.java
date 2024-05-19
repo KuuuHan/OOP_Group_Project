@@ -177,7 +177,7 @@ public class DatabaseConnection
         return role;
     }
 
-    public void performOperation() { //dummy method to simulate loading screen
+    public void performOperation() { //dummy method to simulate server loading
         openLoadingScene();
         try {
             Thread.sleep(2000);

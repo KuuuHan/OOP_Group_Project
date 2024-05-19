@@ -10,7 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ui.gp.Database.DatabaseConnection;
@@ -20,6 +22,9 @@ import ui.gp.Tab.ErrorMessageController;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class DependentAddingFormController
 {
@@ -30,34 +35,34 @@ public class DependentAddingFormController
     public TextField emailFieldDependent;
     public TextField phonenumberFieldDependent;
     public TextField addressFieldDependent;
-    public ChoiceBox<String> policyHolderChoiceBoxDependent;
+    public ComboBox<String> policyHolderChoiceBoxDependent;
     public Button submitButtonAddDependent;
+    private String policyHolderID;
     private DatabaseConnection databaseConnection;
+    private String policyOwnerID;
+
+    @FXML
+    public void initialize(){
+        Session session = Session.getInstance();
+        User user = session.getUser();
+        String policyOwnerID = user.getId();
+        loadPolicyHolderIDs(policyOwnerID);
+    }
+
+    private void loadPolicyHolderIDs(String policyOwnerID) {
+        new Thread(() -> {
+            List<String> policyHolderIDs = getPolicyHolderIDsLinkedWithOwner(policyOwnerID);
+            Platform.runLater(() -> {
+                ObservableList<String> policyHolderIDsObservable = FXCollections.observableArrayList(policyHolderIDs);
+                policyHolderChoiceBoxDependent.setItems(policyHolderIDsObservable);
+            });
+        }).start();
+    }
 
     public void setDatabaseConnection(DatabaseConnection databaseConnection)
     {
         this.databaseConnection = databaseConnection;
     }
-
-//    @FXML
-//    public void initialize() {
-//        ObservableList<String> policyHolderNames = FXCollections.observableArrayList();
-//
-//        try {
-//            Connection connection = databaseConnection.getConnection();
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery("SELECT fullname FROM Users WHERE role = 'Policy_Holder'");
-//
-//            while (resultSet.next()) {
-//                policyHolderNames.add(resultSet.getString("fullname"));
-//            }
-//
-//            policyHolderBoxDependent.setItems(policyHolderNames);
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public void handleDependentSubmitButton(ActionEvent event)
     {
@@ -75,9 +80,9 @@ public class DependentAddingFormController
             return;
         }
 
-        // Check if the email ends with "@gmail.com"
-        if (!email.endsWith("@gmail.com")) {
-            showErrorDialog("Email must end with '@gmail.com'.");
+        // Check if the email ends with "@XXX.XXX"
+        if (!isValidEmailDomain(email)) {
+            showErrorDialog("Email invalid");
             return;
         }
 
@@ -89,15 +94,18 @@ public class DependentAddingFormController
 
         new Thread(() -> {
             String dependentID = addDependent(fullname, username, password, email, phoneNumber, address, policyHolder);
-            Session session = Session.getInstance();
-            User user = session.getUser();
-            String policyOwnerID = user.getId();
-            addPolicyHolder(policyOwnerID, dependentID);
+            addPolicyHolder(dependentID, policyHolderID);
             Platform.runLater(() -> {
                 Stage stage = (Stage) submitButtonAddDependent.getScene().getWindow();
                 stage.close();
             });
         }).start();
+    }
+
+    private boolean isValidEmailDomain(String email) {
+        // Regex pattern to check if email ends with "@XXX.XXX"
+        String emailPattern = "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$";
+        return Pattern.matches(emailPattern, email);
     }
 
     private void showErrorDialog(String errorMessage) {
@@ -121,8 +129,9 @@ public class DependentAddingFormController
     {
         String id = null;
         try {
-            String query = "INSERT INTO Users (fullname, username, password, email, phoneNumber, address,role) VALUES ( ?, ?, ?, ?, ?, ?,?)";
-            PreparedStatement statement = databaseConnection.getConnection().prepareStatement(query);
+            String query = "INSERT INTO Users (fullname, username, password, email, phoneNumber, address, role) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
+//            String policyHolderID = policyHolderChoiceBoxDependent.getSelectionModel().getSelectedItem();
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
 
             statement.setString(1, fullname);
             statement.setString(2, username);
@@ -133,8 +142,8 @@ public class DependentAddingFormController
             statement.setString(7, String.valueOf(Role.Dependent));
 
             statement.executeUpdate();
-            Statement idStatement = databaseConnection.getConnection().createStatement();
-            ResultSet rs = idStatement.executeQuery("SELECT id FROM Users WHERE username = '" + username + "'"); //Auto generated ID
+            Statement idStatement = DatabaseConnection.getInstance().getConnection().createStatement();
+            ResultSet rs = idStatement.executeQuery("SELECT id FROM Users WHERE username = '" + username + "'");
             if (rs.next()) {
                 id = rs.getString(1);
                 System.out.println(id);
@@ -148,10 +157,10 @@ public class DependentAddingFormController
     public void addPolicyHolder(String dependentID, String policyHolderID) {
         try {
             String query = "INSERT INTO policyholder (dependentid, policyholderid) VALUES ( ?, ?)";
-            PreparedStatement statement = databaseConnection.getConnection().prepareStatement(query);
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
 
             statement.setString(1, dependentID);
-            statement.setString(2, policyHolderID);
+            statement.setString(2, policyHolderID); // cho nay la id cua policyholder
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -159,6 +168,37 @@ public class DependentAddingFormController
             {
             }
         }
+    }
+
+    public List<String> getPolicyHolderIDsLinkedWithOwner(String policyOwnerID) {
+        List<String> policyHolderIDs = new ArrayList<>();
+        try {
+//            String query = "SELECT Users.id FROM Users JOIN policyHolder ON Users.id = policyHolder.id WHERE policyOwner.id = ?";
+            String query = "SELECT policyholderid FROM policyowner WHERE policyownerid = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, policyOwnerID);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                policyHolderIDs.add(rs.getString("policyholderid"));
+                System.out.println(rs.getString("policyholderid"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return policyHolderIDs;
+    }
+
+    public void policyHolderComboBox(ActionEvent event) {
+//        String policyHolder = policyHolderChoiceBoxDependent.getSelectionModel().getSelectedItem();
+//        List<String> policyHolderIDs = getPolicyHolderIDsLinkedWithOwner(policyOwnerID);
+//
+//        for (String id : policyHolderIDs) {
+//            if (policyHolder.equals(id)) {
+//                policyHolderID = id;
+//                break;
+//            }
+//        }
+        policyHolderID = policyHolderChoiceBoxDependent.getSelectionModel().getSelectedItem();
     }
 }
 

@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -41,7 +41,6 @@
       <TextField fx:id="phonenumberFieldDependent" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <TextField fx:id="addressFieldDependent" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="312.0" text="Policy Holder" GridPane.rowIndex="7" />
-      <ChoiceBox fx:id="policyHolderChoiceBoxDependent" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <VBox alignment="TOP_RIGHT" maxWidth="-Infinity" prefHeight="44.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
          <children>
             <Button fx:id="submitButtonAddDependent" mnemonicParsing="false" onAction="#handleDependentSubmitButton" text="Submit" />
@@ -62,5 +61,6 @@
          </GridPane.margin>
       </Label>
       <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="126.0" prefWidth="342.0" text="Fill in these information to add your dependent!" GridPane.columnIndex="1" />
+      <ComboBox fx:id="policyHolderChoiceBoxDependent" onAction="#policyHolderComboBox" prefHeight="25.0" prefWidth="251.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
    </children>
 </GridPane>
