@@ -178,7 +178,7 @@ public class ManagerHomeController {
     @FXML
     public void handleProfileTabSelection() {
         if (managerInfoTab.isSelected()) {
-            String[] information = ManagerController.retrieveInformation().split("\n");
+            String[] information = managerController.retrieveInformation().split("\n");
             managerID.setText(information[0].split(": ")[1]);
             managerName.setText(information[1].split(": ")[1]);
             managerUser.setText(information[2].split(": ")[1]);
