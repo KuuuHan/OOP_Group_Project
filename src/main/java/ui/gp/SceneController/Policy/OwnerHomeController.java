@@ -72,6 +72,7 @@ public class OwnerHomeController {
 
 
     public void initialize(PolicyOwner policyOwner, PolicyOwnerController policyOwnerController) {
+        bannerNameView(policyOwner.getFullname());
         this.policyOwner = policyOwner;
         this.policyOwnerController = policyOwnerController;
         if (infoTab.isSelected()) {
@@ -218,7 +219,7 @@ public class OwnerHomeController {
     }
 
     public void bannerNameView(String username) {
-        welcomeBannerUser.setText("Welcome " + username);
+        welcomeBannerUser.setText("Welcome " + username + "!");
     }
 
     @FXML
@@ -281,16 +282,19 @@ public class OwnerHomeController {
 
     @FXML
     public void onFilterBox(ActionEvent event) {
-        switch (filterBeneficiaryBox.getSelectionModel().getSelectedItem()){
-            case "All":
-                SceneUtil.itemFilter(items, ownerHomeTable);
-                break;
-            case "Policy Holder":
-                SceneUtil.itemFilter(SceneUtil.getPHItemList(), ownerHomeTable);
-                break;
-            case "Dependent":
-                SceneUtil.itemFilter(SceneUtil.getDependentItemList(), ownerHomeTable);
-                break;
+        String filter = filterBeneficiaryBox.getSelectionModel().getSelectedItem();
+        if (filter != null) {
+            if (filter.equals("All")) {
+                policyOwnerTable.setItems(FXCollections.observableArrayList(policyOwnerController.retrieveBeneficiaries()));
+            } else {
+                ObservableList<Customer> filteredData = FXCollections.observableArrayList();
+                for (Customer customer : policyOwnerController.retrieveBeneficiaries()) {
+                    if (customer.getRole().name().equals(filter.replace(" ", "_"))) {
+                        filteredData.add(customer);
+                    }
+                }
+                policyOwnerTable.setItems(filteredData);
+            }
         }
     }
 
