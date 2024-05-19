@@ -80,9 +80,9 @@ public class DependentAddingFormController
             return;
         }
 
-        // Check if the email ends with "@XXX.XXX"
-        if (!isValidEmailDomain(email)) {
-            showErrorDialog("Email invalid");
+        // Check if the email ends with "@gmail.com"
+        if (!email.endsWith("@gmail.com")) {
+            showErrorDialog("Email must end with '@gmail.com'.");
             return;
         }
 
@@ -100,12 +100,6 @@ public class DependentAddingFormController
                 stage.close();
             });
         }).start();
-    }
-
-    private boolean isValidEmailDomain(String email) {
-        // Regex pattern to check if email ends with "@XXX.XXX"
-        String emailPattern = "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$";
-        return Pattern.matches(emailPattern, email);
     }
 
     private void showErrorDialog(String errorMessage) {
