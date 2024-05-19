@@ -178,7 +178,7 @@ public class DatabaseConnection
         return role;
     }
 
-    public void performOperation() { //dummy method to simulate loading screen
+    public void performOperation() { //dummy method to simulate server loading
         openLoadingScene();
         try {
             Thread.sleep(2000);
@@ -219,7 +219,7 @@ public class DatabaseConnection
                         user = new InsuranceSurveyor(id, username, password, role, fullname, email, phoneNumber, address);
                         break;
                     case Insurance_Manager:
-                        user = new InsuranceManager(id, username, password, role, fullname, email, phoneNumber, address);
+                        user = new Manager(id, username, password, role, fullname, email, phoneNumber, address);
                         break;
                     case Policy_Holder:
                         user = new PolicyHolder(id, username, password, role, fullname, email, phoneNumber, address);

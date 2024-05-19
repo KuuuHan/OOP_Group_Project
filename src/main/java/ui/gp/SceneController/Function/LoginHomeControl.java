@@ -76,7 +76,7 @@ public class LoginHomeControl {
                             view.showPolicyHolderWindow(user, homeScene);
                             break;
                         case Insurance_Manager:
-                            view.showInsuranceManagerWindow(user, homeScene);
+                            view.showManagerWindow(user, homeScene);
                             break;
                         case Insurance_Surveyor:
                             view.showInsuranceSurveyorWindow(user, homeScene);

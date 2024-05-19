@@ -22,8 +22,11 @@ import ui.gp.View.ViewFactory;
 import ui.gp.Database.DatabaseConnection;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class OwnerHomeController {
 
@@ -53,6 +56,7 @@ public class OwnerHomeController {
     public Button updateBeneficiaryButton;
     public Button showInfoBeneficiaryButton;
     public ComboBox filterBeneficiaryBox;
+    private Customer selectedBeneficiary;
     public Tab infoTab;
     @FXML
     Label welcomeBannerUser;
@@ -73,14 +77,100 @@ public class OwnerHomeController {
         BeneficiaryTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 populatePolicyOwnerTable();
+                deleteBeneficiaryButton.setDisable(true);
+                showInfoBeneficiaryButton.setDisable(true);
+                updateBeneficiaryButton.setDisable(true);
             }
         });
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+
+        policyOwnerTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedBeneficiary = (Customer) newSelection;
+                deleteBeneficiaryButton.setDisable(false);
+                showInfoBeneficiaryButton.setDisable(false);
+                updateBeneficiaryButton.setDisable(false);
+            } else {
+                deleteBeneficiaryButton.setDisable(true);
+                showInfoBeneficiaryButton.setDisable(true);
+                updateBeneficiaryButton.setDisable(true);
+            }
+        });
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
             populatePolicyOwnerTable();
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+
     }
+
+    public void DeleteBeneficiaryButton()
+    {
+        if (selectedBeneficiary != null) {
+            policyOwnerTable.getSelectionModel().clearSelection();
+            deleteBeneficiaryButton.setDisable(true);
+            showInfoBeneficiaryButton.setDisable(true);
+            updateBeneficiaryButton.setDisable(true);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Your Deletion");
+            alert.setHeaderText("Delete Beneficiary");
+            alert.setContentText("Are you sure you want to delete this beneficiary?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                deleteBeneficiary(selectedBeneficiary);
+                populatePolicyOwnerTable();
+            }
+        }
+    }
+
+    private void deleteBeneficiary(Customer selectedBeneficiary) {
+        try {
+            Thread deleteThread = new Thread(() -> {
+                try {
+                    String userQuery = "DELETE FROM Users WHERE id = ?";
+                    try (PreparedStatement userStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(userQuery)) {
+                        userStatement.setString(1, selectedBeneficiary.getId());
+                        userStatement.executeUpdate();
+
+                    }
+
+                    if (selectedBeneficiary.getRole().name().equals("Dependent")) {
+                        String dependentQuery = "DELETE FROM policyholder WHERE dependentid = ?";
+                        try (PreparedStatement dependentStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(dependentQuery)) {
+                            dependentStatement.setString(1, selectedBeneficiary.getId());
+                            dependentStatement.executeUpdate();
+                        }
+                    } else {
+                        String dependentQuery2 = "DELETE FROM Users WHERE id IN (SELECT dependentid FROM policyholder WHERE policyholderid = ?)";
+                        try (PreparedStatement dependentStatement2 = DatabaseConnection.getInstance().getConnection().prepareStatement(dependentQuery2)) {
+                            dependentStatement2.setString(1, selectedBeneficiary.getId());
+                            dependentStatement2.executeUpdate();
+                        }
+                        String policyholderQuery = "DELETE FROM policyowner WHERE policyholderid = ?";
+                        try (PreparedStatement policyholderStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(policyholderQuery)) {
+                            policyholderStatement.setString(1, selectedBeneficiary.getId());
+                            policyholderStatement.executeUpdate();
+                        }
+
+                        String dependentQuery = "DELETE FROM policyholder WHERE policyholderid = ?";
+                        try (PreparedStatement dependentStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(dependentQuery)) {
+                            dependentStatement.setString(1, selectedBeneficiary.getId());
+                            dependentStatement.executeUpdate();
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            deleteThread.start();
+            deleteThread.join();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public OwnerHomeController() {
         this.databaseConnection = DatabaseConnection.getInstance();
@@ -106,6 +196,7 @@ public class OwnerHomeController {
         ViewFactory view = new ViewFactory(databaseConnection);
         view.showDependentForm();
     }
+
 
 
     @FXML
@@ -155,6 +246,10 @@ public class OwnerHomeController {
         rolePoilicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("role"));
 
         policyOwnerTable.setItems(data);
+        if (selectedBeneficiary != null)
+        {
+            policyOwnerTable.getSelectionModel().select(selectedBeneficiary);
+        }
     }
     @FXML
     public void addItemOnClick( ) throws IOException {

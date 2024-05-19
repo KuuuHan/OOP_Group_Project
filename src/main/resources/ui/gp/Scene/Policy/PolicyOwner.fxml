@@ -148,7 +148,7 @@
                            <items>
                                <Button fx:id="addPolicyHolderButton" mnemonicParsing="false" onAction="#AddPolicyHolderButton" text="Add new policy holder" />
                                <Button fx:id="addDependentButton" mnemonicParsing="false" onAction="#AddDependentButton" text="Add new dependent" />
-                               <Button fx:id="deleteBeneficiaryButton" mnemonicParsing="false" onAction="#deleteBeneficiaryButtonAction" text="Delete beneficiary" />
+                              <Button fx:id="deleteBeneficiaryButton"  onAction="#DeleteBeneficiaryButton" prefHeight="25.0" prefWidth="113.0" text="Delete beneficiary" />
                               <Button fx:id="updateBeneficiaryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Update beneficiary" />
                               <Button fx:id="showInfoBeneficiaryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Show specific beneficiary" />
                               <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />

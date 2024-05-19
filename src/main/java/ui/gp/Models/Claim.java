@@ -1,5 +1,6 @@
 package ui.gp.Models;
 
+import javafx.scene.control.Button;
 import ui.gp.Models.Users.*;
 
 import java.util.Date;
@@ -31,5 +32,7 @@ public class Claim {
         this.receiverBankingInfo = receiverBankingInfo;
     }
 
-
+    public Date getExamDate() {
+        return examDate;
+    }
 }
