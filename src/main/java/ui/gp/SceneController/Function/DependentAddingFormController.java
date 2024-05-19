@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class DependentAddingFormController
 {
@@ -163,5 +164,29 @@ public class DependentAddingFormController
         }
     }
 
+    public List<String> getPolicyHolderIDsLinkedWithOwner(String policyOwnerID) {
+        List<String> policyHolders = new ArrayList<>();
+        try {
+            String query = "SELECT policyowner.policyholderid, Users.fullname FROM policyowner JOIN Users ON policyowner.policyholderid = Users.id WHERE policyownerid = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, policyOwnerID);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString("policyholderid");
+                String name = rs.getString("fullname");
+                String tmp = id + " - " + name;
+                policyHolders.add(tmp);
+                System.out.println(id + " - " + name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return policyHolders;
+    }
+
+
 }
+
+
+
 
