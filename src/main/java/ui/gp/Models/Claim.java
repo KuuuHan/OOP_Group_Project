@@ -9,27 +9,25 @@ import java.util.Set;
 public class Claim {
     private String id;
     private Date date;
-    private Customer insuredPerson;
+    private String insuredPerson;
     private String cardNumber;
     private Date examDate;
     private Set<String> documents;
     private double claimAmount;
     private ClaimStatus status;
-    private ReceiverBankingInfo receiverBankingInfo;
+    private String bankNumber;
 
-    public Claim(String id, Date claimDate, Customer insuredPerson, String cardNumber,
-                 Date examDate, Set<String> documents, double claimAmount,
-                 ClaimStatus status, ReceiverBankingInfo receiverBankingInfo)
+    public Claim(String id, Date claimDate, String insuredPerson,
+                 Date examDate, double claimAmount,
+                 ClaimStatus status, String bankNumber)
     {
         this.id = id;
         this.date = claimDate;
         this.insuredPerson = insuredPerson;
-        this.cardNumber = cardNumber;
         this.examDate = examDate;
-        this.documents = documents;
         this.claimAmount = claimAmount;
         this.status = status;
-        this.receiverBankingInfo = receiverBankingInfo;
+        this.bankNumber = bankNumber;
     }
 
     public Date getExamDate() {
@@ -44,16 +42,8 @@ public class Claim {
         return date;
     }
 
-    public Customer getInsuredPerson() {
+    public String getInsuredPerson() {
         return insuredPerson;
-    }
-
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public Set<String> getDocuments() {
-        return documents;
     }
 
     public double getClaimAmount() {
@@ -64,7 +54,7 @@ public class Claim {
         return status;
     }
 
-    public ReceiverBankingInfo getReceiverBankingInfo() {
-        return receiverBankingInfo;
+    public String getBankNumber() {
+        return bankNumber;
     }
 }
