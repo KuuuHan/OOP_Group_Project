@@ -79,11 +79,11 @@ public class HolderHomeController {
 //                updateBeneficiaryButton.setDisable(true);
 //            }
 //        });
-//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
 //            populatePolicyOwnerTable();
-//        }));
-//        timeline.setCycleCount(Timeline.INDEFINITE);
-//        timeline.play();
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 
 //        List<String> filterList = new ArrayList<>();
 //        filterList.add("All");
