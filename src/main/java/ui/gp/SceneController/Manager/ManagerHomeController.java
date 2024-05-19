@@ -194,14 +194,14 @@ public class ManagerHomeController {
 
         managerViewClaimTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                populateClaimTable();
+//                populateClaimTable();
             }
         });
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
             populateCustomerTable();
             populateSurveyorTable();
-            populateClaimTable();
+//            populateClaimTable();
         }));
 
 
