@@ -9,13 +9,11 @@ import javafx.stage.Stage;
 import ui.gp.ApplicationStart;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.*;
-import ui.gp.SceneController.Controllers.DependentController;
+import ui.gp.SceneController.Controllers.*;
 import ui.gp.SceneController.Function.DependentAddingFormController;
-import ui.gp.SceneController.Controllers.ManagerController;
-import ui.gp.SceneController.Controllers.PolicyHolderController;
-import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.*;
 import ui.gp.Database.DatabaseConnection;
+import ui.gp.SceneController.Manager.AdminHomeController;
 import ui.gp.SceneController.Manager.ManagerHomeController;
 import ui.gp.SceneController.Policy.DependentsHomeController;
 import ui.gp.SceneController.Policy.HolderHomeController;
@@ -150,6 +148,10 @@ public class ViewFactory {
             root = loader.load();
             Stage stage = (Stage) homeScene.getScene().getWindow();
             stage.getScene().setRoot(root);
+            AdminHomeController controller = loader.getController();
+            SystemAdmin systemAdmin = (SystemAdmin) model;
+            AdminController adminController = new AdminController(systemAdmin,databaseConnection.getConnection());
+            controller.initialize(systemAdmin, adminController);
 
         } catch (IOException e) {
             e.printStackTrace();
