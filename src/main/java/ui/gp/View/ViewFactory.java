@@ -112,6 +112,7 @@ public class ViewFactory {
         System.out.println("Login Successful");
     }
 
+
     public void showManagerWindow(User model, AnchorPane homeScene) {
         try {
             FXMLLoader loader = new FXMLLoader();

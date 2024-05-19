@@ -28,8 +28,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ClaimController
-{
+public class ClaimController {
     @FXML
     private TextField idFieldClaim;
     @FXML
@@ -66,10 +65,10 @@ public class ClaimController
     private List<Customer> beneficiariesList;
     private DatabaseConnection databaseConnection;
 
-    public void setDatabaseConnection(DatabaseConnection databaseConnection)
-    {
+    public void setDatabaseConnection(DatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
+
     @FXML
     public void onSubmit() {
         String claimDate = claimDateFieldClaim.getText();
@@ -89,7 +88,8 @@ public class ClaimController
 
         // You can use claimID for further processing if needed
     }
-//    public List<String> getPolicyHolderIDsLinkedWithOwner(String policyOwnerID) {
+
+    //    public List<String> getPolicyHolderIDsLinkedWithOwner(String policyOwnerID) {
 //        List<String> policyHolders = new ArrayList<>();
 //        try {
 //            String query = "SELECT policyowner.policyholderid, Users.fullname FROM policyowner JOIN Users ON policyowner.policyholderid = Users.id WHERE policyownerid = ?";
@@ -108,17 +108,16 @@ public class ClaimController
 //        }
 //        return policyHolders;
 //    }
-public void setBeneficiariesList(List<Customer> beneficiariesList)
-{
-    this.beneficiariesList = beneficiariesList;
-    ObservableList<String> Beneficiaries = FXCollections.observableArrayList();
-    for (Customer beneficiary : beneficiariesList) {
-        Beneficiaries.add(beneficiary.getId() + ". " + beneficiary.getFullname());
+    public void setBeneficiariesList(List<Customer> beneficiariesList) {
+        this.beneficiariesList = beneficiariesList;
+        ObservableList<String> Beneficiaries = FXCollections.observableArrayList();
+        for (Customer beneficiary : beneficiariesList) {
+            Beneficiaries.add(beneficiary.getId() + ". " + beneficiary.getFullname());
+        }
+        ClaimBeneficieryBox.setItems(Beneficiaries);
     }
-    ClaimBeneficieryBox.setItems(Beneficiaries);
-}
 
-    public String addtoclaim(String claimDate, String insuredpersonid, String cardNumber, String cardHolderid, String PolicyOwnerid, String ExpirationDate, String Amount, String bankName , String bankCardOwner, String bankNumber) {
+    public String addtoclaim(String claimDate, String insuredpersonid, String cardNumber, String cardHolderid, String PolicyOwnerid, String ExpirationDate, String Amount, String bankName, String bankCardOwner, String bankNumber) {
         String id = null;
         try {
             double claimvalue = Double.parseDouble(Amount); // Convert Amount to double
@@ -145,8 +144,7 @@ public void setBeneficiariesList(List<Customer> beneficiariesList)
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     id = generatedKeys.getString(1);
-                }
-                else {
+                } else {
                     throw new SQLException("Creating claim failed, no ID obtained.");
                 }
             }
@@ -155,6 +153,7 @@ public void setBeneficiariesList(List<Customer> beneficiariesList)
         }
         return id;
     }
+
     //List of documents
     public void updateFileNameComboBox(String newFileName) {
         fileNameComboBox.getItems().add(newFileName);
@@ -196,4 +195,40 @@ public void setBeneficiariesList(List<Customer> beneficiariesList)
         stage.setScene(scene);
         stage.show();
     }
+
+    public void retrieveClaim() {
+        try {
+            String query = "SELECT * FROM claimtable WHERE ;";;
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String claimDate = rs.getString("claimDate");
+                String insuredPerson = rs.getString("insuredperson");
+                String cardNumber = rs.getString("cardnumber");
+                String cardHolder = rs.getString("cardholder");
+                String policyOwner = rs.getString("policyOwner");
+                String expirationDate = rs.getString("expirationdate");
+                String claimAmount = rs.getString("claimamount");
+                String bankName = rs.getString("bankName");
+                String bankCardOwner = rs.getString("bankcardowner");
+                String bankCardNumber = rs.getString("bankcardnumber");
+                //OBject??
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+    }
+    public void deleteClaim(String id) {
+        try {
+            String query = "DELETE FROM claimtable WHERE id = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -6,14 +6,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
-
+import ui.gp.Database.DatabaseConnection;
 
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,12 @@ private ClaimController claimController;
 
     @FXML
     private Button prevButton;
+
+    Connection connection;
+    File file;
+    FileInputStream fis;
+    String query;
+    PreparedStatement ps;
 
     private List<File> selectedFiles;
     private int currentImageIndex = 0;
@@ -121,5 +128,18 @@ private ClaimController claimController;
             // If there is no extension, just append .pdf
             return fileName + ".pdf";
         }
+    }
+    public void Uploadpicture() throws FileNotFoundException, SQLException {
+        connection = DatabaseConnection.getInstance().getConnection();
+        for(File file : selectedFiles) {
+            fis = new FileInputStream(file);
+            query = "INSERT INTO binary_data (data, f_name, f_type) VALUES (?,?,?)";
+            ps = connection.prepareStatement(query);
+            ps.setBinaryStream(1, fis, (int) file.length());
+            ps.setString(2, file.getName());
+            ps.setString(3, ".pdf");
+            ps.executeUpdate();
+        }
+
     }
 }
