@@ -1,5 +1,6 @@
 package ui.gp.Database;
 
+import ui.gp.Models.Claim;
 import ui.gp.Models.Role;
 
 import java.sql.*;
@@ -233,4 +234,5 @@ public class DatabaseConnection
         }
         return user;
     }
+
 }

@@ -20,6 +20,8 @@ import ui.gp.Tab.ErrorMessageController;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DependentAddingFormController
 {
@@ -160,5 +162,6 @@ public class DependentAddingFormController
             }
         }
     }
+
 }
 

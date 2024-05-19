@@ -49,12 +49,6 @@ public class PolicyHolderAddingFormController {
             return;
         }
 
-        // Check if the email ends with "@gmail.com"
-        if (!email.endsWith("@gmail.com")) {
-            showErrorDialog("Email must end with '@gmail.com'.");
-            return;
-        }
-
         // Check if the phone number has exactly 10 digits
         if (phoneNumber.length() != 10) {
             showErrorDialog("Phone number must have exactly 10 digits.");
