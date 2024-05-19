@@ -110,11 +110,95 @@ public class ManagerController {
         return beneficiaries;
     }
 
-    public List<Claim> retrieveClaims() {
+    public List<Claim> retrievePendingClaims() {
         List<Claim> claims = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
             String query = "SELECT * FROM claims WHERE status IN ('Pending');";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                ClaimStatus status = ClaimStatus.valueOf(resultSet.getString("status"));
+                String holderId = resultSet.getString("holderId");
+                Claim claim = new Claim(
+                        resultSet.getString("claimId"),
+                        resultSet.getDate("claimDate"),
+                        null,
+                        resultSet.getString("insuranceNumber"),
+                        resultSet.getDate("examDate"),
+                        null,
+                        resultSet.getDouble("claimAmount"),
+                        status,
+                        null
+                );
+                claims.add(claim);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return claims;
+    }
+
+    public List<Claim> retrieveRejectedClaims() {
+        List<Claim> claims = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM claims WHERE status IN ('Rejected');";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                ClaimStatus status = ClaimStatus.valueOf(resultSet.getString("status"));
+                String holderId = resultSet.getString("holderId");
+                Claim claim = new Claim(
+                        resultSet.getString("claimId"),
+                        resultSet.getDate("claimDate"),
+                        null,
+                        resultSet.getString("insuranceNumber"),
+                        resultSet.getDate("examDate"),
+                        null,
+                        resultSet.getDouble("claimAmount"),
+                        status,
+                        null
+                );
+                claims.add(claim);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return claims;
+    }
+
+    public List<Claim> retrieveApprovedClaims() {
+        List<Claim> claims = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM claims WHERE status IN ('Approved');";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                ClaimStatus status = ClaimStatus.valueOf(resultSet.getString("status"));
+                String holderId = resultSet.getString("holderId");
+                Claim claim = new Claim(
+                        resultSet.getString("claimId"),
+                        resultSet.getDate("claimDate"),
+                        null,
+                        resultSet.getString("insuranceNumber"),
+                        resultSet.getDate("examDate"),
+                        null,
+                        resultSet.getDouble("claimAmount"),
+                        status,
+                        null
+                );
+                claims.add(claim);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return claims;
+    }
+
+    public List<Claim> retrieveClaims() {
+        List<Claim> claims = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM claims;";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 ClaimStatus status = ClaimStatus.valueOf(resultSet.getString("status"));

@@ -61,22 +61,54 @@
                               <ToolBar prefWidth="200.0" HBox.hgrow="ALWAYS">
                                 <items>
                                     <Label text="Filter" />
-                                    <ComboBox fx:id="managerClaimFilter" prefWidth="150.0" promptText="Filter Options" />
+                                    <ComboBox fx:id="managerClaimFilter" onAction="#claimDisplayComboBox" prefWidth="150.0" promptText="Filter Options" />
                                     <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
                                     <TextField fx:id="managerSearchClaim" promptText="Search Claim" />
                                     <Button fx:id="managerViewClaim" mnemonicParsing="false" text="View Claim" />
                                 </items>
                               </ToolBar>
-                              <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
-                                <items>
-                                  <Button fx:id="managerDeclineButton" mnemonicParsing="false" text="Decline" />
-                                    <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
-                                    <Button fx:id="managerApprovalButton" mnemonicParsing="false" text="Approve" />
-                                </items>
-                              </ToolBar>
+                              <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" />
                            </children>
                         </HBox>
                      </top>
+                        </BorderPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="managerViewPendingClaimTab" text="View Pending claim">
+                    <content>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                            <center>
+                                <TableView fx:id="claimPendingManagerTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TableColumn fx:id="claimIDPendingManagerView" prefWidth="90.39999693632126" text="Claim ID" />
+                                        <TableColumn fx:id="insuredPeoplePendingManagerView" prefWidth="258.39991760253906" text="Insured Person" />
+                                        <TableColumn fx:id="claimAmountPendingManagerView" prefWidth="106.40008544921875" text="Claim Amount" />
+                                        <TableColumn fx:id="statusManagerPendingView" prefWidth="88.00006103515625" text="Status" />
+                                        <TableColumn fx:id="claimDatePendingManagerView" prefWidth="170.0" text="Claim Date" />
+                                        <TableColumn fx:id="examDatePendingManagerView" prefWidth="170.0" text="Exam Date" />
+                                    </columns>
+                                </TableView>
+                            </center>
+                            <top>
+                                <HBox prefHeight="30.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <ToolBar prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                            <items>
+                                                <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
+                                                <TextField fx:id="managerSearchPendingClaim" prefHeight="26.0" prefWidth="238.0" promptText="Search Claim" />
+                                                <Button fx:id="managerViewPendingClaim" mnemonicParsing="false" text="View Claim" />
+                                            </items>
+                                        </ToolBar>
+                                        <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
+                                            <items>
+                                                <Button fx:id="managerDeclineButton" mnemonicParsing="false" onAction="#DeclineClaimButton" text="Decline" />
+                                                <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
+                                                <Button fx:id="managerApprovalButton" mnemonicParsing="false" onAction="#ApproveClaimButton" text="Approve" />
+                                            </items>
+                                        </ToolBar>
+                                    </children>
+                                </HBox>
+                            </top>
                         </BorderPane>
                     </content>
                 </Tab>
@@ -137,10 +169,8 @@
                                     <children>
                                         <ToolBar prefWidth="200.0" HBox.hgrow="ALWAYS">
                                             <items>
-                                                <Label text="Filter" />
-                                                <ComboBox fx:id="managerFilterSurveyor" prefWidth="150.0" promptText="Filter Options" />
                                                 <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
-                                                <TextField fx:id="managerSearchSurveyor" promptText="Search Surveyors" />
+                                                <TextField fx:id="managerSearchSurveyor" prefHeight="26.0" prefWidth="203.0" promptText="Search Surveyors" />
                                             </items>
                                         </ToolBar>
                                         <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">

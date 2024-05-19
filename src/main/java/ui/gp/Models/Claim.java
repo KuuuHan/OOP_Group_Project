@@ -35,4 +35,36 @@ public class Claim {
     public Date getExamDate() {
         return examDate;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Customer getInsuredPerson() {
+        return insuredPerson;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public Set<String> getDocuments() {
+        return documents;
+    }
+
+    public double getClaimAmount() {
+        return claimAmount;
+    }
+
+    public ClaimStatus getStatus() {
+        return status;
+    }
+
+    public ReceiverBankingInfo getReceiverBankingInfo() {
+        return receiverBankingInfo;
+    }
 }
