@@ -14,6 +14,7 @@ import ui.gp.Models.Model;
 import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.Dependent;
 import ui.gp.Models.Users.PolicyOwner;
+import ui.gp.Models.Users.User;
 import ui.gp.SceneController.Controllers.DependentController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.SceneUtil;
@@ -55,9 +56,11 @@ public class OwnerHomeController {
     public Button deleteBeneficiaryButton;
     public Button updateBeneficiaryButton;
     public Button showInfoBeneficiaryButton;
-    public ComboBox filterBeneficiaryBox;
+    public ComboBox <String> filterBeneficiaryBox;
     private Customer selectedBeneficiary;
     public Tab infoTab;
+    private ObservableList<User> items;
+    private TableView<User> ownerHomeTable;
     @FXML
     Label welcomeBannerUser;
     @FXML
@@ -100,6 +103,13 @@ public class OwnerHomeController {
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+
+        List<String> filterList = new ArrayList<>();
+        filterList.add("All");
+        filterList.add("Policy Holder");
+        filterList.add("Dependent");
+        filterBeneficiaryBox.setItems(FXCollections.observableArrayList(filterList));
+        filterBeneficiaryBox.setValue(filterList.get(0));
 
     }
 
@@ -238,5 +248,21 @@ public class OwnerHomeController {
         ClaimController claimController = new ClaimController();
         claimController.addItemOnClick();
     }
+
+    @FXML
+    public void onFilterBox(ActionEvent event) {
+        switch (filterBeneficiaryBox.getSelectionModel().getSelectedItem()){
+            case "All":
+                SceneUtil.itemFilter(items, ownerHomeTable);
+                break;
+            case "Policy Holder":
+                SceneUtil.itemFilter(SceneUtil.getPHItemList(), ownerHomeTable);
+                break;
+            case "Dependent":
+                SceneUtil.itemFilter(SceneUtil.getDependentItemList(), ownerHomeTable);
+                break;
+        }
+    }
+
 
 }
