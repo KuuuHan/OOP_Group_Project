@@ -73,7 +73,7 @@ public class ClaimController
     @FXML
     public void onSubmit() {
         String claimDate = claimDateFieldClaim.getText();
-        String insuredPerson = insuredPersonFieldClaim.getText();
+        String insuredPerson = ClaimBeneficieryBox.getValue();
         String cardNumber = cardNumberFieldClaim.getText();
         String cardHolder = cardHolderFieldClaim.getText();
         String policyOwner = policyOwnerFieldClaim.getText();
@@ -82,8 +82,10 @@ public class ClaimController
         String bankName = bankNameFieldClaim.getText();
         String bankCardOwner = bankCardOwnerFieldClaim.getText();
         String bankCardNumber = bankCardNumberFieldClaim.getText();
+        String[] parts = insuredPerson.split("\\.");
+        String insuredPersonId = parts[0].trim(); // this will contain the part before "-"
 
-        String claimID = addtoclaim(claimDate, insuredPerson, cardNumber, cardHolder, policyOwner, expirationDate, claimAmount, bankName, bankCardOwner, bankCardNumber);
+        String claimID = addtoclaim(claimDate, insuredPersonId, cardNumber, cardHolder, policyOwner, expirationDate, claimAmount, bankName, bankCardOwner, bankCardNumber);
 
         // You can use claimID for further processing if needed
     }
@@ -111,7 +113,7 @@ public void setBeneficiariesList(List<Customer> beneficiariesList)
     this.beneficiariesList = beneficiariesList;
     ObservableList<String> Beneficiaries = FXCollections.observableArrayList();
     for (Customer beneficiary : beneficiariesList) {
-        Beneficiaries.add(beneficiary.getId() + " - " + beneficiary.getFullname());
+        Beneficiaries.add(beneficiary.getId() + ". " + beneficiary.getFullname());
     }
     ClaimBeneficieryBox.setItems(Beneficiaries);
 }
@@ -120,19 +122,19 @@ public void setBeneficiariesList(List<Customer> beneficiariesList)
         String id = null;
         try {
             double claimvalue = Double.parseDouble(Amount); // Convert Amount to double
-            String query = "INSERT INTO claimTable (claimDate, insuredPerson, cardNumber, cardHolder, policyOwnerid, expirationDate, claimAmount, bankName, bankCardOwner, bankCardNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO claimTable (claimDate, insuredPerson, cardNumber, cardHolder, expirationDate, claimAmount, bankName, bankCardOwner, bankCardNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
             PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, claimDate);
             statement.setString(2, insuredpersonid);
             statement.setString(3, cardNumber);
             statement.setString(4, cardHolderid);
-            statement.setString(5, PolicyOwnerid);
-            statement.setString(6, ExpirationDate);
-            statement.setDouble(7, claimvalue);
-            statement.setString(8, bankName);
-            statement.setString(9, bankCardOwner);
-            statement.setString(10, bankNumber);
+            statement.setString(5, cardHolderid);
+            statement.setString(5, ExpirationDate);
+            statement.setDouble(6, claimvalue);
+            statement.setString(7, bankName);
+            statement.setString(8, bankCardOwner);
+            statement.setString(9, bankNumber);
 
             int affectedRows = statement.executeUpdate();
 
