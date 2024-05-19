@@ -4,6 +4,7 @@ import ui.gp.Models.*;
 
 public abstract class User
 {
+    private static User instance;
     private String id;
     private String username;
     private String password;

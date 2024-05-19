@@ -29,6 +29,8 @@ public class PolicyOwnerController {
                 "Address: " + policyOwner.getAddress();
     }
 
+
+
     public List<Customer> retrieveBeneficiaries() {
         List<Customer> beneficiaries = new ArrayList<>();
         try {
@@ -59,4 +61,6 @@ public class PolicyOwnerController {
         }
         return beneficiaries;
     }
+
+
 }
