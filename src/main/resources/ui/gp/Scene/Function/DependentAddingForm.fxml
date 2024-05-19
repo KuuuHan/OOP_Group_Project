@@ -61,6 +61,6 @@
          </GridPane.margin>
       </Label>
       <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="126.0" prefWidth="342.0" text="Fill in these information to add your dependent!" GridPane.columnIndex="1" />
-      <ComboBox fx:id="policyHolderChoiceBoxDependent" onAction="#policyHolderComboBox" prefHeight="25.0" prefWidth="251.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <ComboBox fx:id="policyHolderChoiceBoxDependent" prefHeight="25.0" prefWidth="251.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
    </children>
 </GridPane>

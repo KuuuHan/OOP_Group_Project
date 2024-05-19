@@ -28,7 +28,6 @@ import java.util.regex.Pattern;
 
 public class DependentAddingFormController
 {
-    public TextField idFieldDependent;
     public TextField fullnameFieldDependent;
     public TextField usernameFieldDependent;
     public TextField passwordFieldDependent;
@@ -37,9 +36,7 @@ public class DependentAddingFormController
     public TextField addressFieldDependent;
     public ComboBox<String> policyHolderChoiceBoxDependent;
     public Button submitButtonAddDependent;
-    private String policyHolderID;
     private DatabaseConnection databaseConnection;
-    private String policyOwnerID;
 
     @FXML
     public void initialize(){
@@ -73,6 +70,7 @@ public class DependentAddingFormController
         String phoneNumber = phonenumberFieldDependent.getText();
         String address = addressFieldDependent.getText();
         String policyHolder = policyHolderChoiceBoxDependent.getValue();
+        String policyHolderID = policyHolder.split(" - ")[0];
 
 // Check if all fields are filled out
         if (fullname.isEmpty() || username.isEmpty() || password.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || address.isEmpty()) {
@@ -93,7 +91,7 @@ public class DependentAddingFormController
         }
 
         new Thread(() -> {
-            String dependentID = addDependent(fullname, username, password, email, phoneNumber, address, policyHolder);
+            String dependentID = addDependent(fullname, username, password, email, phoneNumber, address);
             addPolicyHolder(dependentID, policyHolderID);
             Platform.runLater(() -> {
                 Stage stage = (Stage) submitButtonAddDependent.getScene().getWindow();
@@ -119,7 +117,7 @@ public class DependentAddingFormController
 
     }
 
-    private String addDependent(String fullname, String username, String password, String email, String phoneNumber, String address, String policyHolder)
+    private String addDependent(String fullname, String username, String password, String email, String phoneNumber, String address)
     {
         String id = null;
         try {
@@ -154,7 +152,7 @@ public class DependentAddingFormController
             PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
 
             statement.setString(1, dependentID);
-            statement.setString(2, policyHolderID); // cho nay la id cua policyholder
+            statement.setString(2, policyHolderID);
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -165,34 +163,24 @@ public class DependentAddingFormController
     }
 
     public List<String> getPolicyHolderIDsLinkedWithOwner(String policyOwnerID) {
-        List<String> policyHolderIDs = new ArrayList<>();
+        List<String> policyHolders = new ArrayList<>();
         try {
-//            String query = "SELECT Users.id FROM Users JOIN policyHolder ON Users.id = policyHolder.id WHERE policyOwner.id = ?";
-            String query = "SELECT policyholderid FROM policyowner WHERE policyownerid = ?";
-            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-            statement.setString(1, policyOwnerID);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                policyHolderIDs.add(rs.getString("policyholderid"));
-                System.out.println(rs.getString("policyholderid"));
-            }
+          String query = "SELECT policyowner.policyholderid, Users.fullname FROM policyowner JOIN Users ON policyowner.policyholderid = Users.id WHERE policyownerid = ?";
+        PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+        statement.setString(1, policyOwnerID);
+        ResultSet rs = statement.executeQuery();
+        while (rs.next()) {
+            String id = rs.getString("policyholderid");
+            String name = rs.getString("fullname");
+            String tmp = id + " - " + name;
+            policyHolders.add(tmp);
+            System.out.println(id + " - " + name);
+        }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return policyHolderIDs;
+        return policyHolders;
     }
 
-    public void policyHolderComboBox(ActionEvent event) {
-//        String policyHolder = policyHolderChoiceBoxDependent.getSelectionModel().getSelectedItem();
-//        List<String> policyHolderIDs = getPolicyHolderIDsLinkedWithOwner(policyOwnerID);
-//
-//        for (String id : policyHolderIDs) {
-//            if (policyHolder.equals(id)) {
-//                policyHolderID = id;
-//                break;
-//            }
-//        }
-        policyHolderID = policyHolderChoiceBoxDependent.getSelectionModel().getSelectedItem();
-    }
 }
 
