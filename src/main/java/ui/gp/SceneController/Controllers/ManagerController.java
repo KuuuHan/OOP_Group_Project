@@ -1,9 +1,16 @@
 package ui.gp.SceneController.Controllers;
 
+<<<<<<< HEAD
 import ui.gp.Models.Claim;
 import ui.gp.Models.ClaimStatus;
 import ui.gp.Models.Role;
 import ui.gp.Models.Users.*;
+=======
+import ui.gp.Models.Role;
+import ui.gp.Models.Users.Customer;
+import ui.gp.Models.Users.Manager;
+import ui.gp.Models.Users.PolicyOwner;
+>>>>>>> origin/FinalCalculateChange
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -36,7 +43,11 @@ public class ManagerController {
         List<Customer> beneficiaries = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
+<<<<<<< HEAD
             String query = "SELECT * FROM users WHERE role IN ('Policy_Holder', 'Dependent');";
+=======
+            String query = "SELECT * FROM users WHERE role IN ('Policy Holder', 'Dependent');";
+>>>>>>> origin/FinalCalculateChange
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 Role role = Role.valueOf(resultSet.getString("role"));
@@ -58,6 +69,7 @@ public class ManagerController {
         return beneficiaries;
     }
 
+<<<<<<< HEAD
     public List<Claim> retrieveClaims() {
         List<Claim> claims = new ArrayList<>();
         try {
@@ -113,5 +125,7 @@ public class ManagerController {
         return beneficiaries;
     }
 
+=======
+>>>>>>> origin/FinalCalculateChange
 
 }
