@@ -1,7 +1,5 @@
 package ui.gp.SceneController.Policy;
 
-import com.sun.javafx.charts.Legend;
-import com.sun.javafx.scene.control.SelectedCellsMap;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
