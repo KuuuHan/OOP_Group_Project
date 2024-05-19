@@ -12,14 +12,20 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.Claim;
 import ui.gp.Models.Users.*;
 import ui.gp.SceneController.Controllers.ManagerController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.SceneUtil;
+import ui.gp.Tab.ClaimController;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ManagerHomeController {
 
@@ -67,7 +73,7 @@ public class ManagerHomeController {
     private ComboBox<?> managerClaimFilter;
 
     @FXML
-    private ComboBox<?> managerCustomerFilter;
+    private ComboBox<String> managerCustomerFilter;
 
     @FXML
     private Button managerDeclineButton;
@@ -152,6 +158,8 @@ public class ManagerHomeController {
     private Manager manager;
     private ManagerController managerController;
     private String search;
+    private ClaimController claimController;
+    private final   ObservableList<Customer> dataList = FXCollections.observableArrayList();
 
 
     public void bannerNameView(String username) {
@@ -168,8 +176,14 @@ public class ManagerHomeController {
             if (newValue) {
                 populateCustomerTable();
             }
-            //refreshCustomerTable();
         });
+
+        List<String> displayComboList = new ArrayList<>();
+        displayComboList.add("All");
+        displayComboList.add("Policy Holder");
+        displayComboList.add("Dependent");
+        managerCustomerFilter.setItems(FXCollections.observableArrayList(displayComboList));
+        managerCustomerFilter.setValue(displayComboList.get(0));
 
         managerViewSurveyorTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
@@ -178,22 +192,24 @@ public class ManagerHomeController {
 
         });
 
-//        managerViewClaimTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue) {
-//                populateClaimTable();
-//            }
-//        });
+        managerViewClaimTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                populateClaimTable();
+            }
+        });
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
             populateCustomerTable();
             populateSurveyorTable();
-            //populateClaimTable();
+            populateClaimTable();
         }));
 
 
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
+
+
 
 
     @FXML
@@ -213,7 +229,7 @@ public class ManagerHomeController {
     public void populateCustomerTable() {
 
         List<Customer> beneficiaries = managerController.retrieveBeneficiaries();
-        ObservableList<Customer> data = FXCollections.observableArrayList(beneficiaries);
+        ObservableList<Customer> dataList = FXCollections.observableArrayList(beneficiaries);
 
         customerIDManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
         customerNameManagerView.setCellValueFactory(new PropertyValueFactory<>("fullname"));
@@ -222,8 +238,107 @@ public class ManagerHomeController {
         customerEmailManagerView.setCellValueFactory(new PropertyValueFactory<>("email"));
         customerAddressManagerView.setCellValueFactory(new PropertyValueFactory<>("address"));
 
-        customerManagerTable.setItems(data);
+        FilteredList<Customer> filteredData = new FilteredList<>(dataList, b -> true);
+
+            managerSearchCustomer.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate(benefeciaries -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+
+                    String lowerCaseFilter = newValue.toLowerCase();
+
+                    if (benefeciaries.getFullname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        return true;
+                    } else if (benefeciaries.getRole().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        return true;
+                    } else if (benefeciaries.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        return true;
+                    } else return false;
+                });
+            });
+
+            SortedList<Customer> sortedData = new SortedList<>(filteredData);
+
+            sortedData.comparatorProperty().bind(customerManagerTable.comparatorProperty());
+            customerManagerTable.setItems(sortedData);
     }
+
+    public void populateHolderTable() {
+
+        List<Customer> beneficiaries = managerController.retrieveHolderBeneficiaries();
+        ObservableList<Customer> dataList = FXCollections.observableArrayList(beneficiaries);
+
+        customerIDManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
+        customerNameManagerView.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+        customerRoleManagerView.setCellValueFactory(new PropertyValueFactory<>("role"));
+        customerPhoneManagerView.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
+        customerEmailManagerView.setCellValueFactory(new PropertyValueFactory<>("email"));
+        customerAddressManagerView.setCellValueFactory(new PropertyValueFactory<>("address"));
+
+        FilteredList<Customer> filteredData = new FilteredList<>(dataList, b -> true);
+
+        managerSearchCustomer.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(benefeciaries -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (benefeciaries.getFullname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (benefeciaries.getRole().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (benefeciaries.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else return false;
+            });
+        });
+
+        SortedList<Customer> sortedData = new SortedList<>(filteredData);
+
+        sortedData.comparatorProperty().bind(customerManagerTable.comparatorProperty());
+        customerManagerTable.setItems(sortedData);
+    }
+    public void populateDependentTable() {
+
+        List<Customer> beneficiaries = managerController.retrieveDependentBeneficiaries();
+        ObservableList<Customer> dataList = FXCollections.observableArrayList(beneficiaries);
+
+        customerIDManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
+        customerNameManagerView.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+        customerRoleManagerView.setCellValueFactory(new PropertyValueFactory<>("role"));
+        customerPhoneManagerView.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
+        customerEmailManagerView.setCellValueFactory(new PropertyValueFactory<>("email"));
+        customerAddressManagerView.setCellValueFactory(new PropertyValueFactory<>("address"));
+
+        FilteredList<Customer> filteredData = new FilteredList<>(dataList, b -> true);
+
+        managerSearchCustomer.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(benefeciaries -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (benefeciaries.getFullname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (benefeciaries.getRole().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (benefeciaries.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else return false;
+            });
+        });
+
+        SortedList<Customer> sortedData = new SortedList<>(filteredData);
+
+        sortedData.comparatorProperty().bind(customerManagerTable.comparatorProperty());
+        customerManagerTable.setItems(sortedData);
+    }
+
 
     public void populateSurveyorTable() {
 
@@ -260,55 +375,26 @@ public class ManagerHomeController {
         System.out.println("Insurance Manager logout");
     }
 
-    private void customerFilter() {
-        FilteredList<Customer> filteredCustomers = new FilteredList<>(customers, b -> true);
-        managerSearchCustomer.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredCustomers.setPredicate(customer -> {
-                // No search keywords
-                if (newValue.isBlank()) {
-                    return true;
-                }
 
-                String searchKeyword = newValue.toLowerCase();
+    @FXML
+    protected void customerDisplayComboBox(ActionEvent event){
+        String result = "Displayed all ";
 
-                // check for a match in customer id
-                if (customer.getId().toLowerCase().indexOf(searchKeyword) > -1) {
-                    return true;
-                }
-                // check for a match in customer name
-                else if (customer.getFullname().toLowerCase().indexOf(searchKeyword) > -1) {
-                    return true;
-                }
-                // check for a match in customer address
-                else if (customer.getAddress().toLowerCase().indexOf(searchKeyword) > -1) {
-                    return true;
-                }
-                // check for a match in customer phone number
-                else if (customer.getPhonenumber().toLowerCase().indexOf(searchKeyword) > -1) {
-                    return true;
-                }
-                // check for a match in customer type
-                else if (customer.getRole().toLowerCase().indexOf(searchKeyword) > -1) {
-                    return true;
-                }
-                // check for a match in customer username
-                else if (customer.getUsername().toLowerCase().indexOf(searchKeyword) > -1) {
-                    return true;
-                }
-                // no match is found
-                else {
-                    return false;
-                }
-            });
-        });
-        SortedList<Customer> sortedData = new SortedList<>(filteredCustomers);
-
-        sortedData.comparatorProperty().bind(customerManagerTable.comparatorProperty());
-
-        customerManagerTable.setItems(sortedData);
+        switch (managerCustomerFilter.getSelectionModel().getSelectedItem()){
+            case "All":
+                populateCustomerTable();
+                break;
+            case "Policy Holder":
+                populateHolderTable();
+                break;
+            case "Dependent":
+                populateDependentTable();
+                break;
+        }
     }
 
-    private void refreshCustomerTable(){
-        customerFilter();
+
+    public void processClaim(ActionEvent event) throws IOException {
+        claimController.processManagerClaim(event);
     }
 }

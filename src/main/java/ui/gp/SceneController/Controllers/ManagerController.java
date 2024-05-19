@@ -58,6 +58,58 @@ public class ManagerController {
         return beneficiaries;
     }
 
+    public List<Customer> retrieveHolderBeneficiaries() {
+        List<Customer> beneficiaries = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM users WHERE role IN ('Policy_Holder');";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                Role role = Role.valueOf(resultSet.getString("role"));
+                Customer beneficiary = new Customer(
+                        resultSet.getString("id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("password"),
+                        role,
+                        resultSet.getString("fullname"),
+                        resultSet.getString("email"),
+                        resultSet.getString("phonenumber"),
+                        resultSet.getString("address")
+                );
+                beneficiaries.add(beneficiary);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return beneficiaries;
+    }
+
+    public List<Customer> retrieveDependentBeneficiaries() {
+        List<Customer> beneficiaries = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM users WHERE role IN ('Dependent');";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                Role role = Role.valueOf(resultSet.getString("role"));
+                Customer beneficiary = new Customer(
+                        resultSet.getString("id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("password"),
+                        role,
+                        resultSet.getString("fullname"),
+                        resultSet.getString("email"),
+                        resultSet.getString("phonenumber"),
+                        resultSet.getString("address")
+                );
+                beneficiaries.add(beneficiary);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return beneficiaries;
+    }
+
     public List<Claim> retrieveClaims() {
         List<Claim> claims = new ArrayList<>();
         try {

@@ -101,7 +101,7 @@
                                   <ToolBar prefWidth="200.0" HBox.hgrow="ALWAYS">
                                       <items>
                                           <Label text="Filter" />
-                                          <ComboBox fx:id="managerCustomerFilter" prefWidth="150.0" promptText="Filter Options" />
+                                          <ComboBox fx:id="managerCustomerFilter" onAction="#customerDisplayComboBox" prefWidth="150.0" promptText="Filter Options" />
                                           <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
                                           <TextField fx:id="managerSearchCustomer" promptText="Search Customer" />
                                           <Button fx:id="managerViewCustomer" mnemonicParsing="false" text="View Customer" />

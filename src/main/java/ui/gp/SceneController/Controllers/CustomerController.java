@@ -9,7 +9,7 @@ public class CustomerController {
     /**
      * This function returns a list of all Regular instances in the map
      */
-    public List<PolicyHolder> getRegularList(){
+    public List<PolicyHolder> getPolicyHolderList(){
         List<PolicyHolder> result = new ArrayList<>();
         ArrayList<User> userList = new ArrayList<>();
 
@@ -25,7 +25,7 @@ public class CustomerController {
     /**
      * This function returns a list of VIP instances in the map
      */
-    public List<PolicyOwner> getVIPList(){
+    public List<PolicyOwner> getPolicyOwnerList(){
         List<PolicyOwner> result = new ArrayList<>();
         ArrayList<User> userList = new ArrayList<>();
 
@@ -41,7 +41,7 @@ public class CustomerController {
     /**
      * This function returns a list of Guest instances in the map
      */
-    public List<InsuranceSurveyor> getGuestList(){
+    public List<InsuranceSurveyor> getSurveyorList(){
         List<InsuranceSurveyor> result = new ArrayList<>();
         ArrayList<User> userList = new ArrayList<>();
 
@@ -53,5 +53,7 @@ public class CustomerController {
 
         return result;
     }
+
+
 
 }
