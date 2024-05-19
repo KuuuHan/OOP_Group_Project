@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ui.gp.ApplicationStart;
 import ui.gp.Models.Model;
+import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.Dependent;
 import ui.gp.Models.Users.PolicyOwner;
 import ui.gp.Models.Users.User;
@@ -19,9 +20,11 @@ import ui.gp.SceneController.Function.PolicyHolderAddingFormController;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.SceneController.Policy.DependentsHomeController;
 import ui.gp.SceneController.Policy.OwnerHomeController;
+import ui.gp.Tab.ClaimController;
 
 import java.io.IOException;
 import java.net.PortUnreachableException;
+import java.util.List;
 
 public class ViewFactory {
     private DatabaseConnection databaseConnection;
@@ -181,6 +184,24 @@ public class ViewFactory {
 
             DependentAddingFormController controller = loader.getController();
             controller.setDatabaseConnection(databaseConnection);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showClaimForm(List<Customer> beneficiariesList) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/ClaimAdd.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Add New Claim");
+            stage.setResizable(false);
+            stage.show();
+
+            ClaimController controller = loader.getController();
+            controller.setDatabaseConnection(databaseConnection);
+            controller.setBeneficiariesList(beneficiariesList);
         } catch (IOException e) {
             e.printStackTrace();
         }

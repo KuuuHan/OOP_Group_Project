@@ -64,12 +64,12 @@ public class ClaimController
     private ComboBox<String> fileNameComboBox;
     private PolicyOwner policyOwner;
     private List<Customer> beneficiariesList;
+    private DatabaseConnection databaseConnection;
 
-    public ClaimController(List<Customer> beneficiariesList) {
-        this.beneficiariesList = beneficiariesList;
-
+    public void setDatabaseConnection(DatabaseConnection databaseConnection)
+    {
+        this.databaseConnection = databaseConnection;
     }
-
     @FXML
     public void onSubmit() {
         String claimDate = claimDateFieldClaim.getText();
@@ -106,8 +106,9 @@ public class ClaimController
 //        }
 //        return policyHolders;
 //    }
-public void setPolicyHoldersList(List<Customer> beneficiariesList)
+public void setBeneficiariesList(List<Customer> beneficiariesList)
 {
+    this.beneficiariesList = beneficiariesList;
     ObservableList<String> Beneficiaries = FXCollections.observableArrayList();
     for (Customer beneficiary : beneficiariesList) {
         Beneficiaries.add(beneficiary.getId() + " - " + beneficiary.getFullname());
@@ -170,16 +171,6 @@ public void setPolicyHoldersList(List<Customer> beneficiariesList)
         stage.show();
     }
 
-
-
-    public void addItemOnClick() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/ClaimAdd.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-    }
     public void NotConfirmClaim(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();

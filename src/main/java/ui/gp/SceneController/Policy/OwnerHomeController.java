@@ -157,9 +157,9 @@ public class OwnerHomeController {
         policyOwnerTable.setItems(data);
     }
     @FXML
-    public void addItemOnClick(ActionEvent event) throws IOException {
-        ClaimController claimController = new ClaimController();
-        claimController.addItemOnClick();
+    public void addItemOnClick( ) throws IOException {
+        ViewFactory view = new ViewFactory(databaseConnection);
+        view.showClaimForm(policyOwnerController.retrieveBeneficiaries());
     }
 
 }
