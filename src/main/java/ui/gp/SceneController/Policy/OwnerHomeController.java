@@ -113,6 +113,36 @@ public class OwnerHomeController {
 
     }
 
+    @FXML
+    public void updateBeneficiaryButtonAction() {
+        if (selectedBeneficiary != null) {
+            policyOwnerTable.getSelectionModel().clearSelection();
+            deleteBeneficiaryButton.setDisable(true);
+            showInfoBeneficiaryButton.setDisable(true);
+            updateBeneficiaryButton.setDisable(true);
+            if (selectedBeneficiary.getRole().name().equals("Dependent")) {
+                view.showDepenentFormUpdate(selectedBeneficiary);
+            } else {
+                view.showPolicyHolderFormUpdate(selectedBeneficiary);
+            }
+        }
+    }
+
+    @FXML
+    public void showBeneficiaryButtonAction() {
+        if (selectedBeneficiary != null) {
+            policyOwnerTable.getSelectionModel().clearSelection();
+            deleteBeneficiaryButton.setDisable(true);
+            showInfoBeneficiaryButton.setDisable(true);
+            updateBeneficiaryButton.setDisable(true);
+            if (selectedBeneficiary.getRole().name().equals("Dependent")) {
+                view.showDependentInformation(selectedBeneficiary);
+            } else {
+                view.showPolicyHolderInformation(selectedBeneficiary);
+            }
+        }
+    }
+
     public void DeleteBeneficiaryButton()
     {
         if (selectedBeneficiary != null) {
