@@ -14,6 +14,7 @@ import ui.gp.Models.Users.User;
 import ui.gp.SceneController.Controllers.DependentController;
 //import ui.gp.SceneController.Function.DependentAddingFormController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
+import ui.gp.SceneController.Function.DependentAddingFormController;
 import ui.gp.SceneController.Function.PolicyHolderAddingFormController;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.SceneController.Policy.DependentsHomeController;
@@ -52,9 +53,15 @@ public class ViewFactory {
             AnchorPane root = new AnchorPane();
             loader.setRoot(root);
             root = loader.load();
+
+            DependentAddingFormController controller = loader.getController();
+            DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
+            controller.setDatabaseConnection(databaseConnection);
+
             Stage stage = (Stage) homeScene.getScene().getWindow();
             stage.getScene().setRoot(root);
-            DependentsHomeController controller = loader.getController();
+            stage.show();
+//            DependentsHomeController controller = loader.getController();
          //   Dependent dependent = model.getDependent();
         //    DependentController dependentController = new DependentController(dependent);
          //   controller.initialize(dependent, dependentController);
@@ -152,6 +159,7 @@ public class ViewFactory {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Add New Policy Holder");
+            stage.setResizable(false);
             stage.show();
 
             PolicyHolderAddingFormController controller = loader.getController();
@@ -168,9 +176,11 @@ public class ViewFactory {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Add New Dependent");
+            stage.setResizable(false);
             stage.show();
-          //  DependentAddingFormController controller = loader.getController();
-           // controller.setDatabaseConnection(databaseConnection);
+
+            DependentAddingFormController controller = loader.getController();
+            controller.setDatabaseConnection(databaseConnection);
         } catch (IOException e) {
             e.printStackTrace();
         }
