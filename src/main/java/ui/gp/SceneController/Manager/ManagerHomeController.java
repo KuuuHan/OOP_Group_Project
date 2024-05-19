@@ -4,6 +4,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,10 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import ui.gp.Models.Claim;
-import ui.gp.Models.Users.Customer;
-import ui.gp.Models.Users.InsuranceSurveyor;
-import ui.gp.Models.Users.Manager;
-import ui.gp.Models.Users.PolicyOwner;
+import ui.gp.Models.Users.*;
 import ui.gp.SceneController.Controllers.ManagerController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.SceneUtil;
@@ -23,6 +22,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class ManagerHomeController {
+
+    ObservableList<Customer> customers;
     @FXML
     private TableColumn claimAmountManagerView;
 
@@ -145,11 +146,12 @@ public class ManagerHomeController {
     @FXML
     private TableView<Customer> customerManagerTable;
     @FXML
-    private TableView<InsuranceSurveyor> surveyorManagerTable;
+    private TableView<Provider> surveyorManagerTable;
     @FXML
     private TableView<Claim> claimManagerTable;
     private Manager manager;
     private ManagerController managerController;
+    private String search;
 
 
     public void bannerNameView(String username) {
@@ -166,10 +168,29 @@ public class ManagerHomeController {
             if (newValue) {
                 populateCustomerTable();
             }
+            //refreshCustomerTable();
         });
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+
+        managerViewSurveyorTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                populateSurveyorTable();
+            }
+
+        });
+
+//        managerViewClaimTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue) {
+//                populateClaimTable();
+//            }
+//        });
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
             populateCustomerTable();
+            populateSurveyorTable();
+            //populateClaimTable();
         }));
+
+
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
@@ -204,9 +225,90 @@ public class ManagerHomeController {
         customerManagerTable.setItems(data);
     }
 
+    public void populateSurveyorTable() {
+
+        List<Provider> surveyors = managerController.retrieveSurveyor();
+        ObservableList<Provider> data = FXCollections.observableArrayList(surveyors);
+
+        surveyorIDManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
+        surveyorNameManagerView.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+        surveyorPhoneManagerView.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
+        surveyorEmailManagerView.setCellValueFactory(new PropertyValueFactory<>("email"));
+        surveyorAddressManagerView.setCellValueFactory(new PropertyValueFactory<>("address"));
+
+        surveyorManagerTable.setItems(data);
+    }
+
+    public void populateClaimTable() {
+
+        List<Claim> claims = managerController.retrieveClaims();
+        ObservableList<Claim> data = FXCollections.observableArrayList(claims);
+
+        claimIDManagerView.setCellValueFactory(new PropertyValueFactory<>("claimId"));
+        insuredPeopleManagerView.setCellValueFactory(new PropertyValueFactory<>("holderId"));
+        claimAmountManagerView.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
+        statusManagerView.setCellValueFactory(new PropertyValueFactory<>("status"));
+        claimDateManagerView.setCellValueFactory(new PropertyValueFactory<>("claimDate"));
+        examDateManagerView.setCellValueFactory(new PropertyValueFactory<>("examDate"));
+
+        claimManagerTable.setItems(data);
+    }
+
     @FXML
     public void logoutOwner(ActionEvent logoutAction) throws IOException {
         SceneUtil.logout(managerHomeScene);
         System.out.println("Insurance Manager logout");
+    }
+
+    private void customerFilter() {
+        FilteredList<Customer> filteredCustomers = new FilteredList<>(customers, b -> true);
+        managerSearchCustomer.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredCustomers.setPredicate(customer -> {
+                // No search keywords
+                if (newValue.isBlank()) {
+                    return true;
+                }
+
+                String searchKeyword = newValue.toLowerCase();
+
+                // check for a match in customer id
+                if (customer.getId().toLowerCase().indexOf(searchKeyword) > -1) {
+                    return true;
+                }
+                // check for a match in customer name
+                else if (customer.getFullname().toLowerCase().indexOf(searchKeyword) > -1) {
+                    return true;
+                }
+                // check for a match in customer address
+                else if (customer.getAddress().toLowerCase().indexOf(searchKeyword) > -1) {
+                    return true;
+                }
+                // check for a match in customer phone number
+                else if (customer.getPhonenumber().toLowerCase().indexOf(searchKeyword) > -1) {
+                    return true;
+                }
+                // check for a match in customer type
+                else if (customer.getRole().toLowerCase().indexOf(searchKeyword) > -1) {
+                    return true;
+                }
+                // check for a match in customer username
+                else if (customer.getUsername().toLowerCase().indexOf(searchKeyword) > -1) {
+                    return true;
+                }
+                // no match is found
+                else {
+                    return false;
+                }
+            });
+        });
+        SortedList<Customer> sortedData = new SortedList<>(filteredCustomers);
+
+        sortedData.comparatorProperty().bind(customerManagerTable.comparatorProperty());
+
+        customerManagerTable.setItems(sortedData);
+    }
+
+    private void refreshCustomerTable(){
+        customerFilter();
     }
 }
