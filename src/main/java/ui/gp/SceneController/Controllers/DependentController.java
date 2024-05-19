@@ -1,15 +1,14 @@
 package ui.gp.SceneController.Controllers;
 
-import ui.gp.Models.Claim;
 import ui.gp.Models.Users.Dependent;
 
-import java.util.List;
+import java.sql.Connection;
 
 public class DependentController
 {
     private Dependent dependent;
 
-    public DependentController(Dependent dependent)
+    public DependentController(Dependent dependent, Connection connection)
     {
         this.dependent = dependent;
     }

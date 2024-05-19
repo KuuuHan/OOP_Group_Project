@@ -10,7 +10,7 @@ import ui.gp.ApplicationStart;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.*;
 import ui.gp.SceneController.Controllers.DependentController;
-//import ui.gp.SceneController.Function.DependentAddingFormController;
+import ui.gp.SceneController.Function.DependentAddingFormController;
 import ui.gp.SceneController.Controllers.ManagerController;
 import ui.gp.SceneController.Controllers.PolicyHolderController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
@@ -54,18 +54,12 @@ public class ViewFactory {
             AnchorPane root = new AnchorPane();
             loader.setRoot(root);
             root = loader.load();
-
-            DependentAddingFormController controller = loader.getController();
-            DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
-            controller.setDatabaseConnection(databaseConnection);
-
             Stage stage = (Stage) homeScene.getScene().getWindow();
             stage.getScene().setRoot(root);
-            stage.show();
-//            DependentsHomeController controller = loader.getController();
-         //   Dependent dependent = model.getDependent();
-        //    DependentController dependentController = new DependentController(dependent);
-         //   controller.initialize(dependent, dependentController);
+            DependentsHomeController controller = loader.getController();
+            Dependent dependents = (Dependent) model;
+            DependentController dependentController = new DependentController(dependents,databaseConnection.getConnection());
+            controller.initialize(dependents, dependentController);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,6 +80,7 @@ public class ViewFactory {
             PolicyOwner policyOwner = (PolicyOwner) model;
             PolicyOwnerController policyOwnerController = new PolicyOwnerController(policyOwner,databaseConnection.getConnection());
             controller.initialize(policyOwner, policyOwnerController);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
