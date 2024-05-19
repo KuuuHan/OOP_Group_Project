@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<fx:root fx:id="managerHomeScene" prefHeight="574.0" prefWidth="881.0" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.SceneController.Manager.ManagerHomeController">
+    <children>
+        <ImageView disable="true" fitHeight="73.0" fitWidth="881.0" focusTraversable="true" layoutY="-3.0" opacity="0.45" pickOnBounds="true" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../../Image/baninsurance2023822154749.jpg" />
+            </image>
+        </ImageView>
+        <Label fx:id="welcomeBannerUser" layoutX="17.0" layoutY="3.0" prefHeight="57.0" prefWidth="567.0" text="Welcome! PolicyManager" wrapText="true" AnchorPane.bottomAnchor="504.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="3.0">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Label>
+        <Label layoutX="14.0" layoutY="73.0" prefHeight="57.0" prefWidth="867.0" text="Have a great day!" wrapText="true" AnchorPane.bottomAnchor="444.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="73.0">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Label>
+        <Button layoutX="800.0" layoutY="48.0" mnemonicParsing="false" onAction="#logoutOwner" prefHeight="25.0" prefWidth="69.0" text="Logout" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="40.0" />
+        <TabPane layoutY="130.0" prefHeight="444.0" prefWidth="881.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+            <tabs>
+                <Tab fx:id="managerViewClaimTab" text="View claim">
+                    <content>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                            <center>
+                                <TableView fx:id="claimManagerTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TableColumn fx:id="claimIDManagerView" prefWidth="90.39999693632126" text="Claim ID" />
+                                        <TableColumn fx:id="insuredPeopleManagerView" prefWidth="258.39991760253906" text="Insured Person" />
+                                        <TableColumn fx:id="claimAmountManagerView" prefWidth="106.40008544921875" text="Claim Amount" />
+                                        <TableColumn fx:id="statusManagerView" prefWidth="88.00006103515625" text="Status" />
+                                        <TableColumn fx:id="claimDateManagerView" prefWidth="170.0" text="Claim Date" />
+                                        <TableColumn fx:id="examDateManagerView" prefWidth="170.0" text="Exam Date" />
+                                    </columns>
+                                </TableView>
+                            </center>
+                     <top>
+                        <HBox prefHeight="30.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <ToolBar prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                <items>
+                                    <Label text="Filter" />
+                                    <ComboBox fx:id="managerClaimFilter" onAction="#claimDisplayComboBox" prefWidth="150.0" promptText="Filter Options" />
+                                    <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
+                                    <TextField fx:id="managerSearchClaim" promptText="Search Claim" />
+                                    <Button fx:id="managerViewClaim" mnemonicParsing="false" text="View Claim" />
+                                </items>
+                              </ToolBar>
+                              <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" />
+                           </children>
+                        </HBox>
+                     </top>
+                        </BorderPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="managerViewPendingClaimTab" text="View Pending claim">
+                    <content>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                            <center>
+                                <TableView fx:id="claimPendingManagerTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TableColumn fx:id="claimIDPendingManagerView" prefWidth="90.39999693632126" text="Claim ID" />
+                                        <TableColumn fx:id="insuredPeoplePendingManagerView" prefWidth="258.39991760253906" text="Insured Person" />
+                                        <TableColumn fx:id="claimAmountPendingManagerView" prefWidth="106.40008544921875" text="Claim Amount" />
+                                        <TableColumn fx:id="statusManagerPendingView" prefWidth="88.00006103515625" text="Status" />
+                                        <TableColumn fx:id="claimDatePendingManagerView" prefWidth="170.0" text="Claim Date" />
+                                        <TableColumn fx:id="examDatePendingManagerView" prefWidth="170.0" text="Exam Date" />
+                                    </columns>
+                                </TableView>
+                            </center>
+                            <top>
+                                <HBox prefHeight="30.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <ToolBar prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                            <items>
+                                                <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
+                                                <TextField fx:id="managerSearchPendingClaim" prefHeight="26.0" prefWidth="238.0" promptText="Search Claim" />
+                                                <Button fx:id="managerViewPendingClaim" mnemonicParsing="false" text="View Claim" />
+                                            </items>
+                                        </ToolBar>
+                                        <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
+                                            <items>
+                                                <Button fx:id="managerDeclineButton" mnemonicParsing="false" onAction="#DeclineClaimButton" text="Decline" />
+                                                <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
+                                                <Button fx:id="managerApprovalButton" mnemonicParsing="false" onAction="#ApproveClaimButton" text="Approve" />
+                                            </items>
+                                        </ToolBar>
+                                    </children>
+                                </HBox>
+                            </top>
+                        </BorderPane>
+                    </content>
+                </Tab>
+            <Tab fx:id="managerViewCustomerTab" text="View Customers">
+              <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                      <center>
+                          <TableView fx:id="customerManagerTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                              <columns>
+                                  <TableColumn fx:id="customerIDManagerView" prefWidth="90.39999693632126" text="ID" />
+                                  <TableColumn fx:id="customerNameManagerView" prefWidth="135.99996948242188" text="Full Name" />
+                                  <TableColumn fx:id="customerRoleManagerView" prefWidth="86.39988708496094" text="Roles" />
+                                  <TableColumn fx:id="customerPhoneManagerView" prefWidth="209.60003662109375" text="Phone Number" />
+                                  <TableColumn fx:id="customerEmailManagerView" prefWidth="163.2000732421875" text="Email" />
+                                  <TableColumn fx:id="customerAddressManagerView" prefWidth="202.39996337890625" text="Address" />
+                              </columns>
+                          </TableView>
+                      </center>
+                      <top>
+                          <HBox prefHeight="30.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                              <children>
+                                  <ToolBar prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                      <items>
+                                          <Label text="Filter" />
+                                          <ComboBox fx:id="managerCustomerFilter" onAction="#customerDisplayComboBox" prefWidth="150.0" promptText="Filter Options" />
+                                          <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
+                                          <TextField fx:id="managerSearchCustomer" promptText="Search Customer" />
+                                          <Button fx:id="managerViewCustomer" mnemonicParsing="false" text="View Customer" />
+                                      </items>
+                                  </ToolBar>
+                                  <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
+                                      <items>
+                                          <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
+                                      </items>
+                                  </ToolBar>
+                              </children>
+                          </HBox>
+                      </top>
+                  </BorderPane>
+              </content>
+            </Tab>
+                <Tab fx:id="managerViewSurveyorTab" text="View Surveyors">
+                    <content>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                            <center>
+                                <TableView fx:id="surveyorManagerTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TableColumn fx:id="surveyorIDManagerView" prefWidth="90.39999693632126" text="ID" />
+                                        <TableColumn fx:id="surveyorNameManagerView" prefWidth="135.99996948242188" text="Full Name" />
+                                        <TableColumn fx:id="surveyorPhoneManagerView" prefWidth="209.60003662109375" text="Phone Number" />
+                                        <TableColumn fx:id="surveyorEmailManagerView" prefWidth="163.2000732421875" text="Email" />
+                                        <TableColumn fx:id="surveyorAddressManagerView" prefWidth="278.39996337890625" text="Address" />
+                                    </columns>
+                                </TableView>
+                            </center>
+                            <top>
+                                <HBox prefHeight="30.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <ToolBar prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                            <items>
+                                                <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
+                                                <TextField fx:id="managerSearchSurveyor" prefHeight="26.0" prefWidth="203.0" promptText="Search Surveyors" />
+                                            </items>
+                                        </ToolBar>
+                                        <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
+                                            <items>
+                                                <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
+                                            </items>
+                                        </ToolBar>
+                                    </children>
+                                </HBox>
+                            </top>
+                        </BorderPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="managerInfoTab" onSelectionChanged="#handleProfileTabSelection" text="Your Information">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <GridPane prefHeight="405.0" prefWidth="894.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.20001220703125" minWidth="10.0" prefWidth="104.60000610351562" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="789.3999938964844" minWidth="10.0" prefWidth="789.3999938964844" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="ID" />
+                                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Full Name" GridPane.rowIndex="1" />
+                                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Username" GridPane.rowIndex="2" />
+                                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Password" GridPane.rowIndex="3" />
+                                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Email" GridPane.rowIndex="4" />
+                                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Phone Number" GridPane.rowIndex="5" />
+                                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Address" GridPane.rowIndex="6" />
+                                        <TextField fx:id="managerID" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" />
+                                        <TextField fx:id="managerName" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="managerUser" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <TextField fx:id="managerPassword" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField fx:id="managerEmail" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <TextField fx:id="managerPhone" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <TextField fx:id="managerAddress" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    </children>
+                                </GridPane>
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</fx:root>

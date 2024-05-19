@@ -1,5 +1,6 @@
 package ui.gp.Models;
 
+import javafx.scene.control.Button;
 import ui.gp.Models.Users.*;
 
 import java.util.Date;
@@ -29,5 +30,41 @@ public class Claim {
         this.claimAmount = claimAmount;
         this.status = status;
         this.receiverBankingInfo = receiverBankingInfo;
+    }
+
+    public Date getExamDate() {
+        return examDate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Customer getInsuredPerson() {
+        return insuredPerson;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public Set<String> getDocuments() {
+        return documents;
+    }
+
+    public double getClaimAmount() {
+        return claimAmount;
+    }
+
+    public ClaimStatus getStatus() {
+        return status;
+    }
+
+    public ReceiverBankingInfo getReceiverBankingInfo() {
+        return receiverBankingInfo;
     }
 }

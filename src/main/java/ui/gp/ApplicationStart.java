@@ -5,22 +5,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import ui.gp.Database.DatabaseConnection;
+import ui.gp.Models.Model;
 
 import java.io.IOException;
 
 public class ApplicationStart extends Application {
+    private DatabaseConnection databaseConnection;
+
+    @Override
+    public void init() {
+        databaseConnection = DatabaseConnection.getInstance();
+        databaseConnection.getConnection();
+    }
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(ApplicationStart.class.getResource("/ui/gp/Scene/Home.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Group Project");
-        stage.setResizable(false);
-        stage.getIcons().add(new Image(getClass().getResource("/ui/gp/appIcon/appIcon.jpeg").toExternalForm()));
-        stage.setScene(scene);
-        stage.show();
+        Model.getInstance().getView().showLoginScene();
+    }
+    @Override
+    public void stop() {
+        databaseConnection.disconnect();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

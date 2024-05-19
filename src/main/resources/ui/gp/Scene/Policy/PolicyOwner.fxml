@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root fx:id="ownerHomeScene" prefHeight="574.0" prefWidth="881.0" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.SceneController.Policy.OwnerHomeController">
+    <children>
+        <ImageView disable="true" fitHeight="73.0" fitWidth="881.0" focusTraversable="true" layoutY="-3.0" opacity="0.45" pickOnBounds="true" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../../Image/baninsurance2023822154749.jpg" />
+            </image>
+        </ImageView>
+        <Label fx:id="welcomeBannerUser" layoutX="17.0" layoutY="3.0" prefHeight="57.0" prefWidth="567.0" text="Welcome! PolicyOwner" wrapText="true" AnchorPane.bottomAnchor="504.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="3.0">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Label>
+        <Label layoutY="73.0" prefHeight="57.0" prefWidth="881.0" text="Have a great day!" wrapText="true" AnchorPane.bottomAnchor="444.0" AnchorPane.topAnchor="73.0">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+            <padding>
+                <Insets left="10.0" right="10.0" />
+            </padding>
+        </Label>
+        <Button layoutX="815.0" layoutY="48.0" mnemonicParsing="false" onAction="#logoutOwner" text="Logout" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="815.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="48.0" />
+        <TabPane layoutY="130.0" prefHeight="444.0" prefWidth="881.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+            <tabs>
+                <Tab fx:id="infoTab" onSelectionChanged="#handleProfileTabSelection" text="Your Information">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane prefHeight="386.0" prefWidth="894.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.20001220703125" minWidth="10.0" prefWidth="109.60000610351562" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="785.5999938964844" minWidth="10.0" prefWidth="785.5999938964844" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="ID" />
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Full Name" GridPane.rowIndex="1" />
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Username" GridPane.rowIndex="2" />
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Password" GridPane.rowIndex="3" />
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Email" GridPane.rowIndex="4" />
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Phone Number" GridPane.rowIndex="5" />
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Address" GridPane.rowIndex="6" />
+                              <TextField fx:id="idFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="fullnameFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="usernameFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="passwordFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="emailFiieldInfo" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="phonenumberFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="addressFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                           </children>
+                        </GridPane>
+                     </children></AnchorPane>
+                    </content>
+                </Tab>
+            <Tab fx:id="BeneficiaryTab" text="Beneficiaries Management">
+               <content>
+                  <BorderPane>
+                     <bottom>
+                        <TableView fx:id="policyOwnerTable" prefHeight="378.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                           <columns>
+                              <TableColumn fx:id="idPolicyOwnerTable" prefWidth="63.0" text="ID" />
+                              <TableColumn fx:id="fullnamePolicyOwnerTable" prefWidth="95.0" text="Full Name" />
+                              <TableColumn fx:id="usernamePoilicyOwnerTable" prefWidth="102.0" text="Username" />
+                              <TableColumn fx:id="passwordPoilicyOwnerTable" prefWidth="94.0" text="Password" />
+                              <TableColumn fx:id="emailPoilicyOwnerTable" prefWidth="155.0" text="Email" />
+                              <TableColumn fx:id="phonenumberPoilicyOwnerTable" minWidth="5.0" prefWidth="112.0" text="Phone Number" />
+                              <TableColumn fx:id="addressPoilicyOwnerTable" prefWidth="150.0" text="Address" />
+                              <TableColumn fx:id="rolePoilicyOwnerTable" prefWidth="109.0" text="Role" />
+                           </columns>
+                        </TableView>
+                     </bottom>
+                     <top>
+                        <ToolBar prefHeight="29.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                           <items>
+                               <Button fx:id="addPolicyHolderButton" mnemonicParsing="false" onAction="#AddPolicyHolderButton" text="Add new policy holder" />
+                               <Button fx:id="addDependentButton" mnemonicParsing="false" onAction="#AddDependentButton" text="Add new dependent" />
+                              <Button fx:id="deleteBeneficiaryButton"  onAction="#DeleteBeneficiaryButton" prefHeight="25.0" prefWidth="113.0" text="Delete beneficiary" />
+                              <Button fx:id="updateBeneficiaryButton" onAction="#updateBeneficiaryButtonAction" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Update beneficiary" />
+                              <Button fx:id="showInfoBeneficiaryButton" onAction="#showBeneficiaryButtonAction" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Show specific beneficiary" />
+                              <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
+                              <Label text="Filter" />
+                              <ComboBox fx:id="filterBeneficiaryBox" onAction="#onFilterBox" prefWidth="150.0" />
+                           </items>
+                        </ToolBar>
+                     </top>
+                  </BorderPane>
+               </content>
+            </Tab>
+                <Tab fx:id="ClaimManage" text="Claim Management">
+                    <content>
+                        <BorderPane>
+                     <bottom>
+                        <TableView prefHeight="378.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                          <columns>
+                            <TableColumn fx:id="idClaimPoilicyOwnerTable" prefWidth="75.0" text="ID" />
+                            <TableColumn fx:id="datePoilicyOwnerTable" prefWidth="75.0" text="Date" />
+                              <TableColumn fx:id="insuredPersonPoilicyOwnerTable" prefWidth="125.59992980957031" text="Insured Person" />
+                              <TableColumn fx:id="examDatePoilicyOwnerTable" prefWidth="100.800048828125" text="Exam Date " />
+                              <TableColumn fx:id="documentsPoilicyOwnerTable" prefWidth="88.0" text="Documents" />
+                              <TableColumn fx:id="claimAmountPoilicyOwnerTable" prefWidth="132.0" text="Claim Amount" />
+                              <TableColumn fx:id="statusPoilicyOwnerTable" prefWidth="119.99993896484375" text="Status" />
+                              <TableColumn fx:id="bankingInfoPoilicyOwnerTable" prefWidth="165.60009765625" text="Banking Info" />
+                          </columns>
+                        </TableView>
+                     </bottom>
+                     <top>
+                        <ToolBar prefHeight="29.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                          <items>
+                              <TextField fx:id="searchingClaimPolicyOwner" promptText="Searching..." />
+                              <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
+                            <Button fx:id="addClaimPoilicyOwnerButton" mnemonicParsing="false" onAction="#addItemOnClick" text="Add new claim" />
+                              <Button fx:id="deleteClaimPoilicyOwnerButton" mnemonicParsing="false" prefHeight="14.0" prefWidth="106.0" text="Delete claim" />
+                              <Button fx:id="updateClaimPoilicyOwnerButton" mnemonicParsing="false" prefHeight="9.0" prefWidth="108.0" text="Update claim" />
+                              <Button fx:id="showClaimPoilicyOwnerButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" text="Show specific claim" />
+                              <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
+                              <Label text="Filter" />
+                              <ComboBox fx:id="filterClaimPoilicyOwnerBox" prefWidth="150.0" />
+                          </items>
+                        </ToolBar>
+                     </top></BorderPane>
+                    </content>
+                </Tab>
+                <Tab text="Payment Calculation">
+                    <content>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                            <left>
+                                <VBox prefHeight="415.0" prefWidth="217.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <VBox prefHeight="242.0" prefWidth="296.0">
+                                            <children>
+                                                <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="196.0" prefWidth="296.0" text="Your Annual Payment:" textAlignment="CENTER">
+                                                    <font>
+                                                        <Font size="19.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="296.0" prefWidth="296.0">
+                                            <children>
+                                                <Label fx:id="annualPaymentNum" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="287.0" prefWidth="313.0" text="\$ 12000" textAlignment="CENTER">
+                                                    <font>
+                                                        <Font name="System Bold" size="43.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+                            </left>
+                            <right>
+                                <VBox prefHeight="415.0" prefWidth="666.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <VBox prefHeight="41.0" prefWidth="100.0">
+                                            <children>
+                                                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                                    <items>
+                                                        <TextField fx:id="claimSearch" prefHeight="25.0" prefWidth="260.0" promptText="Search Claim" />
+                                                        <Separator orientation="VERTICAL" prefHeight="10.0" prefWidth="2.0" />
+                                                        <MenuButton fx:id="statusChooseMenuBox" mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" text="Status">
+                                                            <items>
+                                                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                                                            </items>
+                                                        </MenuButton>
+                                                    </items>
+                                                </ToolBar>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="380.0" prefWidth="647.0">
+                                            <children>
+                                                <TableView fx:id="PaymentCalTable" prefHeight="377.0" prefWidth="298.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
+                                                        <TableColumn fx:id="Amount" prefWidth="138.0" text="Amount" />
+                                                        <TableColumn fx:id="Role" prefWidth="94.0" text="Role" />
+                                                        <TableColumn fx:id="ExamDate" prefWidth="129.0" text="Exam Date" />
+                                                        <TableColumn fx:id="Date" prefWidth="135.0" text="Date" />
+                                                        <TableColumn fx:id="Status" prefWidth="94.0" text="Status" />
+                                                    </columns>
+                                                </TableView>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+                            </right>
+                        </BorderPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+      <TextField layoutX="-235.0" layoutY="36.0" />
+    </children>
+</fx:root>

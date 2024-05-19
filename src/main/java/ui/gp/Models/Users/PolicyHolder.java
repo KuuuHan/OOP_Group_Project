@@ -7,16 +7,12 @@ import java.util.List;
 
 public class PolicyHolder extends Customer
 {
-    private PolicyOwner policyOwner;
-    private List <Dependent> dependents;
 
-    public PolicyHolder(String id, String username, String password, Role role, String fullname, String email, String phonenumber, String address,
-                        InsuranceCard insuranceCard, List<Claim> claims,
-                        PolicyOwner policyOwner, List<Dependent> dependents)
+
+    public PolicyHolder(String id, String username, String password, Role role, String fullname, String email, String phonenumber, String address)
     {
-        super(id, username, password, Role.Policy_Holder, fullname, email, phonenumber, address, insuranceCard, claims);
-        this.policyOwner = policyOwner;
-        this.dependents = dependents;
+        super(id, username, password, Role.Policy_Holder, fullname, email, phonenumber, address);
+
     }
 
     public void fileClaim(Claim claim)

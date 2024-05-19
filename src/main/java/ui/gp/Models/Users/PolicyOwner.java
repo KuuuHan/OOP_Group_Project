@@ -7,59 +7,26 @@ import java.util.ArrayList;
 
 public class PolicyOwner extends Customer
 {
-    private List <Customer> beneficiaries;
+    private int numberOfPolicyHolder;
+    private int numberOfDependent;
 
     public PolicyOwner(String id, String username, String password, Role role,
-                       String fullname, String email, String phonenumber, String address,
-                       List<Customer> beneficiaries)
+                       String fullname, String email, String phonenumber, String address)
     {
-        super(id, username, password, Role.Policy_Owner, fullname, email, phonenumber, address,null, null);
-        this.beneficiaries = beneficiaries;
+        super(id, username, password, Role.Policy_Owner, fullname, email, phonenumber, address);
     }
 
-    public void fileClaim(String beneficiaryId, Claim claim)
-    {
-
+    public void policyHolderCount() {
+        numberOfPolicyHolder++;
     }
 
-    public void updateClaim(String beneficiaryId, Claim claim)
-    {
-
-    }
-
-    public void deleteClaim(String beneficiaryId, String claimId)
-    {
-
-    }
-
-    public Claim retrieveClaim(String beneficiaryId, String claimId)
-    {
-
-        return null;
-    }
-
-    public void addBeneficiary(Customer beneficiary)
-    {
-
-    }
-
-    public void updateBeneficiary(String beneficiaryId, Customer updatedBeneficiary)
-    {
-
-    }
-
-    public void removeBeneficiary(String beneficiaryId)
-    {
-
-    }
-
-    public Customer getBeneficiary(String beneficiaryId)
-    {
-        return null;
+    public void dependentCount(int count) {
+        numberOfDependent = count;
     }
 
     public double calculateYearlyPayment()
     {
-        return 0;
+        return (numberOfPolicyHolder*600) * (numberOfDependent*360);
     }
+
 }

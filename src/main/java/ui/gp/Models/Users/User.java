@@ -4,6 +4,7 @@ import ui.gp.Models.*;
 
 public abstract class User
 {
+    private static User instance;
     private String id;
     private String username;
     private String password;
@@ -53,6 +54,9 @@ public abstract class User
         return password;
     }
 
+    public Role getRole() {
+        return role;
+    }
     public void setUsername(String username) {
         this.username = username;
     }
@@ -84,4 +88,5 @@ public abstract class User
     public void setId(String id) {
         this.id = id;
     }
+
 }
