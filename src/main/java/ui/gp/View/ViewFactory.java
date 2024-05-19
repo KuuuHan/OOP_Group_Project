@@ -8,19 +8,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ui.gp.ApplicationStart;
 import ui.gp.Models.Model;
-import ui.gp.Models.Users.Dependent;
-import ui.gp.Models.Users.Manager;
-import ui.gp.Models.Users.PolicyOwner;
-import ui.gp.Models.Users.User;
+import ui.gp.Models.Users.*;
 import ui.gp.SceneController.Controllers.DependentController;
 //import ui.gp.SceneController.Function.DependentAddingFormController;
 import ui.gp.SceneController.Controllers.ManagerController;
+import ui.gp.SceneController.Controllers.PolicyHolderController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
-import ui.gp.SceneController.Function.DependentAddingFormController;
-import ui.gp.SceneController.Function.PolicyHolderAddingFormController;
+import ui.gp.SceneController.Function.*;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.SceneController.Manager.ManagerHomeController;
 import ui.gp.SceneController.Policy.DependentsHomeController;
+import ui.gp.SceneController.Policy.HolderHomeController;
 import ui.gp.SceneController.Policy.OwnerHomeController;
 
 import java.io.IOException;
@@ -103,6 +101,11 @@ public class ViewFactory {
             root = loader.load();
             Stage stage = (Stage) homeScene.getScene().getWindow();
             stage.getScene().setRoot(root);
+            HolderHomeController controller = loader.getController();
+            PolicyHolder policyHolder = (PolicyHolder) model;
+            PolicyHolderController policyHolderController = new PolicyHolderController(policyHolder,databaseConnection.getConnection());
+            controller.initialize(policyHolder, policyHolderController);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -188,6 +191,84 @@ public class ViewFactory {
 
             DependentAddingFormController controller = loader.getController();
             controller.setDatabaseConnection(databaseConnection);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showPolicyHolderFormUpdate(Customer user)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/PolicyHolderUpdatingForm.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Update The Policy Holder Information");
+            stage.setResizable(false);
+            stage.show();
+            PolicyHolderUpdatingFormController controller = loader.getController();
+            controller.setDatabaseConnection(databaseConnection);
+            controller.setUser(user);
+            controller.initialise();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showPolicyHolderInformation(Customer user)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/PolicyHolderShowingForm.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Show The Policy Holder Information");
+            stage.setResizable(false);
+            stage.show();
+            PolicyHolderShowingController controller = loader.getController();
+            controller.setDatabaseConnection(databaseConnection);
+            controller.setUser(user);
+            controller.initialise();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showDepenentFormUpdate(Customer user)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/DependentUpdatingForm.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Update The Dependent Information");
+            stage.setResizable(false);
+            stage.show();
+
+            DependentUpdatingFormController controller = loader.getController();
+            controller.setDatabaseConnection(databaseConnection);
+            controller.setUser(user);
+            controller.initialise();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showDependentInformation(Customer user)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/DependentShowingForm.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Show The Dependent Information");
+            stage.setResizable(false);
+            stage.show();
+
+            DependentShowingController controller = loader.getController();
+            controller.setDatabaseConnection(databaseConnection);
+            controller.setUser(user);
+            controller.initialise();
         } catch (IOException e) {
             e.printStackTrace();
         }

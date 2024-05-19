@@ -60,4 +60,14 @@ public class PolicyHolderController {
         }
         return holderIDs;
     }
+
+    public String retrieveInformation() {
+        return "ID: " + policyHolder.getId() + "\n" +
+                "Full Name: " + policyHolder.getFullname() + "\n" +
+                "Username: " + policyHolder.getUsername() + "\n" +
+                "Password: " + policyHolder.getPassword() + "\n" +
+                "Email: " + policyHolder.getEmail() + "\n" +
+                "Phone Number: " + policyHolder.getPhonenumber() + "\n" +
+                "Address: " + policyHolder.getAddress();
+    }
 }

@@ -43,7 +43,7 @@
       <Button layoutX="800.0" layoutY="48.0" mnemonicParsing="false" onAction="#logoutOwner" prefHeight="25.0" prefWidth="69.0" text="Logout" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="40.0" />
       <TabPane layoutY="130.0" prefHeight="444.0" prefWidth="881.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
         <tabs>
-            <Tab fx:id="infoTab" text="Your Profile">
+            <Tab fx:id="infoTab" onSelectionChanged="#handleProfileTabSelection" text="Your Profile">
                 <content>
                     <GridPane>
                         <columnConstraints>

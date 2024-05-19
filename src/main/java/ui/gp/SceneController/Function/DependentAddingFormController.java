@@ -114,7 +114,6 @@ public class DependentAddingFormController
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private String addDependent(String fullname, String username, String password, String email, String phoneNumber, String address)

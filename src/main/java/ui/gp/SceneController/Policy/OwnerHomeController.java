@@ -14,6 +14,7 @@ import ui.gp.Models.Model;
 import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.Dependent;
 import ui.gp.Models.Users.PolicyOwner;
+import ui.gp.Models.Users.User;
 import ui.gp.SceneController.Controllers.DependentController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.SceneUtil;
@@ -55,9 +56,11 @@ public class OwnerHomeController {
     public Button deleteBeneficiaryButton;
     public Button updateBeneficiaryButton;
     public Button showInfoBeneficiaryButton;
-    public ComboBox filterBeneficiaryBox;
+    public ComboBox <String> filterBeneficiaryBox;
     private Customer selectedBeneficiary;
     public Tab infoTab;
+    private ObservableList<User> items;
+    private TableView<User> ownerHomeTable;
     @FXML
     Label welcomeBannerUser;
     @FXML
@@ -69,6 +72,7 @@ public class OwnerHomeController {
 
 
     public void initialize(PolicyOwner policyOwner, PolicyOwnerController policyOwnerController) {
+        bannerNameView(policyOwner.getFullname());
         this.policyOwner = policyOwner;
         this.policyOwnerController = policyOwnerController;
         if (infoTab.isSelected()) {
@@ -101,6 +105,43 @@ public class OwnerHomeController {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
+        List<String> filterList = new ArrayList<>();
+        filterList.add("All");
+        filterList.add("Policy Holder");
+        filterList.add("Dependent");
+        filterBeneficiaryBox.setItems(FXCollections.observableArrayList(filterList));
+        filterBeneficiaryBox.setValue(filterList.get(0));
+
+    }
+
+    @FXML
+    public void updateBeneficiaryButtonAction() {
+        if (selectedBeneficiary != null) {
+            policyOwnerTable.getSelectionModel().clearSelection();
+            deleteBeneficiaryButton.setDisable(true);
+            showInfoBeneficiaryButton.setDisable(true);
+            updateBeneficiaryButton.setDisable(true);
+            if (selectedBeneficiary.getRole().name().equals("Dependent")) {
+                view.showDepenentFormUpdate(selectedBeneficiary);
+            } else {
+                view.showPolicyHolderFormUpdate(selectedBeneficiary);
+            }
+        }
+    }
+
+    @FXML
+    public void showBeneficiaryButtonAction() {
+        if (selectedBeneficiary != null) {
+            policyOwnerTable.getSelectionModel().clearSelection();
+            deleteBeneficiaryButton.setDisable(true);
+            showInfoBeneficiaryButton.setDisable(true);
+            updateBeneficiaryButton.setDisable(true);
+            if (selectedBeneficiary.getRole().name().equals("Dependent")) {
+                view.showDependentInformation(selectedBeneficiary);
+            } else {
+                view.showPolicyHolderInformation(selectedBeneficiary);
+            }
+        }
     }
 
     public void DeleteBeneficiaryButton()
@@ -178,7 +219,7 @@ public class OwnerHomeController {
     }
 
     public void bannerNameView(String username) {
-        welcomeBannerUser.setText("Welcome " + username);
+        welcomeBannerUser.setText("Welcome " + username + "!");
     }
 
     @FXML
@@ -238,5 +279,24 @@ public class OwnerHomeController {
         ClaimController claimController = new ClaimController();
         claimController.addItemOnClick();
     }
+
+    @FXML
+    public void onFilterBox(ActionEvent event) {
+        String filter = filterBeneficiaryBox.getSelectionModel().getSelectedItem();
+        if (filter != null) {
+            if (filter.equals("All")) {
+                policyOwnerTable.setItems(FXCollections.observableArrayList(policyOwnerController.retrieveBeneficiaries()));
+            } else {
+                ObservableList<Customer> filteredData = FXCollections.observableArrayList();
+                for (Customer customer : policyOwnerController.retrieveBeneficiaries()) {
+                    if (customer.getRole().name().equals(filter.replace(" ", "_"))) {
+                        filteredData.add(customer);
+                    }
+                }
+                policyOwnerTable.setItems(filteredData);
+            }
+        }
+    }
+
 
 }
