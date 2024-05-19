@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import ui.gp.ApplicationStart;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.Dependent;
+import ui.gp.Models.Users.PolicyHolder;
 import ui.gp.Models.Users.PolicyOwner;
 import ui.gp.Models.Users.User;
 import ui.gp.SceneController.Controllers.DependentController;
@@ -22,6 +23,7 @@ import ui.gp.SceneController.Policy.OwnerHomeController;
 
 import java.io.IOException;
 import java.net.PortUnreachableException;
+import java.util.List;
 
 public class ViewFactory {
     private DatabaseConnection databaseConnection;
@@ -169,7 +171,7 @@ public class ViewFactory {
         }
     }
 
-    public void showDependentForm() {
+    public void showDependentForm(List<PolicyHolder>policyholders) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/DependentAddingForm.fxml"));
             Parent root = loader.load();
@@ -181,6 +183,7 @@ public class ViewFactory {
 
             DependentAddingFormController controller = loader.getController();
             controller.setDatabaseConnection(databaseConnection);
+            controller.setPolicyHoldersList(policyholders);
         } catch (IOException e) {
             e.printStackTrace();
         }

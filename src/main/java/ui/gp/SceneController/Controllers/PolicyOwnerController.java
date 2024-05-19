@@ -2,6 +2,7 @@ package ui.gp.SceneController.Controllers;
 
 import ui.gp.Models.Role;
 import ui.gp.Models.Users.Customer;
+import ui.gp.Models.Users.PolicyHolder;
 import ui.gp.Models.Users.PolicyOwner;
 
 import java.sql.Connection;
@@ -58,5 +59,32 @@ public class PolicyOwnerController {
             e.printStackTrace();
         }
         return beneficiaries;
+    }
+
+    public List<PolicyHolder> retrievePolicyHolders() {
+        List<PolicyHolder> policyholders = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM users WHERE id IN " +
+                    "(SELECT policyholderid FROM policyowner WHERE policyownerid = '" + policyOwner.getId() + "') " ;
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                Role role = Role.valueOf(resultSet.getString("role"));
+                PolicyHolder policyholder = new PolicyHolder(
+                        resultSet.getString("id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("password"),
+                        role,
+                        resultSet.getString("fullname"),
+                        resultSet.getString("email"),
+                        resultSet.getString("phonenumber"),
+                        resultSet.getString("address")
+                );
+                policyholders.add(policyholder);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return policyholders;
     }
 }

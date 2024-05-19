@@ -13,6 +13,7 @@ import javafx.util.Duration;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.Dependent;
+import ui.gp.Models.Users.PolicyHolder;
 import ui.gp.Models.Users.PolicyOwner;
 import ui.gp.SceneController.Controllers.DependentController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
@@ -103,10 +104,12 @@ public class OwnerHomeController {
 
 
     public void AddDependentButton() throws IOException {
-        ViewFactory view = new ViewFactory(databaseConnection);
-        view.showDependentForm();
+        view.showDependentForm(retrievePolicyHolders());
     }
 
+    public List<PolicyHolder> retrievePolicyHolders() {
+        return policyOwnerController.retrievePolicyHolders();
+    }
 
     @FXML
     public void handleProfileTabSelection() {

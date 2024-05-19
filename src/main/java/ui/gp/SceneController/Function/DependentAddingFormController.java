@@ -15,11 +15,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.Role;
+import ui.gp.Models.Users.PolicyHolder;
 import ui.gp.Models.Users.User;
 import ui.gp.Tab.ErrorMessageController;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.List;
+import java.util.Map;
 
 public class DependentAddingFormController
 {
@@ -33,31 +36,22 @@ public class DependentAddingFormController
     public ChoiceBox<String> policyHolderChoiceBoxDependent;
     public Button submitButtonAddDependent;
     private DatabaseConnection databaseConnection;
+    private List<PolicyHolder> policyholders;
+    private Map<String,String> policyHolderMap;
 
     public void setDatabaseConnection(DatabaseConnection databaseConnection)
     {
         this.databaseConnection = databaseConnection;
     }
 
-//    @FXML
-//    public void initialize() {
-//        ObservableList<String> policyHolderNames = FXCollections.observableArrayList();
-//
-//        try {
-//            Connection connection = databaseConnection.getConnection();
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery("SELECT fullname FROM Users WHERE role = 'Policy_Holder'");
-//
-//            while (resultSet.next()) {
-//                policyHolderNames.add(resultSet.getString("fullname"));
-//            }
-//
-//            policyHolderBoxDependent.setItems(policyHolderNames);
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public void setPolicyHoldersList(List<PolicyHolder> policyholders)
+    {
+        ObservableList<String> policyHolderNames = FXCollections.observableArrayList();
+        for (PolicyHolder policyHolder : policyholders) {
+            policyHolderNames.add(policyHolder.getId() + " - " + policyHolder.getFullname());
+        }
+        policyHolderChoiceBoxDependent.setItems(policyHolderNames);
+    }
 
     public void handleDependentSubmitButton(ActionEvent event)
     {
@@ -67,7 +61,8 @@ public class DependentAddingFormController
         String email = emailFieldDependent.getText();
         String phoneNumber = phonenumberFieldDependent.getText();
         String address = addressFieldDependent.getText();
-        String policyHolder = policyHolderChoiceBoxDependent.getValue();
+        String policyHolde = policyHolderChoiceBoxDependent.getValue();
+        String policyHolderID = policyHolde.split(" - ")[0];
 
 // Check if all fields are filled out
         if (fullname.isEmpty() || username.isEmpty() || password.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || address.isEmpty()) {
@@ -88,11 +83,8 @@ public class DependentAddingFormController
         }
 
         new Thread(() -> {
-            String dependentID = addDependent(fullname, username, password, email, phoneNumber, address, policyHolder);
-            Session session = Session.getInstance();
-            User user = session.getUser();
-            String policyOwnerID = user.getId();
-            addPolicyHolder(policyOwnerID, dependentID);
+            String dependentID = addDependent(fullname, username, password, email, phoneNumber, address);
+            addPolicyHolder(dependentID, policyHolderID);
             Platform.runLater(() -> {
                 Stage stage = (Stage) submitButtonAddDependent.getScene().getWindow();
                 stage.close();
@@ -117,7 +109,7 @@ public class DependentAddingFormController
 
     }
 
-    private String addDependent(String fullname, String username, String password, String email, String phoneNumber, String address, String policyHolder)
+    private String addDependent(String fullname, String username, String password, String email, String phoneNumber, String address)
     {
         String id = null;
         try {
