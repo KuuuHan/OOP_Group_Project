@@ -14,7 +14,7 @@ public class DatabaseConnection
     private static final String password = "Wataru0109911";
     private LoadingSceneController loadingSceneController;
     private static Connection connection;
-    private  static DatabaseConnection instance;
+    private static DatabaseConnection instance;
 
       private DatabaseConnection() {
           this.loadingSceneController = new LoadingSceneController();

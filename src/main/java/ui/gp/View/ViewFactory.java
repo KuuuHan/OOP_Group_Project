@@ -8,19 +8,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ui.gp.ApplicationStart;
 import ui.gp.Models.Model;
-import ui.gp.Models.Users.Customer;
-import ui.gp.Models.Users.Dependent;
-import ui.gp.Models.Users.Manager;
-import ui.gp.Models.Users.PolicyOwner;
-import ui.gp.Models.Users.User;
+import ui.gp.Models.Users.*;
 import ui.gp.SceneController.Controllers.DependentController;
 //import ui.gp.SceneController.Function.DependentAddingFormController;
 import ui.gp.SceneController.Controllers.ManagerController;
+import ui.gp.SceneController.Controllers.PolicyHolderController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.*;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.SceneController.Manager.ManagerHomeController;
 import ui.gp.SceneController.Policy.DependentsHomeController;
+import ui.gp.SceneController.Policy.HolderHomeController;
 import ui.gp.SceneController.Policy.OwnerHomeController;
 
 import java.io.IOException;
@@ -103,6 +101,11 @@ public class ViewFactory {
             root = loader.load();
             Stage stage = (Stage) homeScene.getScene().getWindow();
             stage.getScene().setRoot(root);
+            HolderHomeController controller = loader.getController();
+            PolicyHolder policyHolder = (PolicyHolder) model;
+            PolicyHolderController policyHolderController = new PolicyHolderController(policyHolder,databaseConnection.getConnection());
+            controller.initialize(policyHolder, policyHolderController);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
