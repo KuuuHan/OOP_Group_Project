@@ -34,13 +34,13 @@ public class PolicyHolderUpdatingFormController {
     public TextField IDFieldAddPolicyHolder1;
     public Button submitButtonAddPolicyOwner;
     private DatabaseConnection databaseConnection;
-    private Customer user;
+    private User user;
     public void setDatabaseConnection(DatabaseConnection databaseConnection)
     {
         this.databaseConnection = databaseConnection;
     }
 
-    public void setUser(Customer user)
+    public void setUser(User user)
     {
         this.user = user;
     }

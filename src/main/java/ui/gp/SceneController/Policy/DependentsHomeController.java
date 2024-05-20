@@ -1,11 +1,14 @@
 package ui.gp.SceneController.Policy;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import ui.gp.Models.Users.Dependent;
 import ui.gp.SceneController.Controllers.DependentController;
 import ui.gp.SceneController.Function.LoadingSceneController;
@@ -44,6 +47,13 @@ public class DependentsHomeController {
     public void initialize(Dependent dependent, DependentController dependentController) {
         this.dependent = dependent;
         this.dependentController = dependentController;
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
+//            populatePolicyOwnerTable();
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
     }
     public void bannerNameView(String username) {
         welcomeBannerUser.setText("Welcome " + username);
