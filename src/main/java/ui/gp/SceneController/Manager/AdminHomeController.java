@@ -82,10 +82,6 @@ public class AdminHomeController {
     @FXML
     Button showDetailButton;
     @FXML
-    Button profileSave;
-    @FXML
-    Button profileReset;
-    @FXML
     private Tab smallClaimTab;
     @FXML
     private TextField smallClaimSearch;

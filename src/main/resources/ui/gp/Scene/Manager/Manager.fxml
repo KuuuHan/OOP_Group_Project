@@ -234,6 +234,20 @@
                         </BorderPane>
                     </content>
                 </Tab>
+                <Tab fx:id="hIstoryRecord" text="History Record">
+                    <content>
+                        <BorderPane>
+                            <center>
+                                <TableView fx:id="historyRecordID" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TableColumn prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="actionNameID" prefWidth="805.0" text="Action Name " />
+                                    </columns>
+                                </TableView>
+                            </center>
+                        </BorderPane>
+                    </content>
+                </Tab>
             </tabs>
         </TabPane>
     </children>
