@@ -1,11 +1,24 @@
 package ui.gp.SceneController.Controllers;
 
+import ui.gp.Models.Role;
 import ui.gp.Models.Users.*;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerController {
+
+    private Customer customer;
+    private Connection connection;
+
+    public CustomerController(Customer customer, Connection connection) {
+        this.customer = customer;
+        this.connection = connection;
+    }
     /**
      * This function returns a list of all Regular instances in the map
      */
