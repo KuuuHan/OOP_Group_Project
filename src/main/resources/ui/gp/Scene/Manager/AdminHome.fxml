@@ -4,8 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -127,32 +125,31 @@
                      </children>
                   </VBox>
                     </content></Tab>
-            <Tab fx:id="ClaimManage" text="Claim View">
+            <Tab fx:id="claimViewTab" text="Claim View">
                <content>
                   <BorderPane>
                      <bottom>
-                        <TableView prefHeight="445.0" prefWidth="881.0" BorderPane.alignment="CENTER">
+                        <TableView fx:id="adminClaimTable" prefHeight="445.0" prefWidth="881.0" BorderPane.alignment="CENTER">
                            <columns>
-                              <TableColumn fx:id="idClaimPoilicyOwnerTable" prefWidth="75.0" text="ID" />
-                              <TableColumn fx:id="datePoilicyOwnerTable" prefWidth="75.0" text="Date" />
-                              <TableColumn fx:id="insuredPersonPoilicyOwnerTable" prefWidth="125.59992980957031" text="Insured Person" />
-                              <TableColumn fx:id="examDatePoilicyOwnerTable" prefWidth="100.800048828125" text="Exam Date " />
-                              <TableColumn fx:id="documentsPoilicyOwnerTable" prefWidth="88.0" text="Documents" />
-                              <TableColumn fx:id="claimAmountPoilicyOwnerTable" prefWidth="132.0" text="Claim Amount" />
-                              <TableColumn fx:id="statusPoilicyOwnerTable" prefWidth="119.99993896484375" text="Status" />
-                              <TableColumn fx:id="bankingInfoPoilicyOwnerTable" prefWidth="165.60009765625" text="Banking Info" />
+                              <TableColumn fx:id="adminClaimId" prefWidth="97.60000914335251" text="ID" />
+                              <TableColumn fx:id="adminClaimDate" prefWidth="113.60000610351562" text="Claim Date" />
+                              <TableColumn fx:id="adminInsuredPerson" prefWidth="123.19999694824219" text="Insured Person" />
+                              <TableColumn fx:id="adminExamDate" prefWidth="117.60003662109375" text="Exam Date " />
+                              <TableColumn fx:id="adminClaimAmount" prefWidth="108.0" text="Claim Amount" />
+                              <TableColumn fx:id="adminClaimStatus" prefWidth="100.0" text="Status" />
+                              <TableColumn fx:id="adminInsuranceNumber" prefWidth="221.60003662109375" text="Insurance Card Number" />
                            </columns>
                         </TableView>
                      </bottom>
                      <top>
                         <ToolBar prefHeight="29.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                            <items>
-                              <TextField fx:id="searchingClaimPolicyOwner" prefHeight="25.0" prefWidth="425.0" promptText="Searching..." />
+                              <TextField fx:id="claimAdminSearch" prefHeight="25.0" prefWidth="425.0" promptText="Searching..." />
                               <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
-                              <Button fx:id="showClaimPoilicyOwnerButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" text="Show specific claim" />
+                              <Button fx:id="showClaimButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" text="Show specific claim" />
                               <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
                               <Label text="Filter" />
-                              <ComboBox prefHeight="25.0" prefWidth="263.0" />
+                              <ComboBox fx:id="claimFilter" onAction="#onBigStatusFilterBox" prefHeight="25.0" prefWidth="263.0" promptText="Status" />
                            </items>
                         </ToolBar>
                      </top>
@@ -193,7 +190,7 @@
                   </BorderPane>
                </content>
             </Tab>
-            <Tab text="Claim Report">
+            <Tab fx:id="smallClaimTab" text="Claim Report">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="200.0">
                      <left>
@@ -210,7 +207,7 @@
                               </VBox>
                               <VBox prefHeight="296.0" prefWidth="296.0">
                                  <children>
-                                    <Label fx:id="annualPaymentNum" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="287.0" prefWidth="313.0" text="120" textAlignment="CENTER">
+                                    <Label fx:id="totalClaimNumber" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="287.0" prefWidth="313.0" textAlignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="43.0" />
                                        </font>
@@ -227,28 +224,23 @@
                                  <children>
                                     <ToolBar prefHeight="40.0" prefWidth="200.0">
                                        <items>
-                                          <TextField fx:id="claimSearch" prefHeight="25.0" prefWidth="260.0" promptText="Search Claim" />
+                                          <TextField fx:id="smallClaimSearch" prefHeight="25.0" prefWidth="260.0" promptText="Search Claim" />
                                           <Separator orientation="VERTICAL" prefHeight="10.0" prefWidth="2.0" />
-                                          <MenuButton fx:id="statusChooseMenuBox" mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" text="Status">
-                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Action 1" />
-                                                <MenuItem mnemonicParsing="false" text="Action 2" />
-                                             </items>
-                                          </MenuButton>
+                                          <ComboBox fx:id="smallStatusFilter" onAction="#onSmallStatusFilterBox" prefWidth="150.0" promptText="Status" />
                                        </items>
                                     </ToolBar>
                                  </children>
                               </VBox>
                               <VBox prefHeight="431.0" prefWidth="666.0">
                                  <children>
-                                    <TableView fx:id="PaymentCalTable" prefHeight="423.0" prefWidth="666.0">
+                                    <TableView fx:id="smallClaimTable" prefHeight="423.0" prefWidth="666.0">
                                        <columns>
-                                          <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
-                                          <TableColumn fx:id="Amount" prefWidth="138.0" text="Amount" />
-                                          <TableColumn fx:id="Role" prefWidth="94.0" text="Role" />
-                                          <TableColumn fx:id="ExamDate" prefWidth="129.0" text="Exam Date" />
-                                          <TableColumn fx:id="Date" prefWidth="135.0" text="Date" />
-                                          <TableColumn fx:id="Status" prefWidth="94.0" text="Status" />
+                                          <TableColumn fx:id="smallClaimID" prefWidth="97.60002291202545" text="ID" />
+                                          <TableColumn fx:id="smallClaimAmount" prefWidth="99.19994354248047" text="Claim Amount" />
+                                          <TableColumn fx:id="smallInsuredPerson" prefWidth="112.00006103515625" text="Insured Person" />
+                                          <TableColumn fx:id="smallClaimDate" prefWidth="111.2000732421875" text="Claim Date" />
+                                          <TableColumn fx:id="smallExamDate" prefWidth="132.80007934570312" text="Exam Date" />
+                                          <TableColumn fx:id="smallStatus" prefWidth="107.2000732421875" text="Status" />
                                        </columns>
                                     </TableView>
                                  </children>
