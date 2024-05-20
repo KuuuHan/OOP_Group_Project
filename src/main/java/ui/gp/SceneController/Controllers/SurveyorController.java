@@ -113,17 +113,23 @@ public class SurveyorController {
         try {
             Statement statement = connection.createStatement();
             String query = "SELECT * FROM claim WHERE claim_status IN ('Rejected');";
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                ClaimStatus status = ClaimStatus.valueOf(resultSet.getString("claim_status"));
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                ClaimStatus status = ClaimStatus.valueOf(rs.getString("claim_status"));
                 Claim claim = new Claim(
-                        resultSet.getString("id"),
-                        resultSet.getDate("claim_date"),
-                        resultSet.getString("insured_person"),
-                        resultSet.getDate("exam_date"),
-                        resultSet.getDouble("claim_amount"),
-                        status,
-                        resultSet.getString("card_number_bank")
+                        rs.getString("id"),
+                        rs.getDate("claim_date"),
+                        rs.getString("insured_person"),
+                        rs.getString("card_number_insurance"),
+                        rs.getDate("exam_date"),
+                        rs.getDouble("claim_amount"),
+                        rs.getString("claim_status"),
+                        rs.getString("card_number_bank"),
+                        rs.getString("bank_name"),
+                        rs.getString("card_owner_bank"),
+                        rs.getDate("expiration_date_insurance"),
+                        rs.getString("policy_owner_insurance"),
+                        rs.getString("card_holder_insurance")
                 );
                 claims.add(claim);
             }
@@ -138,17 +144,23 @@ public class SurveyorController {
         try {
             Statement statement = connection.createStatement();
             String query = "SELECT * FROM claim WHERE claim_status IN ('Approved');";
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                ClaimStatus status = ClaimStatus.valueOf(resultSet.getString("claim_status"));
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                ClaimStatus status = ClaimStatus.valueOf(rs.getString("claim_status"));
                 Claim claim = new Claim(
-                        resultSet.getString("id"),
-                        resultSet.getDate("claim_date"),
-                        resultSet.getString("insured_person"),
-                        resultSet.getDate("exam_date"),
-                        resultSet.getDouble("claim_amount"),
-                        status,
-                        resultSet.getString("card_number_bank")
+                        rs.getString("id"),
+                        rs.getDate("claim_date"),
+                        rs.getString("insured_person"),
+                        rs.getString("card_number_insurance"),
+                        rs.getDate("exam_date"),
+                        rs.getDouble("claim_amount"),
+                        rs.getString("claim_status"),
+                        rs.getString("card_number_bank"),
+                        rs.getString("bank_name"),
+                        rs.getString("card_owner_bank"),
+                        rs.getDate("expiration_date_insurance"),
+                        rs.getString("policy_owner_insurance"),
+                        rs.getString("card_holder_insurance")
                 );
                 claims.add(claim);
             }
@@ -163,17 +175,23 @@ public class SurveyorController {
         try {
             Statement statement = connection.createStatement();
             String query = "SELECT * FROM claim;";
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                ClaimStatus status = ClaimStatus.valueOf(resultSet.getString("claim_status"));
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                ClaimStatus status = ClaimStatus.valueOf(rs.getString("claim_status"));
                 Claim claim = new Claim(
-                        resultSet.getString("id"),
-                        resultSet.getDate("claim_date"),
-                        resultSet.getString("insured_person"),
-                        resultSet.getDate("exam_date"),
-                        resultSet.getDouble("claim_amount"),
-                        status,
-                        resultSet.getString("card_number_bank")
+                        rs.getString("id"),
+                        rs.getDate("claim_date"),
+                        rs.getString("insured_person"),
+                        rs.getString("card_number_insurance"),
+                        rs.getDate("exam_date"),
+                        rs.getDouble("claim_amount"),
+                        rs.getString("claim_status"),
+                        rs.getString("card_number_bank"),
+                        rs.getString("bank_name"),
+                        rs.getString("card_owner_bank"),
+                        rs.getDate("expiration_date_insurance"),
+                        rs.getString("policy_owner_insurance"),
+                        rs.getString("card_holder_insurance")
                 );
                 claims.add(claim);
             }
@@ -215,17 +233,23 @@ public class SurveyorController {
         try {
             Statement statement = connection.createStatement();
             String query = "SELECT * FROM claim WHERE claim_status IN ('Pending');";
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                ClaimStatus status = ClaimStatus.valueOf(resultSet.getString("claim_status"));
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                ClaimStatus status = ClaimStatus.valueOf(rs.getString("claim_status"));
                 Claim claim = new Claim(
-                        resultSet.getString("id"),
-                        resultSet.getDate("claim_date"),
-                        resultSet.getString("insured_person"),
-                        resultSet.getDate("exam_date"),
-                        resultSet.getDouble("claim_amount"),
-                        status,
-                        resultSet.getString("card_number_bank")
+                        rs.getString("id"),
+                        rs.getDate("claim_date"),
+                        rs.getString("insured_person"),
+                        rs.getString("card_number_insurance"),
+                        rs.getDate("exam_date"),
+                        rs.getDouble("claim_amount"),
+                        rs.getString("claim_status"),
+                        rs.getString("card_number_bank"),
+                        rs.getString("bank_name"),
+                        rs.getString("card_owner_bank"),
+                        rs.getDate("expiration_date_insurance"),
+                        rs.getString("policy_owner_insurance"),
+                        rs.getString("card_holder_insurance")
                 );
                 claims.add(claim);
             }

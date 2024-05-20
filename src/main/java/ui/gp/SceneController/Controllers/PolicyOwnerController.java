@@ -1,12 +1,14 @@
 package ui.gp.SceneController.Controllers;
 
+import ui.gp.Database.DatabaseConnection;
+import ui.gp.Models.Claim;
 import ui.gp.Models.Role;
 import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.PolicyOwner;
+import ui.gp.Models.Users.User;
+import ui.gp.SceneController.Function.Session;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +63,72 @@ public class PolicyOwnerController {
         }
         return beneficiaries;
     }
+    public List<Claim> retrieveAllClaims() {
+        List<Claim> claimList = new ArrayList<>();
+        try {
+            User currentUser = Session.getInstance().getUser();
+            String currentUsername = currentUser.getUsername();
+            String currentPassword = currentUser.getPassword();
+
+            String query = "SELECT * FROM claim JOIN Users ON claim.policy_owner_insurance = Users.id WHERE Users.username = ? AND Users.password = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, currentUsername);
+            statement.setString(2, currentPassword);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Claim claims = new Claim(
+                        rs.getString("id"),
+                        rs.getDate("claim_date"),
+                        rs.getString("insured_person"),
+                        rs.getString("card_number_insurance"),
+                        rs.getDate("exam_date"),
+                        rs.getDouble("claim_amount"),
+                        rs.getString("claim_status"),
+                        rs.getString("card_number_bank"),
+                        rs.getString("bank_name"),
+                        rs.getString("card_owner_bank"),
+                        rs.getDate("expiration_date_insurance"),
+                        rs.getString("policy_owner_insurance"),
+                        rs.getString("card_holder_insurance")
+                );
+                claimList.add(claims);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return claimList;
+    }
+
+    public static Claim retrieveclaimsforid(String Claimid) {
+
+        try {
+            String query = "SELECT * FROM claim WHERE id = Claimid";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+
+            Claim claims = new Claim(
+                    rs.getString("id"),
+                    rs.getDate("claim_date"),
+                    rs.getString("insured_person"),
+                    rs.getString("card_number_insurance"),
+                    rs.getDate("exam_date"),
+                    rs.getDouble("claim_amount"),
+                    rs.getString("claim_status"),
+                    rs.getString("card_number_bank"),
+                    rs.getString("bank_name"),
+                    rs.getString("card_owner_bank"),
+                    rs.getDate("expiration_date_insurance"),
+                    rs.getString("policy_owner_insurance"),
+                    rs.getString("card_holder_insurance")
+            );
+            return claims;
 
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

@@ -479,7 +479,7 @@ public class ManagerHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
@@ -519,7 +519,7 @@ public class ManagerHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
@@ -557,7 +557,7 @@ public class ManagerHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
@@ -595,7 +595,7 @@ public class ManagerHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else return false;
             });
@@ -631,7 +631,7 @@ public class ManagerHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else return false;
             });

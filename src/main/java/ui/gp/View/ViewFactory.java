@@ -19,9 +19,11 @@ import ui.gp.SceneController.Manager.SurveyorHomeController;
 import ui.gp.SceneController.Policy.DependentsHomeController;
 import ui.gp.SceneController.Policy.HolderHomeController;
 import ui.gp.SceneController.Policy.OwnerHomeController;
+import ui.gp.Tab.ClaimController;
 
 import java.io.IOException;
 import java.net.PortUnreachableException;
+import java.util.List;
 
 public class ViewFactory {
     private DatabaseConnection databaseConnection;
@@ -251,6 +253,24 @@ public class ViewFactory {
             controller.setDatabaseConnection(databaseConnection);
             controller.setUser(user);
             controller.initialise();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showClaimForm(List<Customer> beneficiariesList, PolicyOwner policyOwner) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/ClaimAdd.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Add New Claim");
+            stage.setResizable(false);
+            stage.show();
+            ClaimController controller = loader.getController();
+            controller.setDatabaseConnection(databaseConnection);
+            controller.setBeneficiariesList(beneficiariesList);
+            controller.setPolicyOwner(policyOwner);
         } catch (IOException e) {
             e.printStackTrace();
         }

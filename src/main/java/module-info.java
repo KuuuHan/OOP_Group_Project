@@ -27,4 +27,5 @@ module ui.gp {
     exports ui.gp.View;
     opens ui.gp.Tab to javafx.fxml;
     opens ui.gp.Models to javafx.base;
+
 }

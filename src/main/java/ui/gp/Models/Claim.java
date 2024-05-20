@@ -1,6 +1,5 @@
 package ui.gp.Models;
 
-
 import javafx.scene.control.Button;
 import ui.gp.Models.Users.*;
 
@@ -9,46 +8,44 @@ import java.util.Set;
 
 public class Claim {
     private String id;
-    private Date claimDate;
-    private String insuredPerson;
+    private Date date;
+    private String insuredPersonID;
     private String cardNumber;
     private Date examDate;
     private Set<String> documents;
     private double claimAmount;
-    private ClaimStatus status;
-    private String bankNumber;
+    private String status;
+    private String receiverBankingNumber;
+    private String receiverBankingName;
+    private String receiverHolderName;
+    private String policy_owner_insuranceid;
 
-    public Claim(String id, Date claimDate, String insuredPerson,
-                 Date examDate, double claimAmount,
-                 ClaimStatus status, String bankNumber)
-    {
+    private String InsuranceCardHolderName;
+    private Date ExpireDate;
+
+    public Claim(String id, Date date, String insuredPersonID, String cardNumber, Date examDate, double claimAmount, String status, String receiverBankingNumber, String receiverBankingName, String receiverHolderName, Date Expdate, String policy_owner_insuranceid, String InsuranceCardHolderName) {
         this.id = id;
-        this.claimDate = claimDate;
-        this.insuredPerson = insuredPerson;
+        this.date = date;
+        this.insuredPersonID = insuredPersonID;
+        this.cardNumber = cardNumber;
         this.examDate = examDate;
         this.claimAmount = claimAmount;
         this.status = status;
-        this.bankNumber = bankNumber;
+        this.receiverBankingNumber = receiverBankingNumber;
+        this.receiverBankingName = receiverBankingName;
+        this.receiverHolderName = receiverHolderName;
+        this.ExpireDate = Expdate;
+        this.policy_owner_insuranceid = policy_owner_insuranceid;
+        this.InsuranceCardHolderName = InsuranceCardHolderName;
+
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public Date getClaimDate() {
-        return claimDate;
-    }
-
-    public String getInsuredPerson() {
-        return insuredPerson;
+    public String getInsuredPersonID() {
+        return insuredPersonID;
     }
 
     public String getCardNumber() {
         return cardNumber;
-    }
-
-    public Date getExamDate() {
-        return examDate;
     }
 
     public Set<String> getDocuments() {
@@ -59,11 +56,43 @@ public class Claim {
         return claimAmount;
     }
 
-    public ClaimStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public String getBankNumber() {
-        return bankNumber;
+    public String getReceiverBankingNumber() {
+        return receiverBankingNumber;
     }
+
+    public String getReceiverBankingName() {
+        return receiverBankingName;
+    }
+
+    public String getReceiverHolderName() {
+        return receiverHolderName;
+    }
+
+    public String getPolicy_owner_insuranceid() {
+        return policy_owner_insuranceid;
+    }
+
+    public String getInsuranceCardHolderName() {
+        return InsuranceCardHolderName;
+    }
+
+    public Date getExpireDate() {
+        return ExpireDate;
+    }
+
+    public Date getExamDate() {
+        return examDate;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public Date getDate() {
+        return date;
+    }
+
 }
