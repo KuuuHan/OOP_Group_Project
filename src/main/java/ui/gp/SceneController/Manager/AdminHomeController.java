@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import ui.gp.Models.Model;
+import ui.gp.Models.Role;
 import ui.gp.Models.Users.*;
 import ui.gp.SceneController.Controllers.AdminController;
 import ui.gp.SceneController.Controllers.DependentController;
@@ -74,6 +75,8 @@ public class AdminHomeController {
     TableColumn addressColumn;
     @FXML
     TableColumn roleColumn;
+    @FXML
+    ComboBox<String> FilterUserBox;
 
     private SystemAdmin systemAdmin;
     private AdminController adminController;
@@ -113,6 +116,18 @@ public class AdminHomeController {
 //                emailFieldInfo.textProperty(),
 //                phonenumberFieldInfo.textProperty(),
 //                addressFieldInfo.textProperty()));
+
+        List<String> filterOptions = new ArrayList<>();
+        filterOptions.add("All");
+        filterOptions.add("Dependent");
+        filterOptions.add("Policy Holder");
+        filterOptions.add("Insurance Manager");
+        filterOptions.add("Insurance Surveyor");
+        filterOptions.add("System Admin");
+        filterOptions.add("Policy Owner");
+        FilterUserBox.setItems(FXCollections.observableArrayList(filterOptions));
+        FilterUserBox.setValue(filterOptions.get(0));
+
     }
 
     private void populateSystemAdminTable() {
@@ -183,6 +198,25 @@ public class AdminHomeController {
                 !emailFieldInfo.getText().equals(originalEmail) ||
                 !phonenumberFieldInfo.getText().equals(originalPhonenumber) ||
                 !addressFieldInfo.getText().equals(originalAddress);
+    }
+
+
+    @FXML
+    public void onFilterBox(ActionEvent event) {
+        String filter = FilterUserBox.getSelectionModel().getSelectedItem();
+        if (filter != null) {
+            if (filter.equals("All")) {
+                SystemAdminTable.setItems(FXCollections.observableArrayList(adminController.retrieveSystemAccount()));
+            } else {
+                ObservableList<User> filteredData = FXCollections.observableArrayList();
+                for (User user : adminController.retrieveSystemAccount()) {
+                    if (user.getRole().name().equals(filter.replace(" ", "_"))) {
+                        filteredData.add(user);
+                    }
+                }
+                SystemAdminTable.setItems(filteredData);
+            }
+        }
     }
 
 

@@ -179,7 +179,7 @@
                               <Button fx:id="showInfoBeneficiaryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Show specific beneficiary" />
                               <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
                               <Label text="Filter" />
-                              <ComboBox fx:id="filterBeneficiaryBox" prefWidth="150.0" />
+                              <ComboBox fx:id="FilterUserBox" onAction="#onFilterBox" prefWidth="150.0" />
                            </items>
                         </ToolBar>
                      </top>
