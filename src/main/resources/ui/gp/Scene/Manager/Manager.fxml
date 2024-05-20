@@ -29,7 +29,7 @@
                 <Image url="@../../Image/baninsurance2023822154749.jpg" />
             </image>
         </ImageView>
-        <Label fx:id="welcomeBannerUser" layoutX="17.0" layoutY="3.0" prefHeight="57.0" prefWidth="567.0" text="Welcome! PolicyManager" wrapText="true" AnchorPane.bottomAnchor="504.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="3.0">
+        <Label fx:id="welcomeBannerUser" layoutX="17.0" layoutY="3.0" prefHeight="57.0" prefWidth="567.0" text="Welcome! Insurance Manager" wrapText="true" AnchorPane.bottomAnchor="504.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="3.0">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>
@@ -186,7 +186,7 @@
                                           <ComboBox fx:id="managerCustomerFilter" onAction="#customerDisplayComboBox" prefWidth="150.0" promptText="Filter Options" />
                                           <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
                                           <TextField fx:id="managerSearchCustomer" promptText="Search Customer" />
-                                          <Button fx:id="managerViewCustomer" mnemonicParsing="false" text="View Customer" />
+                                          <Button fx:id="managerViewCustomer" mnemonicParsing="false" onAction="#onShowDetail" text="View Customer" />
                                       </items>
                                   </ToolBar>
                                   <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
@@ -231,6 +231,20 @@
                                     </children>
                                 </HBox>
                             </top>
+                        </BorderPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="hIstoryRecord" text="History Record">
+                    <content>
+                        <BorderPane>
+                            <center>
+                                <TableView fx:id="historyRecordID" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TableColumn prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="actionNameID" prefWidth="805.0" text="Action Name " />
+                                    </columns>
+                                </TableView>
+                            </center>
                         </BorderPane>
                     </content>
                 </Tab>

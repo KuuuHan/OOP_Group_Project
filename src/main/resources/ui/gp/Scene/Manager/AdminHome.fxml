@@ -108,8 +108,8 @@
                                     <ToolBar prefHeight="39.0" prefWidth="881.0" BorderPane.alignment="CENTER">
                                       <items>
                                           <Button fx:id="profileSave" mnemonicParsing="false" onAction="#onProfileSaveButton" text="Save" />
-                                          <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="3.0" />
-                                          <Button fx:id="profileReset" mnemonicParsing="false" onAction="#onProfileResetButton" text="Reset" />
+                                          <Separator orientation="VERTICAL" />
+                                          <Button fx:id="profileReset" mnemonicParsing="false" onAction="#onProfileResetButton" text="Refresh" />
                                       </items>
                                        <opaqueInsets>
                                           <Insets />
@@ -207,7 +207,7 @@
                               </VBox>
                               <VBox prefHeight="296.0" prefWidth="296.0">
                                  <children>
-                                    <Label fx:id="totalClaimNumber" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="287.0" prefWidth="313.0" textAlignment="CENTER">
+                                    <Label fx:id="totalClaimNumber" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="287.0" prefWidth="313.0" text="12222" textAlignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="43.0" />
                                        </font>
@@ -251,6 +251,20 @@
                   </BorderPane>
                </content>
             </Tab>
+                <Tab fx:id="hIstoryRecord" text="History Record">
+                    <content>
+                        <BorderPane>
+                            <center>
+                                <TableView fx:id="historyRecordID" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TableColumn prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="actionNameID" prefWidth="805.0" text="Action Name " />
+                                    </columns>
+                                </TableView>
+                            </center>
+                        </BorderPane>
+                    </content>
+                </Tab>
             </tabs>
         </TabPane>
     </children>

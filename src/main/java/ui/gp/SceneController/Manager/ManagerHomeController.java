@@ -479,7 +479,7 @@ public class ManagerHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
@@ -519,7 +519,7 @@ public class ManagerHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
@@ -557,7 +557,7 @@ public class ManagerHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
@@ -595,7 +595,7 @@ public class ManagerHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else return false;
             });
@@ -631,7 +631,7 @@ public class ManagerHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else return false;
             });
@@ -823,6 +823,26 @@ public class ManagerHomeController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onShowDetail(ActionEvent event){
+        if(selectedCustomer != null){
+            customerManagerTable.getSelectionModel().clearSelection();
+            managerViewCustomer.setDisable(true);
+        } if(selectedCustomer.getRole().name().equals("Dependent")){
+            view. showDependentInformation(selectedCustomer);
+        } else if (selectedCustomer.getRole().name().equals("Policy_Holder")){
+            view. showPolicyHolderInformation(selectedCustomer);
+        } else if (selectedCustomer.getRole().name().equals("Insurance_Manager")){
+            view.  showPolicyHolderInformation(selectedCustomer);
+        } else if (selectedCustomer.getRole().name().equals("Insurance_Surveyor")){
+            view.  showPolicyHolderInformation(selectedCustomer);
+        } else if (selectedCustomer.getRole().name().equals("System_Admin")){
+            view.  showPolicyHolderInformation(selectedCustomer);
+        } else if (selectedCustomer.getRole().name().equals("Policy_Owner")){
+            view.  showPolicyHolderInformation(selectedCustomer);
         }
     }
 }

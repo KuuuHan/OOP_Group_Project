@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -18,6 +17,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -42,52 +42,65 @@
                 <Insets left="10.0" right="10.0" />
             </padding>
         </Label>
-        <Button layoutX="815.0" layoutY="48.0" mnemonicParsing="false" onAction="#logoutOwner" text="Logout" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="815.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="48.0" />
+        <Button layoutX="815.0" layoutY="48.0" mnemonicParsing="false" onAction="#logoutOwner" text="Logout" AnchorPane.bottomAnchor="509.0" AnchorPane.leftAnchor="815.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="40.0" />
         <TabPane layoutY="130.0" prefHeight="444.0" prefWidth="881.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
             <tabs>
                 <Tab fx:id="infoTab" onSelectionChanged="#handleProfileTabSelection" text="Your Information">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <VBox>
                      <children>
-                        <GridPane prefHeight="386.0" prefWidth="894.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.20001220703125" minWidth="0.0" prefWidth="300.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="785.5999938964844" minWidth="10.0" prefWidth="500.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
+                        <VBox prefHeight="732.0" prefWidth="881.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="500.0" text="ID" />
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Full Name" GridPane.rowIndex="1" />
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Username" GridPane.rowIndex="2" />
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Password" GridPane.rowIndex="3" />
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Email" GridPane.rowIndex="4" />
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Phone Number" GridPane.rowIndex="5" />
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Address" GridPane.rowIndex="6" />
-                              <TextField fx:id="idFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" />
-                              <TextField fx:id="fullnameFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="usernameFieldInfo" editable="false" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="passwordFieldInfo" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <TextField fx:id="emailFiieldInfo" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <TextField fx:id="phonenumberFieldInfo" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <TextField fx:id="addressFieldInfo" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                              <SplitPane dividerPositions="0.49710982658959535" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="170.0" GridPane.rowIndex="7">
-                                 <items>
-                                    <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onProfileSaveButton" prefHeight="62.0" prefWidth="81.0" text="Save" />
-                                    <Button fx:id="resetButton" mnemonicParsing="false" onAction="#onProfileResetButton" prefHeight="25.0" prefWidth="83.0" text="Reset" />
-                                 </items>
-                              </SplitPane>
+                              <GridPane prefHeight="415.0" prefWidth="881.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.20001220703125" minWidth="0.0" prefWidth="229.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="785.5999938964844" minWidth="10.0" prefWidth="612.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="500.0" text="ID" />
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Full Name" GridPane.rowIndex="1" />
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Username" GridPane.rowIndex="2" />
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Password" GridPane.rowIndex="3" />
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Email" GridPane.rowIndex="4" />
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Phone Number" GridPane.rowIndex="5" />
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Address" GridPane.rowIndex="6" />
+                                    <TextField fx:id="idFieldInfo" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="624.0" GridPane.columnIndex="1" />
+                                    <TextField fx:id="fullnameFieldInfo" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="675.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="usernameFieldInfo" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="621.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="passwordFieldInfo" maxWidth="-Infinity" prefHeight="25.0" prefWidth="623.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="emailFiieldInfo" maxWidth="-Infinity" prefHeight="25.0" prefWidth="638.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="phonenumberFieldInfo" maxWidth="-Infinity" prefHeight="25.0" prefWidth="656.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <TextField fx:id="addressFieldInfo" maxWidth="-Infinity" prefHeight="25.0" prefWidth="648.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="20.0" right="20.0" />
+                                 </padding>
+                              </GridPane>
                            </children>
-                        </GridPane>
-                     </children></AnchorPane>
+                        </VBox>
+                        <VBox prefHeight="14.0" prefWidth="881.0">
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0" />
+                              <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                <items>
+                                    <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onProfileSaveButton" prefHeight="0.0" prefWidth="81.0" text="Save" />
+                                    <Separator orientation="VERTICAL" />
+                                    <Button fx:id="resetButton" mnemonicParsing="false" onAction="#onProfileResetButton" prefHeight="25.0" prefWidth="83.0" text="Reset" />
+                                </items>
+                              </ToolBar>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
                     </content>
                 </Tab>
             <Tab fx:id="BeneficiaryTab" text="Beneficiaries Management">
@@ -124,39 +137,46 @@
                   </BorderPane>
                </content>
             </Tab>
-                <Tab fx:id="ClaimManage" text="Claim Management">
-                    <content>
-                        <BorderPane>
-                     <bottom>
-                        <TableView prefHeight="378.0" prefWidth="882.0" BorderPane.alignment="CENTER">
-                          <columns>
-                            <TableColumn fx:id="idClaimPoilicyOwnerTable" prefWidth="75.0" text="ID" />
-                            <TableColumn fx:id="datePoilicyOwnerTable" prefWidth="75.0" text="Date" />
-                              <TableColumn fx:id="insuredPersonPoilicyOwnerTable" prefWidth="125.59992980957031" text="Insured Person" />
-                              <TableColumn fx:id="examDatePoilicyOwnerTable" prefWidth="100.800048828125" text="Exam Date " />
-                              <TableColumn fx:id="documentsPoilicyOwnerTable" prefWidth="88.0" text="Documents" />
-                              <TableColumn fx:id="claimAmountPoilicyOwnerTable" prefWidth="132.0" text="Claim Amount" />
-                              <TableColumn fx:id="statusPoilicyOwnerTable" prefWidth="119.99993896484375" text="Status" />
-                              <TableColumn fx:id="bankingInfoPoilicyOwnerTable" prefWidth="165.60009765625" text="Banking Info" />
-                          </columns>
-                        </TableView>
-                     </bottom>
-                     <top>
-                        <ToolBar prefHeight="29.0" prefWidth="882.0" BorderPane.alignment="CENTER">
-                          <items>
-                              <TextField fx:id="searchingClaimPolicyOwner" promptText="Searching..." />
-                              <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
-                            <Button fx:id="addClaimPoilicyOwnerButton" mnemonicParsing="false" text="Add new claim" />
-                              <Button fx:id="deleteClaimPoilicyOwnerButton" mnemonicParsing="false" prefHeight="14.0" prefWidth="106.0" text="Delete claim" />
-                              <Button fx:id="updateClaimPoilicyOwnerButton" mnemonicParsing="false" prefHeight="9.0" prefWidth="108.0" text="Update claim" />
-                              <Button fx:id="showClaimPoilicyOwnerButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" text="Show specific claim" />
-                              <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
-                              <Label text="Filter" />
-                              <ComboBox fx:id="filterClaimPoilicyOwnerBox" prefWidth="150.0" />
-                          </items>
-                        </ToolBar>
-                     </top></BorderPane>
-                    </content>
+                <Tab fx:id="ClaimManageTab" text="Claim Management">
+                    <BorderPane>
+                        <bottom>
+                            <TableView fx:id="policyOwnerClaimTable" prefHeight="378.0" prefWidth="882.0"
+                                       BorderPane.alignment="CENTER">
+                                <columns>
+                                    <TableColumn fx:id="idClaimPolicyOwnerTable" prefWidth="75.0" text="ID"/>
+                                    <TableColumn fx:id="datePolicyOwnerTable" prefWidth="112.79998779296875"
+                                                 text="Claim Date"/>
+                                    <TableColumn fx:id="insuredPersonPolicyOwnerTable" prefWidth="116.0"
+                                                 text="Insured Person"/>
+                                    <TableColumn fx:id="expiredDate" prefWidth="132.0" text="Expired Date"/>
+                                    <TableColumn fx:id="claimAmountPolicyOwnerTable" prefWidth="128.0"
+                                                 text="Claim Amount"/>
+                                    <TableColumn fx:id="cardNumInsuranceOwnerTable" prefWidth="316.00006103515625"
+                                                 text="Insurance Card Number"/>
+                                </columns>
+                            </TableView>
+                        </bottom>
+                        <top>
+                            <ToolBar prefHeight="29.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                                <items>
+                                    <TextField fx:id="searchingClaimPolicyOwner" promptText="Searching..."/>
+                                    <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0"/>
+                                    <Button fx:id="addClaimPoilicyOwnerButton" mnemonicParsing="false"
+                                            onAction="#addItemOnClick" text="Add new claim"/>
+                                    <Button fx:id="DeletePolicyClaimbutton" mnemonicParsing="false"
+                                            onAction="#deleteClaimButtonAction" prefHeight="14.0" prefWidth="106.0"
+                                            text="Delete claim"/>
+                                    <Button fx:id="updateClaimPoilicyOwnerButton" mnemonicParsing="false"
+                                            prefHeight="9.0" prefWidth="108.0" text="Update claim"/>
+                                    <Button fx:id="showClaimPoilicyOwnerButton" mnemonicParsing="false"
+                                            prefHeight="25.0" prefWidth="121.0" text="Show specific claim"/>
+                                    <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0"/>
+                                    <Label text="Filter"/>
+                                    <ComboBox fx:id="filterClaimPoilicyOwnerBox" prefWidth="150.0"/>
+                                </items>
+                            </ToolBar>
+                        </top>
+                    </BorderPane>
                 </Tab>
                 <Tab fx:id="paymentTab" text="Payment Calculation">
                     <content>
@@ -218,8 +238,21 @@
                         </BorderPane>
                     </content>
                 </Tab>
+            <Tab fx:id="hIstoryRecord" text="History Record">
+              <content>
+                  <BorderPane>
+                     <center>
+                        <TableView fx:id="historyRecordID" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="ID" />
+                            <TableColumn fx:id="actionNameID" prefWidth="805.0" text="Action Name " />
+                          </columns>
+                        </TableView>
+                     </center>
+                  </BorderPane>
+              </content>
+            </Tab>
             </tabs>
         </TabPane>
-      <TextField layoutX="-235.0" layoutY="36.0" />
     </children>
 </fx:root>

@@ -32,6 +32,17 @@ import java.util.Optional;
 
 public class OwnerHomeController {
 
+    public Tab BeneficiaryTab;
+    public TableView policyOwnerTable;
+    public TableColumn rolePoilicyOwnerTable;
+    public TableView policyOwnerClaimTable;
+    public TableColumn idClaimPolicyOwnerTable;
+    public TableColumn datePolicyOwnerTable;
+    public TableColumn insuredPersonPolicyOwnerTable;
+    public TableColumn expiredDate;
+    public TableColumn claimAmountPolicyOwnerTable;
+    public TableColumn cardNumInsuranceOwnerTable;
+
     @FXML
     private TableView smallOwnerTable;
     @FXML
@@ -53,14 +64,14 @@ public class OwnerHomeController {
     public TableColumn idPolicyOwnerTable;
     public TableColumn fullnamePolicyOwnerTable;
     public TableColumn usernamePoilicyOwnerTable;
-    public TableColumn emailPoilicyOwnerTable;
-    public TableColumn phonenumberPoilicyOwnerTable;
     public TableColumn passwordPoilicyOwnerTable;
     public TableColumn addressPoilicyOwnerTable;
-    public Tab BeneficiaryTab;
-    public TableView policyOwnerTable;
-    public TableColumn rolePoilicyOwnerTable;
-    private  PolicyOwner policyOwner;
+    public TableColumn emailPoilicyOwnerTable;
+    public TableColumn phonenumberPoilicyOwnerTable;
+    public Button addClaimPoilicyOwnerButton;
+    public Button DeletePolicyClaimbutton;
+    public Button showClaimPoilicyOwnerButton;
+    public Button updateClaimPoilicyOwnerButton;
     private PolicyOwnerController policyOwnerController;
     private DatabaseConnection databaseConnection;
     public TextField idFieldInfo;
@@ -80,6 +91,8 @@ public class OwnerHomeController {
     public Tab infoTab;
     @FXML
     private Tab paymentTab;
+    public Tab ClaimManageTab;
+    private PolicyOwner policyOwner;
     private ObservableList<User> items;
     private TableView<User> ownerHomeTable;
     @FXML
@@ -114,13 +127,21 @@ public class OwnerHomeController {
         BeneficiaryTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 populatePolicyOwnerTable();
+                deleteBeneficiaryButton.setDisable(true);
+                showInfoBeneficiaryButton.setDisable(true);
+                updateBeneficiaryButton.setDisable(true);
             }
         });
-
+        ClaimManageTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                populatePolicyOwnerClaimTable();
+            }
+        });
         policyOwnerTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 selectedBeneficiary = (User) newSelection;
                 deleteBeneficiaryButton.setDisable(false);
+                showInfoBeneficiaryButton.setDisable(false);
                 showInfoBeneficiaryButton.setDisable(false);
                 updateBeneficiaryButton.setDisable(false);
             } else {
@@ -129,6 +150,7 @@ public class OwnerHomeController {
                 updateBeneficiaryButton.setDisable(true);
             }
         });
+
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
             populatePolicyOwnerTable();
         }));
@@ -391,6 +413,110 @@ public class OwnerHomeController {
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("An existing user was updated successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void populatePolicyOwnerClaimTable() {
+
+        List<Claim> Claim = policyOwnerController.retrieveAllClaims();
+        ObservableList<Claim> data = FXCollections.observableArrayList(Claim);
+
+        idClaimPolicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("id"));
+        datePolicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("date"));
+        insuredPersonPolicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
+        expiredDate.setCellValueFactory(new PropertyValueFactory<>("ExpireDate"));
+        claimAmountPolicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
+        cardNumInsuranceOwnerTable.setCellValueFactory(new PropertyValueFactory<>("cardNumber"));
+
+        policyOwnerClaimTable.setItems(data);
+        if (selectedBeneficiary != null)
+        {
+            policyOwnerClaimTable.getSelectionModel().select(selectedBeneficiary);
+        }
+    }
+
+
+    @FXML
+    public void addItemOnClick( ) throws IOException {
+        ViewFactory view = new ViewFactory(databaseConnection);
+        view.showClaimForm(policyOwnerController.retrieveBeneficiaries(), policyOwner);
+
+    }
+
+    @FXML
+    public void deleteClaimButtonAction() {
+        // Get the selected claim from the table
+        Object selectedClaim = policyOwnerClaimTable.getSelectionModel().getSelectedItem();
+
+        // Check if a row has been selected
+        if (selectedClaim != null) {
+            // Cast selectedClaim to Claim type and delete the claim from the database
+            deleteClaimFromDatabase(((Claim) selectedClaim).getId());
+
+            // Refresh the table
+            populatePolicyOwnerClaimTable();
+        } else {
+            // Show an error message if no row has been selected
+            showErrorDialog("Please select a claim to delete.");
+        }
+    }
+
+    public void showErrorDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    public void setShowSpecificClaimAction(){
+        //Get the selected claim from the table
+        Object selectedClaim = policyOwnerClaimTable.getSelectionModel().getSelectedItem();
+        if (selectedClaim != null) {
+            // Cast selectedClaim to Claim type and delete the claim from the database
+            Claim claim = PolicyOwnerController.retrieveclaimsforid(((Claim) selectedClaim).getId());
+            List<String> documentNames = retrievelistofimage(claim.getId());
+
+
+
+        } else {
+            // Show an error message if no row has been selected
+            showErrorDialog("Please select a claim to show.");
+        }
+
+    }
+
+    private List<String> retrievelistofimage(String claimId) {
+        String query = "SELECT documentname FROM claim WHERE id = ?";
+        List<String> documentNames = new ArrayList<>();
+        try {
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, claimId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                documentNames.add(resultSet.getString("documentname"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+
+        }
+        return documentNames;
+    }
+
+    private void deleteClaimFromDatabase(String claimId) {
+        try {
+            String query = "DELETE FROM claim WHERE id = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, claimId);
+            int rowsAffected = statement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Claim with ID: " + claimId + " deleted successfully from the database.");
+            } else {
+                System.out.println("No claim found with ID: " + claimId + " in the database.");
             }
         } catch (SQLException e) {
             e.printStackTrace();

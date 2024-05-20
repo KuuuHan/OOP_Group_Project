@@ -34,9 +34,9 @@ public class AdminHomeController {
     @FXML
     private Label welcomeBannerUser;
     @FXML
-    private Tab infoTab;
-    @FXML
     private Tab claimViewTab;
+    @FXML
+    private Tab infoTab;
     @FXML
     private Tab AccountTab;
     @FXML
@@ -53,6 +53,10 @@ public class AdminHomeController {
     private TextField phonenumberFieldInfo;
     @FXML
     private TextField addressFieldInfo;
+    @FXML
+    Button profileSave;
+    @FXML
+    Button profileReset;
     @FXML
     private TableView<User> SystemAdminTable;
     @FXML
@@ -77,10 +81,6 @@ public class AdminHomeController {
     ComboBox<String> FilterUserBox;
     @FXML
     Button showDetailButton;
-    @FXML
-    Button profileSave;
-    @FXML
-    Button profileReset;
     @FXML
     private Tab smallClaimTab;
     @FXML
@@ -128,6 +128,7 @@ public class AdminHomeController {
     private TableColumn adminClaimStatus;
     @FXML
     private TableColumn adminInsuranceNumber;
+
 
     private SystemAdmin systemAdmin;
     private AdminController adminController;
@@ -338,7 +339,7 @@ public class AdminHomeController {
             } else {
                 ObservableList<Claim> filteredData = FXCollections.observableArrayList();
                 for (Claim claim : adminController.retrieveClaims()) {
-                    if (claim.getStatus().name().equals(filter.replace(" ", "_"))) {
+                    if (claim.getStatus().equals(filter.replace(" ", "_"))) {
                         filteredData.add(claim);
                     }
                 }
@@ -355,7 +356,7 @@ public class AdminHomeController {
             } else {
                 ObservableList<Claim> filteredData = FXCollections.observableArrayList();
                 for (Claim claim : adminController.retrieveClaims()) {
-                    if (claim.getStatus().name().equals(filter.replace(" ", "_"))) {
+                    if (claim.getStatus().equals(filter.replace(" ", "_"))) {
                         filteredData.add(claim);
                     }
                 }
@@ -386,7 +387,6 @@ public class AdminHomeController {
 
     @FXML
     public void onProfileSaveButton(ActionEvent event){
-
         String password = passwordFieldInfo.getText();
         String email = emailFieldInfo.getText();
         String phoneNumber = phonenumberFieldInfo.getText();
@@ -468,7 +468,7 @@ public class AdminHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
@@ -512,7 +512,7 @@ public class AdminHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
