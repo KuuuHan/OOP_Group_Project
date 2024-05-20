@@ -176,7 +176,7 @@
                               <Button fx:id="addDependentButton" mnemonicParsing="false" text="Add new dependent" />
                               <Button fx:id="deleteBeneficiaryButton" prefHeight="25.0" prefWidth="113.0" text="Delete beneficiary" />
                               <Button fx:id="updateBeneficiaryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Update beneficiary" />
-                              <Button fx:id="showInfoBeneficiaryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Show specific beneficiary" />
+                              <Button fx:id="showDetailButton" mnemonicParsing="false" onAction="#onShowDetail" prefHeight="25.0" prefWidth="155.0" text="Show Detail Information" />
                               <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
                               <Label text="Filter" />
                               <ComboBox fx:id="FilterUserBox" onAction="#onFilterBox" prefWidth="150.0" />

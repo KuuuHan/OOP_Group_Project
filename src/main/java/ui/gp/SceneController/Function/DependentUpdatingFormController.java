@@ -12,6 +12,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.Users.Customer;
+import ui.gp.Models.Users.User;
 import ui.gp.Tab.ErrorMessageController;
 
 import java.io.IOException;
@@ -30,14 +31,14 @@ public class DependentUpdatingFormController {
     public TextField IDFieldDependent;
     public TextField policyHolderField;
     private DatabaseConnection databaseConnection;
-    private Customer user;
+    private User user;
 
     public void setDatabaseConnection(DatabaseConnection databaseConnection)
     {
         this.databaseConnection = databaseConnection;
     }
 
-    public void setUser(Customer user)
+    public void setUser(User user)
     {
         this.user = user;
     }
