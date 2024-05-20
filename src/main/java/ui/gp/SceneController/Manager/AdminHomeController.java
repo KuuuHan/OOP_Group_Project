@@ -18,6 +18,7 @@ import ui.gp.SceneController.Controllers.AdminController;
 import ui.gp.SceneController.Controllers.DependentController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.LoadingSceneController;
+import ui.gp.SceneController.Function.PolicyHolderUpdatingFormController;
 import ui.gp.SceneController.Function.SceneUtil;
 import ui.gp.Tab.ClaimController;
 import ui.gp.View.ViewFactory;
@@ -79,6 +80,10 @@ public class AdminHomeController {
     ComboBox<String> FilterUserBox;
     @FXML
     Button showDetailButton;
+    @FXML
+    Button profileSave;
+    @FXML
+    Button profileReset;
 
     private SystemAdmin systemAdmin;
     private AdminController adminController;
@@ -267,5 +272,44 @@ public class AdminHomeController {
         }
     }
 
+    @FXML
+    public void onProfileSaveButton(ActionEvent event){
+
+        String password = passwordFieldInfo.getText();
+        String email = emailFieldInfo.getText();
+        String phoneNumber = phonenumberFieldInfo.getText();
+        String address = addressFieldInfo.getText();
+        String username = usernameFieldInfo.getText();
+
+        //Save update data to the database
+        updateProfile(password, email, phoneNumber, address, username);
+
+    }
+
+    @FXML
+    public void onProfileResetButton(ActionEvent event){
+        handleProfileTabSelection();
+    }
+
+    private void updateProfile(String password, String email, String phoneNumber, String address,String username)
+    {
+        try {
+            String query = "UPDATE Users SET password = ?, email = ?, phoneNumber = ?, address = ? WHERE username = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+
+            statement.setString(1, password);
+            statement.setString(2, email);
+            statement.setString(3, phoneNumber);
+            statement.setString(4, address);
+            statement.setString(5, username);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("An existing user was updated successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

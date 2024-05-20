@@ -25,6 +25,7 @@ import java.sql.Statement;
 import java.util.List;
 
 public class PolicyHolderUpdatingFormController {
+    public PolicyHolderUpdatingFormController instance;
     public TextField fullnameFieldAddPolicyHolder;
     public TextField usernameFieldAddPolicyHolder;
     public TextField passwordFieldAddPolicyHolder;
@@ -38,6 +39,10 @@ public class PolicyHolderUpdatingFormController {
     public void setDatabaseConnection(DatabaseConnection databaseConnection)
     {
         this.databaseConnection = databaseConnection;
+    }
+
+    public PolicyHolderUpdatingFormController getInstance() {
+        return instance;
     }
 
     public void setUser(User user)
