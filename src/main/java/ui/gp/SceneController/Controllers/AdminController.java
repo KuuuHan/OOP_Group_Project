@@ -1,5 +1,7 @@
 package ui.gp.SceneController.Controllers;
 
+import ui.gp.Models.Claim;
+import ui.gp.Models.ClaimStatus;
 import ui.gp.Models.Role;
 import ui.gp.Models.Users.SystemAdmin;
 import ui.gp.Models.Users.User;
@@ -56,4 +58,31 @@ public class AdminController {
 
         return systemAccounts;
     }
+
+
+    public List<Claim> retrieveClaims() {
+        List<Claim> claims = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM claim;";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                ClaimStatus status = ClaimStatus.valueOf(resultSet.getString("claim_status"));
+                Claim claim = new Claim(
+                        resultSet.getString("id"),
+                        resultSet.getDate("claim_date"),
+                        resultSet.getString("insured_person"),
+                        resultSet.getDate("exam_date"),
+                        resultSet.getDouble("claim_amount"),
+                        status,
+                        resultSet.getString("card_number_insurance")
+                );
+                claims.add(claim);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return claims;
+    }
+
 }
