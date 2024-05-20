@@ -38,9 +38,9 @@ public class AdminHomeController {
     @FXML
     private Label welcomeBannerUser;
     @FXML
-    private Tab infoTab;
-    @FXML
     private Tab claimTab;
+    @FXML
+    private Tab infoTab;
     @FXML
     private Tab AccountTab;
     @FXML
@@ -57,6 +57,10 @@ public class AdminHomeController {
     private TextField phonenumberFieldInfo;
     @FXML
     private TextField addressFieldInfo;
+    @FXML
+    Button profileSave;
+    @FXML
+    Button profileReset;
     @FXML
     private TableView<User> SystemAdminTable;
     @FXML
@@ -81,10 +85,7 @@ public class AdminHomeController {
     ComboBox<String> FilterUserBox;
     @FXML
     Button showDetailButton;
-    @FXML
-    Button profileSave;
-    @FXML
-    Button profileReset;
+
 
     private SystemAdmin systemAdmin;
     private AdminController adminController;
@@ -275,7 +276,6 @@ public class AdminHomeController {
 
     @FXML
     public void onProfileSaveButton(ActionEvent event){
-
         String password = passwordFieldInfo.getText();
         String email = emailFieldInfo.getText();
         String phoneNumber = phonenumberFieldInfo.getText();
