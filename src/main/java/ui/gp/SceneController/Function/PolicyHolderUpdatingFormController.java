@@ -98,12 +98,26 @@ public class PolicyHolderUpdatingFormController {
 
         new Thread(() -> {
             updatePolicyHolder(password, email, phoneNumber, address,username);
+            recordHistory(user.getId(),"Update info of policy holder");
             Platform.runLater(() -> {
                 Stage stage = (Stage) submitButtonAddPolicyOwner.getScene().getWindow();
                 stage.close();
             });
         }).start();
     }
+
+    private void recordHistory(String userId, String action) {
+        try {
+            String query = "INSERT INTO historyrecord (userid, action) VALUES (?, ?)";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, userId);
+            statement.setString(2, action);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void updatePolicyHolder(String password, String email, String phoneNumber, String address,String username)
     {

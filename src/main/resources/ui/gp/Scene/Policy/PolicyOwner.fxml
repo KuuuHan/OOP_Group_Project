@@ -238,7 +238,7 @@
                         </BorderPane>
                     </content>
                 </Tab>
-            <Tab fx:id="hIstoryRecord" text="History Record">
+            <Tab fx:id="hIstoryRecord"  text="History Record">
               <content>
                   <BorderPane>
                      <center>

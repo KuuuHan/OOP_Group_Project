@@ -93,11 +93,27 @@ public class DependentAddingFormController
         new Thread(() -> {
             String dependentID = addDependent(fullname, username, password, email, phoneNumber, address);
             addPolicyHolder(dependentID, policyHolderID);
+            Session session = Session.getInstance();
+            User user = session.getUser();
+            String policyOwnerID = user.getId();
+            recordHistory(policyOwnerID,"Add new dependent");
             Platform.runLater(() -> {
                 Stage stage = (Stage) submitButtonAddDependent.getScene().getWindow();
                 stage.close();
             });
         }).start();
+    }
+
+    private void recordHistory(String userId, String action) {
+        try {
+            String query = "INSERT INTO historyrecord (userid, action) VALUES (?, ?)";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, userId);
+            statement.setString(2, action);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showErrorDialog(String errorMessage) {

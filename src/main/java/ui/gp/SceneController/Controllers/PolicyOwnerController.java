@@ -1,5 +1,6 @@
 package ui.gp.SceneController.Controllers;
 
+import javafx.util.Pair;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.Claim;
 import ui.gp.Models.Role;
@@ -10,7 +11,9 @@ import ui.gp.SceneController.Function.Session;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PolicyOwnerController {
     private PolicyOwner policyOwner;
@@ -130,5 +133,22 @@ public class PolicyOwnerController {
         }
 
         return null;
+    }
+
+    public List<Pair<String, String>> retrieveHistory() {
+        List<Pair<String, String>> data = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM historyrecord WHERE userid = '" + policyOwner.getId() + "'";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                String userid = resultSet.getString("userid");
+                String action = resultSet.getString("action");
+                data.add(new Pair<>(userid, action));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 }
