@@ -6,15 +6,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import ui.gp.Database.DatabaseConnection;
 
-
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +74,9 @@ private ClaimController claimController;
             displayImage(selectedFiles.get(currentImageIndex));
         }
     }
+    public List<File> getSelectedFiles() {
+        return selectedFiles;
+    }
 
     @FXML
     public void showPrevImage() {
@@ -96,50 +98,26 @@ private ClaimController claimController;
     @FXML
     public void onConfirm() {
         // Assuming 'files' is the list of selected files
-        List<String> pdfFileNames = new ArrayList<>();
+        List<File> updatedFiles = new ArrayList<>();
         for (File file : selectedFiles) {
-            if (!file.canWrite()) {
-                System.out.println("File is read-only: " + file.getName());
-                continue;
-            }
             String fileName = file.getName();
-            String newFileName = convertToPdf(fileName);
-            File newFile = new File(file.getParent(), newFileName);
-            if (newFile.exists()) {
-                System.out.println("File with the same name already exists: " + newFileName);
-                continue;
+            String[] parts = fileName.split("\\."); // Split the file name at the dot
+            String newFileName = parts[0] + ".pdf"; // Attach the first part to .pdf
+            if (parts.length > 1) {
+                newFileName += "." + parts[1]; // Reattach the last part
             }
+            File newFile = new File(file.getParent(), newFileName);
             try {
                 Files.move(file.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 claimController.updateFileNameComboBox(newFileName); // update the ComboBox in ClaimController
+                updatedFiles.add(newFile); // Add the new file to the updatedFiles list
             } catch (IOException e) {
                 System.out.println("Failed to rename file: " + fileName);
                 e.printStackTrace();
             }
         }
+        selectedFiles = updatedFiles; // Update the selectedFiles list to reflect the new file names
     }
 
-    public String convertToPdf(String fileName) {
-        int dotIndex = fileName.lastIndexOf(".");
-        if (dotIndex != -1) {
-            // If there is an extension, remove it and replace with .pdf
-            return fileName.substring(0, dotIndex) + ".pdf";
-        } else {
-            // If there is no extension, just append .pdf
-            return fileName + ".pdf";
-        }
-    }
-    public void Uploadpicture() throws FileNotFoundException, SQLException {
-        connection = DatabaseConnection.getInstance().getConnection();
-        for(File file : selectedFiles) {
-            fis = new FileInputStream(file);
-            query = "INSERT INTO binary_data (data, f_name, f_type) VALUES (?,?,?)";
-            ps = connection.prepareStatement(query);
-            ps.setBinaryStream(1, fis, (int) file.length());
-            ps.setString(2, file.getName());
-            ps.setString(3, ".pdf");
-            ps.executeUpdate();
-        }
 
-    }
 }

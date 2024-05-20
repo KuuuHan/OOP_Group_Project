@@ -197,7 +197,7 @@ public class ViewFactory {
         }
     }
 
-    public void showClaimForm(List<Customer> beneficiariesList) {
+    public void showClaimForm(List<Customer> beneficiariesList, PolicyOwner policyOwner) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/ClaimAdd.fxml"));
             Parent root = loader.load();
@@ -210,6 +210,7 @@ public class ViewFactory {
             ClaimController controller = loader.getController();
             controller.setDatabaseConnection(databaseConnection);
             controller.setBeneficiariesList(beneficiariesList);
+            controller.setPolicyOwner(policyOwner);
         } catch (IOException e) {
             e.printStackTrace();
         }

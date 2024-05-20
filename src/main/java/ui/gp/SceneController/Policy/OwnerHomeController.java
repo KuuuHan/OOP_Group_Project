@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import ui.gp.Models.Claim;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.Dependent;
@@ -254,7 +255,8 @@ public class OwnerHomeController {
     @FXML
     public void addItemOnClick( ) throws IOException {
         ViewFactory view = new ViewFactory(databaseConnection);
-        view.showClaimForm(policyOwnerController.retrieveBeneficiaries());
+        view.showClaimForm(policyOwnerController.retrieveBeneficiaries(), policyOwner);
+
     }
 
 }

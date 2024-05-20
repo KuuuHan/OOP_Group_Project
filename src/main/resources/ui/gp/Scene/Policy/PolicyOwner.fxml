@@ -160,20 +160,20 @@
                   </BorderPane>
                </content>
             </Tab>
-                <Tab fx:id="ClaimManage" text="Claim Management">
+                <Tab fx:id="ClaimManageTab" text="Claim Management">
                     <content>
                         <BorderPane>
                      <bottom>
-                        <TableView prefHeight="378.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                        <TableView fx:id="policyOwnerClaimTable" prefHeight="378.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                           <columns>
-                            <TableColumn fx:id="idClaimPoilicyOwnerTable" prefWidth="75.0" text="ID" />
-                            <TableColumn fx:id="datePoilicyOwnerTable" prefWidth="75.0" text="Date" />
+                            <TableColumn fx:id="idClaimPolicyOwnerTable" prefWidth="75.0" text="ID" />
+                            <TableColumn fx:id="datePoilicyOwnerTable" prefWidth="75.0" text="Claim Date" />
                               <TableColumn fx:id="insuredPersonPoilicyOwnerTable" prefWidth="125.59992980957031" text="Insured Person" />
                               <TableColumn fx:id="examDatePoilicyOwnerTable" prefWidth="100.800048828125" text="Exam Date " />
-                              <TableColumn fx:id="documentsPoilicyOwnerTable" prefWidth="88.0" text="Documents" />
+                              <TableColumn fx:id="documentsPolicyOwnerTable" prefWidth="88.0" text="Documents" />
                               <TableColumn fx:id="claimAmountPoilicyOwnerTable" prefWidth="132.0" text="Claim Amount" />
                               <TableColumn fx:id="statusPoilicyOwnerTable" prefWidth="119.99993896484375" text="Status" />
-                              <TableColumn fx:id="bankingInfoPoilicyOwnerTable" prefWidth="165.60009765625" text="Banking Info" />
+                              <TableColumn fx:id="cardNumInsuranceOwnerTable" prefWidth="165.60009765625" text="Insurance Card Number" />
                           </columns>
                         </TableView>
                      </bottom>

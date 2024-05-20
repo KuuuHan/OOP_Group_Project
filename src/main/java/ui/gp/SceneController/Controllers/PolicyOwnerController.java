@@ -1,5 +1,7 @@
 package ui.gp.SceneController.Controllers;
 
+import ui.gp.Database.DatabaseConnection;
+import ui.gp.Models.Claim;
 import ui.gp.Models.Role;
 import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.PolicyOwner;
@@ -25,6 +27,42 @@ public class PolicyOwnerController {
                 "Email: " + policyOwner.getEmail() + "\n" +
                 "Phone Number: " + policyOwner.getPhonenumber() + "\n" +
                 "Address: " + policyOwner.getAddress();
+    }
+    public List<Claim> retrieveAllClaims() {
+        List<Claim> claims = new ArrayList<>();
+        try {
+
+
+            String query = "SELECT * FROM claim WHERE policy_owner_insurance = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, policyOwner.getId());
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                Claim claim = new Claim(
+                        rs.getString("id"),
+                        rs.getDate("claim_date"),
+                        rs.getString("insured_person"),
+                        rs.getString("exam_date"),
+                        rs.getDate("claim_amount"),
+                        rs.getDouble("claim_status"),
+                        rs.getString("card_number_bank"),
+                        rs.getString("bank_name"),
+                        rs.getString("card_owner_bank"),
+                        rs.getString("card_number_insurance"),
+                        rs.getDate("expiration_date_insurance"),
+                        rs.getString("policy_owner_insurance"),
+                        rs.getString("card_holder_insurance")
+                );
+                claims.add(claim);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return claims;
     }
 
     public List<Customer> retrieveBeneficiaries() {

@@ -192,21 +192,21 @@ public class ManagerHomeController {
 
         });
 
-        managerViewClaimTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                populateClaimTable();
-            }
-        });
+//        managerViewClaimTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue) {
+//                populateClaimTable();
+//            }
+//        });
+//
+//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
+//            populateCustomerTable();
+//            populateSurveyorTable();
+//            populateClaimTable();
+//        }));
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
-            populateCustomerTable();
-            populateSurveyorTable();
-            populateClaimTable();
-        }));
 
-
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+//        timeline.setCycleCount(Timeline.INDEFINITE);
+//        timeline.play();
     }
 
 
@@ -354,20 +354,20 @@ public class ManagerHomeController {
         surveyorManagerTable.setItems(data);
     }
 
-    public void populateClaimTable() {
-
-        List<Claim> claims = managerController.retrieveClaims();
-        ObservableList<Claim> data = FXCollections.observableArrayList(claims);
-
-        claimIDManagerView.setCellValueFactory(new PropertyValueFactory<>("claimId"));
-        insuredPeopleManagerView.setCellValueFactory(new PropertyValueFactory<>("holderId"));
-        claimAmountManagerView.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
-        statusManagerView.setCellValueFactory(new PropertyValueFactory<>("status"));
-        claimDateManagerView.setCellValueFactory(new PropertyValueFactory<>("claimDate"));
-        examDateManagerView.setCellValueFactory(new PropertyValueFactory<>("examDate"));
-
-        claimManagerTable.setItems(data);
-    }
+//    public void populateClaimTable() {
+//
+//        List<Claim> claims = managerController.retrieveClaims();
+//        ObservableList<Claim> data = FXCollections.observableArrayList(claims);
+//
+//        claimIDManagerView.setCellValueFactory(new PropertyValueFactory<>("claimId"));
+//        insuredPeopleManagerView.setCellValueFactory(new PropertyValueFactory<>("holderId"));
+//        claimAmountManagerView.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
+//        statusManagerView.setCellValueFactory(new PropertyValueFactory<>("status"));
+//        claimDateManagerView.setCellValueFactory(new PropertyValueFactory<>("claimDate"));
+//        examDateManagerView.setCellValueFactory(new PropertyValueFactory<>("examDate"));
+//
+//        claimManagerTable.setItems(data);
+//    }
 
     @FXML
     public void logoutOwner(ActionEvent logoutAction) throws IOException {

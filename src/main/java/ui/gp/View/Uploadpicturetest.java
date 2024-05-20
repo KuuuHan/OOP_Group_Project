@@ -18,7 +18,7 @@ public class Uploadpicturetest {
     FileInputStream fis;
     String query;
     PreparedStatement ps;
-    //get file path tu Upload controller??
+
 
     public Uploadpicturetest() throws FileNotFoundException, SQLException {
         connection = DatabaseConnection.getInstance().getConnection();

@@ -31,26 +31,23 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <children>
-            <Label prefHeight="17.0" prefWidth="312.0" text="Insured Person - ID " GridPane.rowIndex="2">
+            <Label prefHeight="17.0" prefWidth="312.0" text="Insured Person - ID " GridPane.rowIndex="4">
                 <GridPane.margin>
                     <Insets left="20.0" />
                 </GridPane.margin></Label>
-            <Label prefHeight="17.0" prefWidth="312.0" text="Insurance Card - Card Number" GridPane.rowIndex="3">
+            <Label prefHeight="17.0" prefWidth="312.0" text="Insurance Card - Card Number" GridPane.rowIndex="5">
                 <GridPane.margin>
                     <Insets left="20.0" />
                 </GridPane.margin></Label>
-            <Label prefHeight="17.0" prefWidth="312.0" text="Insurance Card - Card Holder" GridPane.rowIndex="4">
+            <Label prefHeight="17.0" prefWidth="312.0" GridPane.rowIndex="5">
                 <GridPane.margin>
                     <Insets left="20.0" />
                 </GridPane.margin></Label>
-            <Label prefHeight="17.0" prefWidth="312.0" text="Insurance Card - Policy Owner" GridPane.rowIndex="5">
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin></Label>
-            <Label prefHeight="17.0" prefWidth="312.0" text="Claim Date" GridPane.rowIndex="1">
+            <Label prefHeight="17.0" prefWidth="312.0" text="Claim Date" GridPane.rowIndex="2">
                 <GridPane.margin>
                     <Insets left="20.0" />
                 </GridPane.margin></Label>
@@ -70,29 +67,22 @@
                 <GridPane.margin>
                     <Insets left="20.0" />
                 </GridPane.margin></Label>
-            <Label prefHeight="17.0" prefWidth="312.0" text="Bank - Card Owner" GridPane.rowIndex="10">
+            <Label prefHeight="17.0" prefWidth="312.0" text="Bank - Card Number" GridPane.rowIndex="10">
                 <GridPane.margin>
                     <Insets left="20.0" />
                 </GridPane.margin></Label>
-            <Label prefHeight="17.0" prefWidth="312.0" text="Bank - Card Number" GridPane.rowIndex="11">
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin></Label>
-            <TextField fx:id="claimDateFieldClaim" maxWidth="-Infinity" prefWidth="250.0" promptText="yyyy-mm-dd" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="cardNumberFieldClaim" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="cardHolderFieldClaim" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="policyOwnerFieldClaim" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="claimDateFieldClaim" maxWidth="-Infinity" prefWidth="250.0" promptText="yyyy-mm-dd" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="cardNumberFieldClaim" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="expirationDateFieldClaim" maxWidth="-Infinity" prefWidth="250.0" promptText="yyyy-mm-dd" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="claimAmountFieldClaim" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <TextField fx:id="bankNameFieldClaim" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextField fx:id="bankCardOwnerFieldClaim" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <TextField fx:id="bankCardNumberFieldClaim" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-            <Button mnemonicParsing="false" onAction="#NotConfirmClaim" prefHeight="26.0" prefWidth="126.0" text="Exit" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <TextField fx:id="bankCardNumberFieldClaim" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Button mnemonicParsing="false" onAction="#NotConfirmClaim" prefHeight="39.0" prefWidth="181.0" text="Exit" GridPane.columnIndex="1" GridPane.rowIndex="13" />
             <Button fx:id="uploadButton" mnemonicParsing="false" onAction="#openUploadWindow" prefHeight="26.0" prefWidth="146.0" text="Upload File" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <ComboBox fx:id="fileNameComboBox" prefHeight="26.0" prefWidth="68.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
             </ComboBox>
-         <Button mnemonicParsing="false" onAction="#onSubmit" prefHeight="26.0" prefWidth="125.0" text="Submit" GridPane.rowIndex="12" />
-         <ChoiceBox fx:id="ClaimBeneficieryBox" prefHeight="26.0" prefWidth="236.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />        </children>
+         <Button mnemonicParsing="false" onAction="#onSubmit" prefHeight="59.0" prefWidth="191.0" text="Submit" GridPane.rowIndex="13" />
+         <ChoiceBox fx:id="ClaimBeneficieryBox" prefHeight="26.0" prefWidth="236.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />        </children>
     </GridPane>
     <columnConstraints>
         <ColumnConstraints />
