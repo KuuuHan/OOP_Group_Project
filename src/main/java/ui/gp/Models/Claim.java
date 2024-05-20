@@ -1,5 +1,6 @@
 package ui.gp.Models;
 
+
 import javafx.scene.control.Button;
 import ui.gp.Models.Users.*;
 
@@ -8,7 +9,7 @@ import java.util.Set;
 
 public class Claim {
     private String id;
-    private Date date;
+    private Date claimDate;
     private String insuredPerson;
     private String cardNumber;
     private Date examDate;
@@ -22,7 +23,7 @@ public class Claim {
                  ClaimStatus status, String bankNumber)
     {
         this.id = id;
-        this.date = claimDate;
+        this.claimDate = claimDate;
         this.insuredPerson = insuredPerson;
         this.examDate = examDate;
         this.claimAmount = claimAmount;
@@ -30,20 +31,28 @@ public class Claim {
         this.bankNumber = bankNumber;
     }
 
-    public Date getExamDate() {
-        return examDate;
-    }
-
     public String getId() {
         return id;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getClaimDate() {
+        return claimDate;
     }
 
     public String getInsuredPerson() {
         return insuredPerson;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public Date getExamDate() {
+        return examDate;
+    }
+
+    public Set<String> getDocuments() {
+        return documents;
     }
 
     public double getClaimAmount() {
