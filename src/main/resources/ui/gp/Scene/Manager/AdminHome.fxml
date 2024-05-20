@@ -109,7 +109,7 @@
                                  <bottom>
                                     <ToolBar prefHeight="10.0" prefWidth="881.0" BorderPane.alignment="CENTER">
                                       <items>
-                                          <Button mnemonicParsing="false" text="Save" />
+                                          <Button fx:id="adminProfileSaveButton" mnemonicParsing="false" text="Save" />
                                           <Label text="You have 1 change unsaved" />
                                       </items>
                                     </ToolBar>
@@ -152,20 +152,20 @@
                   </BorderPane>
                </content>
             </Tab>
-            <Tab fx:id="BeneficiaryTab" text="Account View &amp; Management">
+            <Tab fx:id="AccountTab" text="Account View &amp; Management">
                <content>
                   <BorderPane>
                      <bottom>
                         <TableView fx:id="SystemAdminTable" prefHeight="438.0" prefWidth="881.0" BorderPane.alignment="CENTER">
                            <columns>
-                              <TableColumn fx:id="idPolicyOwnerTable" prefWidth="63.0" text="ID" />
-                              <TableColumn fx:id="fullnamePolicyOwnerTable" prefWidth="95.0" text="Full Name" />
-                              <TableColumn fx:id="usernamePoilicyOwnerTable" prefWidth="102.0" text="Username" />
-                              <TableColumn fx:id="passwordPoilicyOwnerTable" prefWidth="94.0" text="Password" />
-                              <TableColumn fx:id="emailPoilicyOwnerTable" prefWidth="155.0" text="Email" />
-                              <TableColumn fx:id="phonenumberPoilicyOwnerTable" minWidth="5.0" prefWidth="112.0" text="Phone Number" />
-                              <TableColumn fx:id="addressPoilicyOwnerTable" prefWidth="150.0" text="Address" />
-                              <TableColumn fx:id="rolePoilicyOwnerTable" prefWidth="109.0" text="Role" />
+                              <TableColumn fx:id="idAdminColumn" prefWidth="63.0" text="ID" />
+                              <TableColumn fx:id="fullnameColumn" prefWidth="95.0" text="Full Name" />
+                              <TableColumn fx:id="usernameColumn" prefWidth="102.0" text="Username" />
+                              <TableColumn fx:id="passwordColumn" prefWidth="94.0" text="Password" />
+                              <TableColumn fx:id="emailColumn" prefWidth="155.0" text="Email" />
+                              <TableColumn fx:id="phonenumColumn" minWidth="5.0" prefWidth="112.0" text="Phone Number" />
+                              <TableColumn fx:id="addressColumn" prefWidth="150.0" text="Address" />
+                              <TableColumn fx:id="roleColumn" prefWidth="109.0" text="Role" />
                            </columns>
                         </TableView>
                      </bottom>

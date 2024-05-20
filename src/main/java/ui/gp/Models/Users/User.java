@@ -1,8 +1,9 @@
 package ui.gp.Models.Users;
 
+import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.*;
 
-public abstract class User
+public class User
 {
     private static User instance;
     private String id;
@@ -13,6 +14,8 @@ public abstract class User
     private String email;
     private String phonenumber;
     private String address;
+
+
 
     public User(String id, String username, String password, Role role, String fullname, String email, String phonenumber, String address)
     {
@@ -88,5 +91,7 @@ public abstract class User
     public void setId(String id) {
         this.id = id;
     }
+
+
 
 }
