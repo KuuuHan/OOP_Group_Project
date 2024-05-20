@@ -4,12 +4,15 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import ui.gp.Models.Claim;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.Dependent;
@@ -274,11 +277,7 @@ public class OwnerHomeController {
             policyOwnerTable.getSelectionModel().select(selectedBeneficiary);
         }
     }
-    @FXML
-    public void addItemOnClick(ActionEvent event) throws IOException {
-        ClaimController claimController = new ClaimController();
-        claimController.addItemOnClick();
-    }
+
 
     @FXML
     public void onFilterBox(ActionEvent event) {

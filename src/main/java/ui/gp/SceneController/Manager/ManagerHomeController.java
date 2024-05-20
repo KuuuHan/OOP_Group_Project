@@ -15,11 +15,13 @@ import javafx.util.Duration;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.Claim;
 import ui.gp.Models.ClaimStatus;
+import ui.gp.Models.Model;
 import ui.gp.Models.Users.*;
 import ui.gp.SceneController.Controllers.ManagerController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.SceneUtil;
 import ui.gp.Tab.ClaimController;
+import ui.gp.View.ViewFactory;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -194,8 +196,9 @@ public class ManagerHomeController {
     private ClaimController claimController;
     private final   ObservableList<Customer> dataList = FXCollections.observableArrayList();
     private Claim selectedClaim;
+    private User selectedCustomer;
     private DatabaseConnection databaseConnection;
-
+    private ViewFactory view;
 
     public void bannerNameView(String username) {
         welcomeBannerUser.setText("Welcome " + username);
@@ -204,6 +207,7 @@ public class ManagerHomeController {
     public void initialize(Manager manager, ManagerController managerController) {
         this.manager = manager;
         this.managerController = managerController;
+        this.view = new ViewFactory(Model.getInstance().getDatabaseConnection());
         if (managerInfoTab.isSelected()) {
             handleProfileTabSelection();
         }
@@ -259,6 +263,15 @@ public class ManagerHomeController {
                 managerApprovalButton.setDisable(true);
                 managerDeclineButton.setDisable(true);
                 managerViewClaim.setDisable(true);
+            }
+        });
+
+        customerManagerTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedCustomer = (User) newSelection;
+                managerViewCustomer.setDisable(false);
+            } else {
+                managerViewCustomer.setDisable(true);
             }
         });
 
@@ -397,6 +410,7 @@ public class ManagerHomeController {
                 } else return false;
             });
         });
+
 
         SortedList<Customer> sortedData = new SortedList<>(filteredData);
 
@@ -742,6 +756,20 @@ public class ManagerHomeController {
 
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void showCustomerManager() {
+        if (selectedCustomer != null) {
+            customerManagerTable.getSelectionModel().clearSelection();
+
+            managerViewCustomer.setDisable(true);
+            if (selectedCustomer.getRole().name().equals("Dependent")) {
+                view.showDependentInformation(selectedCustomer);
+            } else {
+                view.showPolicyHolderInformation(selectedCustomer);
+            }
         }
     }
 
