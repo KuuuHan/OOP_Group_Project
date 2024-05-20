@@ -5,12 +5,15 @@ import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import ui.gp.Models.Claim;
 import ui.gp.Models.Model;
 import ui.gp.Models.Role;
 import ui.gp.Models.Users.*;
@@ -85,6 +88,28 @@ public class AdminHomeController {
     Button profileSave;
     @FXML
     Button profileReset;
+    @FXML
+    private Tab smallClaimTab;
+    @FXML
+    private TextField smallClaimSearch;
+    @FXML
+    private ComboBox<String> smallStatusFilter;
+    @FXML
+    private TableView smallClaimTable;
+    @FXML
+    private TableColumn smallClaimID;
+    @FXML
+    private TableColumn smallClaimAmount;
+    @FXML
+    private TableColumn smallInsuredPerson;
+    @FXML
+    private TableColumn smallClaimDate;
+    @FXML
+    private TableColumn smallExamDate;
+    @FXML
+    private TableColumn smallStatus;
+    @FXML
+    private Label totalClaimNumber;
 
     private SystemAdmin systemAdmin;
     private AdminController adminController;
@@ -100,6 +125,7 @@ public class AdminHomeController {
     private String originalAddress;
     private User selectedUser;
     private ViewFactory view;
+    private int claimCount;
 
     //======================================
 
@@ -162,6 +188,15 @@ public class AdminHomeController {
         FilterUserBox.setItems(FXCollections.observableArrayList(filterOptions));
         FilterUserBox.setValue(filterOptions.get(0));
 
+
+        List<String> smallClaimFilter = new ArrayList<>();
+        smallClaimFilter.add("All");
+        smallClaimFilter.add("Approved");
+        smallClaimFilter.add("Pending");
+        smallClaimFilter.add("Rejected");
+        smallStatusFilter.setItems(FXCollections.observableArrayList(smallClaimFilter));
+        smallStatusFilter.setValue(filterOptions.get(0));
+
     }
 
     private void populateSystemAdminTable() {
@@ -221,6 +256,11 @@ public class AdminHomeController {
 //            phonenumberFieldInfo.setText(originalPhonenumber);
 //            addressFieldInfo.setText(originalAddress);
         }
+        smallClaimTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                populateSmallClaimTable();
+            }
+        });
     }
 
     // Method to check if any field has been changed
@@ -249,6 +289,23 @@ public class AdminHomeController {
                     }
                 }
                 SystemAdminTable.setItems(filteredData);
+            }
+        }
+    }
+
+    public void onSmallStatusFilterBox(ActionEvent event) {
+        String filter = smallStatusFilter.getSelectionModel().getSelectedItem();
+        if (filter != null) {
+            if (filter.equals("All")) {
+                smallClaimTable.setItems(FXCollections.observableArrayList(adminController.retrieveClaims()));
+            } else {
+                ObservableList<Claim> filteredData = FXCollections.observableArrayList();
+                for (Claim claim : adminController.retrieveClaims()) {
+                    if (claim.getStatus().name().equals(filter.replace(" ", "_"))) {
+                        filteredData.add(claim);
+                    }
+                }
+                smallClaimTable.setItems(filteredData);
             }
         }
     }
@@ -329,6 +386,50 @@ public class AdminHomeController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void populateSmallClaimTable() {
+
+        List<Claim> claims = adminController.retrieveClaims();
+        ObservableList<Claim> dataList = FXCollections.observableArrayList(claims);
+
+        smallClaimID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        smallClaimAmount.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
+        smallInsuredPerson.setCellValueFactory(new PropertyValueFactory<>("insuredPerson"));
+        smallClaimDate.setCellValueFactory(new PropertyValueFactory<>("claimDate"));
+        smallExamDate.setCellValueFactory(new PropertyValueFactory<>("examDate"));
+        smallStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);
+
+        claimCount = 0;
+        for (Claim claim: claims) {
+            claimCount++;
+        }
+
+        totalClaimNumber.setText(Integer.toString(claimCount));
+        smallClaimSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(claim -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else return false;
+            });
+        });
+
+        SortedList<Claim> sortedData = new SortedList<>(filteredData);
+
+        sortedData.comparatorProperty().bind(smallClaimTable.comparatorProperty());
+        smallClaimTable.setItems(sortedData);
     }
 
 }

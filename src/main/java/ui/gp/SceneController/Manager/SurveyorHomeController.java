@@ -96,10 +96,10 @@ public class SurveyorHomeController {
     private Button surveyorApprovalButton;
 
     @FXML
-    private ComboBox<?> surveyorClaimFilter;
+    private ComboBox<String> surveyorClaimFilter;
 
     @FXML
-    private ComboBox<?> surveyorCustomerFilter;
+    private ComboBox<String> surveyorCustomerFilter;
 
     @FXML
     private AnchorPane surveyorHomeScene;
@@ -179,16 +179,17 @@ public class SurveyorHomeController {
         }
         surveyorViewCustomerTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                populateCustomerTable();
+                //populateCustomerTable();
+                System.out.println("Test");
             }
         });
 
-//        List<String> displayComboList = new ArrayList<>();
-//        displayComboList.add("All");
-//        displayComboList.add("Policy Holder");
-//        displayComboList.add("Dependent");
-//        surveyorCustomerFilter.setItems(FXCollections.observableArrayList(displayComboList));
-//        surveyorCustomerFilter.setValue(displayComboList.get(0));
+        List<String> displayComboList = new ArrayList<>();
+        displayComboList.add("All");
+        displayComboList.add("Policy Holder");
+        displayComboList.add("Dependent");
+        surveyorCustomerFilter.setItems(FXCollections.observableArrayList(displayComboList));
+        surveyorCustomerFilter.setValue(displayComboList.get(0));
 
         surveyorViewClaimTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
@@ -203,13 +204,13 @@ public class SurveyorHomeController {
 
         });
 
-//        List<String> displayClaimComboList = new ArrayList<>();
-//        displayClaimComboList.add("All");
-//        displayClaimComboList.add("Rejected");
-//        displayClaimComboList.add("Approved");
-//        displayClaimComboList.add("Pending");
-//        surveyorClaimFilter.setItems(FXCollections.observableArrayList(displayClaimComboList));
-//        surveyorClaimFilter.setValue(displayClaimComboList.get(0));
+        List<String> displayClaimComboList = new ArrayList<>();
+        displayClaimComboList.add("All");
+        displayClaimComboList.add("Rejected");
+        displayClaimComboList.add("Approved");
+        displayClaimComboList.add("Pending");
+        surveyorClaimFilter.setItems(FXCollections.observableArrayList(displayClaimComboList));
+        surveyorClaimFilter.setValue(displayClaimComboList.get(0));
 
         claimPendingSurveyorTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
