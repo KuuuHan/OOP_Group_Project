@@ -26,6 +26,7 @@ import ui.gp.Database.DatabaseConnection;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -288,7 +289,25 @@ public class AdminHomeController {
 
     @FXML
     public void onProfileResetButton(ActionEvent event){
-        handleProfileTabSelection();
+        String[] information = adminController.retrieveInformation().split("\n");
+        try {
+            String query = "SELECT * FROM Users WHERE id = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, idFieldInfo.getText());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                idFieldInfo.setText(resultSet.getString("id"));
+                fullnameFieldInfo.setText(resultSet.getString("fullname"));
+                usernameFieldInfo.setText(resultSet.getString("username"));
+                passwordFieldInfo.setText(resultSet.getString("password"));
+                emailFieldInfo.setText(resultSet.getString("email"));
+                phonenumberFieldInfo.setText(resultSet.getString("phoneNumber"));
+                addressFieldInfo.setText(resultSet.getString("address"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void updateProfile(String password, String email, String phoneNumber, String address,String username)
