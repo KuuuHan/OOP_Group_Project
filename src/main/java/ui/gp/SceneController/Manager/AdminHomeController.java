@@ -2,7 +2,6 @@ package ui.gp.SceneController.Manager;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -12,15 +11,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import ui.gp.Models.Model;
-import ui.gp.Models.Role;
 import ui.gp.Models.Users.*;
 import ui.gp.SceneController.Controllers.AdminController;
-import ui.gp.SceneController.Controllers.DependentController;
-import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.LoadingSceneController;
-import ui.gp.SceneController.Function.PolicyHolderUpdatingFormController;
 import ui.gp.SceneController.Function.SceneUtil;
-import ui.gp.Tab.ClaimController;
 import ui.gp.View.ViewFactory;
 import ui.gp.Database.DatabaseConnection;
 
@@ -30,7 +24,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class AdminHomeController {
     @FXML
@@ -110,6 +103,7 @@ public class AdminHomeController {
     }
 
     public void initialize(SystemAdmin systemAdmin, AdminController adminController) {
+        bannerNameView(systemAdmin.getFullname());
         this.systemAdmin = systemAdmin;
         this.adminController = adminController;
         if (infoTab.isSelected()) {

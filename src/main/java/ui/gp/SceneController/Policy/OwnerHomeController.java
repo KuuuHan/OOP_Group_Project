@@ -4,29 +4,24 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import ui.gp.Models.Claim;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.Customer;
-import ui.gp.Models.Users.Dependent;
 import ui.gp.Models.Users.PolicyOwner;
 import ui.gp.Models.Users.User;
-import ui.gp.SceneController.Controllers.DependentController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.SceneUtil;
-import ui.gp.Tab.ClaimController;
 import ui.gp.View.ViewFactory;
 import ui.gp.Database.DatabaseConnection;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -297,5 +292,62 @@ public class OwnerHomeController {
         }
     }
 
+    @FXML
+    public void onProfileSaveButton(ActionEvent event){
+
+        String password = passwordFieldInfo.getText();
+        String email = emailFiieldInfo.getText();
+        String phoneNumber = phonenumberFieldInfo.getText();
+        String address = addressFieldInfo.getText();
+        String username = usernameFieldInfo.getText();
+
+        //Save update data to the database
+        updateProfile(password, email, phoneNumber, address, username);
+
+    }
+
+    @FXML
+    public void onProfileResetButton(ActionEvent event){
+        String[] information = policyOwnerController.retrieveInformation().split("\n");
+        try {
+            String query = "SELECT * FROM Users WHERE id = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, idFieldInfo.getText());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                idFieldInfo.setText(resultSet.getString("id"));
+                fullnameFieldInfo.setText(resultSet.getString("fullname"));
+                usernameFieldInfo.setText(resultSet.getString("username"));
+                passwordFieldInfo.setText(resultSet.getString("password"));
+                emailFiieldInfo.setText(resultSet.getString("email"));
+                phonenumberFieldInfo.setText(resultSet.getString("phoneNumber"));
+                addressFieldInfo.setText(resultSet.getString("address"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void updateProfile(String password, String email, String phoneNumber, String address,String username)
+    {
+        try {
+            String query = "UPDATE Users SET password = ?, email = ?, phoneNumber = ?, address = ? WHERE username = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+
+            statement.setString(1, password);
+            statement.setString(2, email);
+            statement.setString(3, phoneNumber);
+            statement.setString(4, address);
+            statement.setString(5, username);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("An existing user was updated successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

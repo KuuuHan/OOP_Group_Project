@@ -18,13 +18,12 @@ import ui.gp.Models.ClaimStatus;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.*;
 import ui.gp.SceneController.Controllers.ManagerController;
-import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.SceneUtil;
-import ui.gp.Tab.ClaimController;
 import ui.gp.View.ViewFactory;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -193,7 +192,6 @@ public class ManagerHomeController {
     private Manager manager;
     private ManagerController managerController;
     private String search;
-    private ClaimController claimController;
     private final   ObservableList<Customer> dataList = FXCollections.observableArrayList();
     private Claim selectedClaim;
     private User selectedCustomer;
@@ -201,10 +199,11 @@ public class ManagerHomeController {
     private ViewFactory view;
 
     public void bannerNameView(String username) {
-        welcomeBannerUser.setText("Welcome " + username);
+        welcomeBannerUser.setText("Welcome " + username + "!");
     }
 
     public void initialize(Manager manager, ManagerController managerController) {
+        bannerNameView(manager.getFullname());
         this.manager = manager;
         this.managerController = managerController;
         this.view = new ViewFactory(Model.getInstance().getDatabaseConnection());
@@ -689,10 +688,6 @@ public class ManagerHomeController {
     }
 
 
-    public void processClaim(ActionEvent event) throws IOException {
-        claimController.processManagerClaim(event);
-    }
-
     public void ApproveClaimButton()
     {
         if (selectedClaim != null) {
@@ -773,4 +768,61 @@ public class ManagerHomeController {
         }
     }
 
+    @FXML
+    public void onProfileSaveButton(ActionEvent event){
+
+        String password = managerPassword.getText();
+        String email = managerEmail.getText();
+        String phoneNumber = managerPhone.getText();
+        String address = managerAddress.getText();
+        String username = managerUser.getText();
+
+        //Save update data to the database
+        updateProfile(password, email, phoneNumber, address, username);
+
+    }
+
+    @FXML
+    public void onProfileResetButton(ActionEvent event){
+        String[] information = managerController.retrieveInformation().split("\n");
+        try {
+            String query = "SELECT * FROM Users WHERE id = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, managerID.getText());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                managerID.setText(resultSet.getString("id"));
+                managerName.setText(resultSet.getString("fullname"));
+                managerUser.setText(resultSet.getString("username"));
+                managerPassword.setText(resultSet.getString("password"));
+                managerEmail.setText(resultSet.getString("email"));
+                managerPhone.setText(resultSet.getString("phoneNumber"));
+                managerAddress.setText(resultSet.getString("address"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void updateProfile(String password, String email, String phoneNumber, String address,String username)
+    {
+        try {
+            String query = "UPDATE Users SET password = ?, email = ?, phoneNumber = ?, address = ? WHERE username = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+
+            statement.setString(1, password);
+            statement.setString(2, email);
+            statement.setString(3, phoneNumber);
+            statement.setString(4, address);
+            statement.setString(5, username);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("An existing user was updated successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
