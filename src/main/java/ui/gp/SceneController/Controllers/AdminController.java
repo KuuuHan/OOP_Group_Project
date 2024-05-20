@@ -59,55 +59,6 @@ public class AdminController {
         return systemAccounts;
     }
 
-    public List<Claim> retrieveRejectedClaims() {
-        List<Claim> claims = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
-            String query = "SELECT * FROM claim WHERE claim_status IN ('Rejected');";
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                ClaimStatus status = ClaimStatus.valueOf(resultSet.getString("claim_status"));
-                Claim claim = new Claim(
-                        resultSet.getString("id"),
-                        resultSet.getDate("claim_date"),
-                        resultSet.getString("insured_person"),
-                        resultSet.getDate("exam_date"),
-                        resultSet.getDouble("claim_amount"),
-                        status,
-                        resultSet.getString("card_number_bank")
-                );
-                claims.add(claim);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return claims;
-    }
-
-    public List<Claim> retrieveApprovedClaims() {
-        List<Claim> claims = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
-            String query = "SELECT * FROM claim WHERE claim_status IN ('Approved');";
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                ClaimStatus status = ClaimStatus.valueOf(resultSet.getString("claim_status"));
-                Claim claim = new Claim(
-                        resultSet.getString("id"),
-                        resultSet.getDate("claim_date"),
-                        resultSet.getString("insured_person"),
-                        resultSet.getDate("exam_date"),
-                        resultSet.getDouble("claim_amount"),
-                        status,
-                        resultSet.getString("card_number_bank")
-                );
-                claims.add(claim);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return claims;
-    }
 
     public List<Claim> retrieveClaims() {
         List<Claim> claims = new ArrayList<>();
@@ -124,7 +75,7 @@ public class AdminController {
                         resultSet.getDate("exam_date"),
                         resultSet.getDouble("claim_amount"),
                         status,
-                        resultSet.getString("card_number_bank")
+                        resultSet.getString("card_number_insurance")
                 );
                 claims.add(claim);
             }
@@ -134,28 +85,4 @@ public class AdminController {
         return claims;
     }
 
-    public List<Claim> retrievePendingClaims() {
-        List<Claim> claims = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
-            String query = "SELECT * FROM claim WHERE claim_status IN ('Pending');";
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                ClaimStatus status = ClaimStatus.valueOf(resultSet.getString("claim_status"));
-                Claim claim = new Claim(
-                        resultSet.getString("id"),
-                        resultSet.getDate("claim_date"),
-                        resultSet.getString("insured_person"),
-                        resultSet.getDate("exam_date"),
-                        resultSet.getDouble("claim_amount"),
-                        status,
-                        resultSet.getString("card_number_bank")
-                );
-                claims.add(claim);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return claims;
-    }
 }
