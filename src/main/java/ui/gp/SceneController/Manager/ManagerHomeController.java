@@ -15,15 +15,16 @@ import javafx.util.Duration;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.Claim;
 import ui.gp.Models.ClaimStatus;
+import ui.gp.Models.Model;
 import ui.gp.Models.Users.*;
 import ui.gp.SceneController.Controllers.ManagerController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.SceneUtil;
 import ui.gp.Tab.ClaimController;
+import ui.gp.View.ViewFactory;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -195,30 +196,9 @@ public class ManagerHomeController {
     private ClaimController claimController;
     private final   ObservableList<Customer> dataList = FXCollections.observableArrayList();
     private Claim selectedClaim;
+    private User selectedCustomer;
     private DatabaseConnection databaseConnection;
-    @FXML
-    private Tab infoTab;
-    @FXML
-    private Tab AccountTab;
-    @FXML
-    private TextField idFieldInfo;
-    @FXML
-    private TextField fullnameFieldInfo;
-    @FXML
-    private TextField usernameFieldInfo;
-    @FXML
-    private TextField passwordFieldInfo;
-    @FXML
-    private TextField emailFieldInfo;
-    @FXML
-    private TextField phonenumberFieldInfo;
-    @FXML
-    private TextField addressFieldInfo;
-    @FXML
-    Button profileSave;
-    @FXML
-    Button profileReset;
-
+    private ViewFactory view;
 
     public void bannerNameView(String username) {
         welcomeBannerUser.setText("Welcome " + username);
@@ -227,6 +207,7 @@ public class ManagerHomeController {
     public void initialize(Manager manager, ManagerController managerController) {
         this.manager = manager;
         this.managerController = managerController;
+        this.view = new ViewFactory(Model.getInstance().getDatabaseConnection());
         if (managerInfoTab.isSelected()) {
             handleProfileTabSelection();
         }
@@ -282,6 +263,15 @@ public class ManagerHomeController {
                 managerApprovalButton.setDisable(true);
                 managerDeclineButton.setDisable(true);
                 managerViewClaim.setDisable(true);
+            }
+        });
+
+        customerManagerTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedCustomer = (User) newSelection;
+                managerViewCustomer.setDisable(false);
+            } else {
+                managerViewCustomer.setDisable(true);
             }
         });
 
@@ -420,6 +410,7 @@ public class ManagerHomeController {
                 } else return false;
             });
         });
+
 
         SortedList<Customer> sortedData = new SortedList<>(filteredData);
 
@@ -769,60 +760,16 @@ public class ManagerHomeController {
     }
 
     @FXML
-    public void onProfileSaveButton(ActionEvent event){
+    public void showCustomerManager() {
+        if (selectedCustomer != null) {
+            customerManagerTable.getSelectionModel().clearSelection();
 
-        String password = passwordFieldInfo.getText();
-        String email = emailFieldInfo.getText();
-        String phoneNumber = phonenumberFieldInfo.getText();
-        String address = addressFieldInfo.getText();
-        String username = usernameFieldInfo.getText();
-
-        //Save update data to the database
-        updateProfile(password, email, phoneNumber, address, username);
-
-    }
-
-    @FXML
-    public void onProfileResetButton(ActionEvent event){
-        String[] information = managerController.retrieveInformation().split("\n");
-        try {
-            String query = "SELECT * FROM Users WHERE id = ?";
-            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-            statement.setString(1, idFieldInfo.getText());
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                idFieldInfo.setText(resultSet.getString("id"));
-                fullnameFieldInfo.setText(resultSet.getString("fullname"));
-                usernameFieldInfo.setText(resultSet.getString("username"));
-                passwordFieldInfo.setText(resultSet.getString("password"));
-                emailFieldInfo.setText(resultSet.getString("email"));
-                phonenumberFieldInfo.setText(resultSet.getString("phoneNumber"));
-                addressFieldInfo.setText(resultSet.getString("address"));
+            managerViewCustomer.setDisable(true);
+            if (selectedCustomer.getRole().name().equals("Dependent")) {
+                view.showDependentInformation(selectedCustomer);
+            } else {
+                view.showPolicyHolderInformation(selectedCustomer);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void updateProfile(String password, String email, String phoneNumber, String address,String username)
-    {
-        try {
-            String query = "UPDATE Users SET password = ?, email = ?, phoneNumber = ?, address = ? WHERE username = ?";
-            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-
-            statement.setString(1, password);
-            statement.setString(2, email);
-            statement.setString(3, phoneNumber);
-            statement.setString(4, address);
-            statement.setString(5, username);
-
-            int rowsUpdated = statement.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("An existing user was updated successfully!");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
