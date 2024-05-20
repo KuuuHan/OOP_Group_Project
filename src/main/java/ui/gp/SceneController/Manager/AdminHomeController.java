@@ -18,6 +18,7 @@ import ui.gp.SceneController.Controllers.AdminController;
 import ui.gp.SceneController.Controllers.DependentController;
 import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.LoadingSceneController;
+import ui.gp.SceneController.Function.PolicyHolderUpdatingFormController;
 import ui.gp.SceneController.Function.SceneUtil;
 import ui.gp.Tab.ClaimController;
 import ui.gp.View.ViewFactory;
@@ -25,6 +26,7 @@ import ui.gp.Database.DatabaseConnection;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,9 +79,16 @@ public class AdminHomeController {
     TableColumn roleColumn;
     @FXML
     ComboBox<String> FilterUserBox;
+    @FXML
+    Button showDetailButton;
+    @FXML
+    Button profileSave;
+    @FXML
+    Button profileReset;
 
     private SystemAdmin systemAdmin;
     private AdminController adminController;
+    DatabaseConnection databaseConnection;
 
     // Fields to store the original values
     private String originalId;
@@ -90,9 +99,15 @@ public class AdminHomeController {
     private String originalPhonenumber;
     private String originalAddress;
     private User selectedUser;
+    private ViewFactory view;
+
     //======================================
 
-    public AdminHomeController(){ }
+
+    public AdminHomeController() {
+        this.databaseConnection = DatabaseConnection.getInstance();
+        this.view = new ViewFactory(Model.getInstance().getDatabaseConnection());
+    }
 
     public void initialize(SystemAdmin systemAdmin, AdminController adminController) {
         this.systemAdmin = systemAdmin;
@@ -116,6 +131,25 @@ public class AdminHomeController {
 //                emailFieldInfo.textProperty(),
 //                phonenumberFieldInfo.textProperty(),
 //                addressFieldInfo.textProperty()));
+
+        SystemAdminTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedUser = (User) newSelection;
+//                deleteBeneficiaryButton.setDisable(false);
+                showDetailButton.setDisable(false);
+//                updateBeneficiaryButton.setDisable(false);
+            } else {
+//                deleteBeneficiaryButton.setDisable(true);
+                showDetailButton.setDisable(true);
+//                updateBeneficiaryButton.setDisable(true);
+            }
+        });
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
+            populateSystemAdminTable();
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
 
         List<String> filterOptions = new ArrayList<>();
         filterOptions.add("All");
@@ -219,5 +253,82 @@ public class AdminHomeController {
         }
     }
 
+    @FXML
+    public void onShowDetail(ActionEvent event){
+        if(selectedUser != null){
+            SystemAdminTable.getSelectionModel().clearSelection();
+            showDetailButton.setDisable(true);
+        } if(selectedUser.getRole().name().equals("Dependent")){
+            view. showDependentInformation(selectedUser);
+        } else if (selectedUser.getRole().name().equals("Policy_Holder")){
+            view. showPolicyHolderInformation(selectedUser);
+        } else if (selectedUser.getRole().name().equals("Insurance_Manager")){
+            view.  showPolicyHolderInformation(selectedUser);
+        } else if (selectedUser.getRole().name().equals("Insurance_Surveyor")){
+            view.  showPolicyHolderInformation(selectedUser);
+        } else if (selectedUser.getRole().name().equals("System_Admin")){
+            view.  showPolicyHolderInformation(selectedUser);
+        } else if (selectedUser.getRole().name().equals("Policy_Owner")){
+            view.  showPolicyHolderInformation(selectedUser);
+        }
+    }
+
+    @FXML
+    public void onProfileSaveButton(ActionEvent event){
+
+        String password = passwordFieldInfo.getText();
+        String email = emailFieldInfo.getText();
+        String phoneNumber = phonenumberFieldInfo.getText();
+        String address = addressFieldInfo.getText();
+        String username = usernameFieldInfo.getText();
+
+        //Save update data to the database
+        updateProfile(password, email, phoneNumber, address, username);
+
+    }
+
+    @FXML
+    public void onProfileResetButton(ActionEvent event){
+        String[] information = adminController.retrieveInformation().split("\n");
+        try {
+            String query = "SELECT * FROM Users WHERE id = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, idFieldInfo.getText());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                idFieldInfo.setText(resultSet.getString("id"));
+                fullnameFieldInfo.setText(resultSet.getString("fullname"));
+                usernameFieldInfo.setText(resultSet.getString("username"));
+                passwordFieldInfo.setText(resultSet.getString("password"));
+                emailFieldInfo.setText(resultSet.getString("email"));
+                phonenumberFieldInfo.setText(resultSet.getString("phoneNumber"));
+                addressFieldInfo.setText(resultSet.getString("address"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void updateProfile(String password, String email, String phoneNumber, String address,String username)
+    {
+        try {
+            String query = "UPDATE Users SET password = ?, email = ?, phoneNumber = ?, address = ? WHERE username = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+
+            statement.setString(1, password);
+            statement.setString(2, email);
+            statement.setString(3, phoneNumber);
+            statement.setString(4, address);
+            statement.setString(5, username);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("An existing user was updated successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

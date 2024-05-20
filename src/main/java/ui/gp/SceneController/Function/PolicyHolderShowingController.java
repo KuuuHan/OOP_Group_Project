@@ -3,6 +3,7 @@ package ui.gp.SceneController.Function;
 import javafx.scene.control.TextField;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.Users.Customer;
+import ui.gp.Models.Users.User;
 
 public class PolicyHolderShowingController {
     public TextField fullnameFieldAddPolicyHolder;
@@ -13,14 +14,14 @@ public class PolicyHolderShowingController {
     public TextField addressFieldAddPolicyHolder;
     public TextField IDFieldAddPolicyHolder;
     private DatabaseConnection databaseConnection;
-    private Customer user;
+    private User user;
 
     public void setDatabaseConnection(DatabaseConnection databaseConnection)
     {
         this.databaseConnection = databaseConnection;
     }
 
-    public void setUser(Customer user)
+    public void setUser(User user)
     {
         this.user = user;
     }
