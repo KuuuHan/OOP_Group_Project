@@ -288,15 +288,6 @@ public class AdminHomeController {
             emailFieldInfo.setText(information[4].split(": ")[1]);
             phonenumberFieldInfo.setText(information[5].split(": ")[1]);
             addressFieldInfo.setText(information[6].split(": ")[1]);
-
-            // Store the original values to check if any field has been changed
-//            idFieldInfo.setText(originalId);
-//            fullnameFieldInfo.setText(originalFullname);
-//            usernameFieldInfo.setText(originalUsername);
-//            passwordFieldInfo.setText(originalPassword);
-//            emailFieldInfo.setText(originalEmail);
-//            phonenumberFieldInfo.setText(originalPhonenumber);
-//            addressFieldInfo.setText(originalAddress);
         }
 
     }

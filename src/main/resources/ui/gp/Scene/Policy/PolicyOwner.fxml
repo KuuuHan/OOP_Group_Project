@@ -172,7 +172,7 @@
                                             prefHeight="25.0" prefWidth="121.0" text="Show specific claim"/>
                                     <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0"/>
                                     <Label text="Filter"/>
-                                    <ComboBox fx:id="filterClaimPoilicyOwnerBox" prefWidth="150.0"/>
+                                    <ComboBox fx:id="filterClaimPoilicyOwnerBox" onAction="#onFilterClaim" prefWidth="150.0"/>
                                 </items>
                             </ToolBar>
                         </top>

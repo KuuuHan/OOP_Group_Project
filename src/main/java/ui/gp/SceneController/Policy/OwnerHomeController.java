@@ -72,6 +72,7 @@ public class OwnerHomeController {
     public Button DeletePolicyClaimbutton;
     public Button showClaimPoilicyOwnerButton;
     public Button updateClaimPoilicyOwnerButton;
+    public ComboBox filterClaimPoilicyOwnerBox;
     private PolicyOwnerController policyOwnerController;
     private DatabaseConnection databaseConnection;
     public TextField idFieldInfo;
@@ -163,6 +164,15 @@ public class OwnerHomeController {
         filterList.add("Dependent");
         filterBeneficiaryBox.setItems(FXCollections.observableArrayList(filterList));
         filterBeneficiaryBox.setValue(filterList.get(0));
+
+        List<String> displayClaimComboList = new ArrayList<>();
+        displayClaimComboList.add("All");
+        displayClaimComboList.add("Rejected");
+        displayClaimComboList.add("Approved");
+        displayClaimComboList.add("Pending");
+        displayClaimComboList.add("nextStage");
+        filterClaimPoilicyOwnerBox.setItems(FXCollections.observableArrayList(displayClaimComboList));
+        filterClaimPoilicyOwnerBox.setValue(displayClaimComboList.get(0));
 
         smallOwnerFilter.setItems(FXCollections.observableArrayList(filterList));
         smallOwnerFilter.setValue(filterList.get(0));
@@ -343,6 +353,25 @@ public class OwnerHomeController {
             }
         }
     }
+
+    @FXML
+    public void onFilterClaim(ActionEvent event) {
+        String filter = (String) filterClaimPoilicyOwnerBox.getSelectionModel().getSelectedItem();
+        if (filter != null) {
+            if (filter.equals("All")) {
+                populatePolicyOwnerClaimTable();
+            } else {
+                ObservableList<Claim> filteredData = FXCollections.observableArrayList();
+                for (Claim claim : policyOwnerController.retrieveAllClaims()) {
+                    if (claim.getStatus().equals(filter)) {
+                        filteredData.add(claim);
+                    }
+                }
+                policyOwnerClaimTable.setItems(filteredData);
+            }
+        }
+    }
+
 
     public void onSmallFilterBox(ActionEvent event) {
         String filter = smallOwnerFilter.getSelectionModel().getSelectedItem();
