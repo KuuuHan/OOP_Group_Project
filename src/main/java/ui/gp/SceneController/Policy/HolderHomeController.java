@@ -42,7 +42,7 @@ public class HolderHomeController {
     @FXML
     TextField passwordFieldInfo;
     @FXML
-    TextField emailFieldInfo;
+    TextField emailFiieldInfo;
     @FXML
     TextField phonenumberFieldInfo;
     @FXML
@@ -104,7 +104,7 @@ public class HolderHomeController {
             fullnameFieldInfo.setText(information[1].split(": ")[1]);
             usernameFieldInfo.setText(information[2].split(": ")[1]);
             passwordFieldInfo.setText(information[3].split(": ")[1]);
-            emailFieldInfo.setText(information[4].split(": ")[1]);
+            emailFiieldInfo.setText(information[4].split(": ")[1]);
             phonenumberFieldInfo.setText(information[5].split(": ")[1]);
             addressFieldInfo.setText(information[6].split(": ")[1]);
         }
@@ -112,7 +112,7 @@ public class HolderHomeController {
 
 
     public void bannerNameView(String username) {
-        welcomeBannerUser.setText("Welcome " + username);
+        welcomeBannerUser.setText("Welcome " + username + "!");
     }
 
     @FXML
@@ -123,8 +123,9 @@ public class HolderHomeController {
 
     @FXML
     public void onProfileSaveButton(ActionEvent event){
+
         String password = passwordFieldInfo.getText();
-        String email = emailFieldInfo.getText();
+        String email = emailFiieldInfo.getText();
         String phoneNumber = phonenumberFieldInfo.getText();
         String address = addressFieldInfo.getText();
         String username = usernameFieldInfo.getText();
@@ -147,7 +148,7 @@ public class HolderHomeController {
                 fullnameFieldInfo.setText(resultSet.getString("fullname"));
                 usernameFieldInfo.setText(resultSet.getString("username"));
                 passwordFieldInfo.setText(resultSet.getString("password"));
-                emailFieldInfo.setText(resultSet.getString("email"));
+                emailFiieldInfo.setText(resultSet.getString("email"));
                 phonenumberFieldInfo.setText(resultSet.getString("phoneNumber"));
                 addressFieldInfo.setText(resultSet.getString("address"));
             }

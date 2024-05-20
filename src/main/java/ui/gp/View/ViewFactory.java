@@ -15,6 +15,7 @@ import ui.gp.SceneController.Function.*;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.SceneController.Manager.AdminHomeController;
 import ui.gp.SceneController.Manager.ManagerHomeController;
+import ui.gp.SceneController.Manager.SurveyorHomeController;
 import ui.gp.SceneController.Policy.DependentsHomeController;
 import ui.gp.SceneController.Policy.HolderHomeController;
 import ui.gp.SceneController.Policy.OwnerHomeController;
@@ -133,6 +134,10 @@ public class ViewFactory {
             root = loader.load();
             Stage stage = (Stage) homeScene.getScene().getWindow();
             stage.getScene().setRoot(root);
+            SurveyorHomeController controller = loader.getController();
+            InsuranceSurveyor surveyor = (InsuranceSurveyor) model;
+            SurveyorController surveyorController = new SurveyorController(surveyor,databaseConnection.getConnection());
+            controller.initialize(surveyor, surveyorController);
         } catch (IOException e) {
             e.printStackTrace();
         }
