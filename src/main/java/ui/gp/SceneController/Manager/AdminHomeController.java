@@ -339,7 +339,7 @@ public class AdminHomeController {
             } else {
                 ObservableList<Claim> filteredData = FXCollections.observableArrayList();
                 for (Claim claim : adminController.retrieveClaims()) {
-                    if (claim.getStatus().name().equals(filter.replace(" ", "_"))) {
+                    if (claim.getStatus().equals(filter.replace(" ", "_"))) {
                         filteredData.add(claim);
                     }
                 }
@@ -356,7 +356,7 @@ public class AdminHomeController {
             } else {
                 ObservableList<Claim> filteredData = FXCollections.observableArrayList();
                 for (Claim claim : adminController.retrieveClaims()) {
-                    if (claim.getStatus().name().equals(filter.replace(" ", "_"))) {
+                    if (claim.getStatus().equals(filter.replace(" ", "_"))) {
                         filteredData.add(claim);
                     }
                 }
@@ -468,7 +468,7 @@ public class AdminHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
@@ -512,7 +512,7 @@ public class AdminHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPerson().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;

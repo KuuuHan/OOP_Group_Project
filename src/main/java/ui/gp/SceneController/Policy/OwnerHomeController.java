@@ -112,6 +112,7 @@ public class OwnerHomeController {
                 selectedBeneficiary = (User) newSelection;
                 deleteBeneficiaryButton.setDisable(false);
                 showInfoBeneficiaryButton.setDisable(false);
+                showInfoBeneficiaryButton.setDisable(false);
                 updateBeneficiaryButton.setDisable(false);
             } else {
                 deleteBeneficiaryButton.setDisable(true);
@@ -291,10 +292,6 @@ public class OwnerHomeController {
         }
     }
 
-    @FXML
-    public void addItemOnClick(ActionEvent event) {
-
-    }
 
 
     @FXML
