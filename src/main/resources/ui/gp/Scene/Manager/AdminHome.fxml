@@ -38,7 +38,7 @@
         <Button layoutX="800.0" layoutY="48.0" mnemonicParsing="false" onAction="#adminLogout" prefHeight="25.0" prefWidth="69.0" text="Logout" AnchorPane.bottomAnchor="509.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="40.0" />
         <TabPane fx:id="dependentsTabPane" layoutY="73.0" prefHeight="501.0" prefWidth="881.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="73.0">
             <tabs>
-                <Tab text="Your Profile">
+                <Tab fx:id="infoTab" text="Your Profile">
                     <content>
                         <GridPane>
                             <columnConstraints>
@@ -70,8 +70,8 @@
                      <children>
                               <GridPane prefHeight="564.0" prefWidth="881.0">
                                   <columnConstraints>
-                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="426.0" minWidth="10.0" prefWidth="263.0" />
+                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="660.0" minWidth="10.0" prefWidth="598.0" />
                                   </columnConstraints>
                                   <rowConstraints>
                                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -80,21 +80,24 @@
                                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                   </rowConstraints>
                                   <children>
-                                      <Label text="ID" />
-                                      <Label text="Full Name" GridPane.rowIndex="1" />
-                                      <Label text="username" GridPane.rowIndex="2" />
-                                      <Label text="password" GridPane.rowIndex="3" />
-                                      <Label text="Adress" GridPane.rowIndex="4" />
-                                      <Label text="email" GridPane.rowIndex="5" />
-                                      <TextField fx:id="adminIDField" GridPane.columnIndex="1" />
-                              <TextField fx:id="adminFullnameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="138.0" prefWidth="504.0" text="ID" textAlignment="CENTER" />
+                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="123.0" prefWidth="456.0" text="Full Name" textAlignment="CENTER" GridPane.rowIndex="1" />
+                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="173.0" prefWidth="536.0" text="Username" textAlignment="CENTER" GridPane.rowIndex="2" />
+                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="120.0" prefWidth="441.0" text="Password" textAlignment="CENTER" GridPane.rowIndex="3" />
+                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="109.0" prefWidth="452.0" text="Adress" textAlignment="CENTER" GridPane.rowIndex="6" />
+                                      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="113.0" prefWidth="512.0" text="Email" textAlignment="CENTER" GridPane.rowIndex="4" />
+                                      <TextField fx:id="idFieldInfo" GridPane.columnIndex="1" />
+                              <TextField fx:id="fullnameFieldInfo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="adminUsernameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="adminPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <TextField fx:id="adminAdressField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <TextField fx:id="adminEmailField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="usernameFieldInfo" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="passwordFieldInfo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="emailFieldInfo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="phonenumberFieldInfo" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="447.0" text="Phone Number" textAlignment="CENTER" GridPane.rowIndex="5" />
+                              <TextField fx:id="addressFieldInfo" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                   </children>
                                   <padding>
                                       <Insets bottom="10.0" left="10.0" right="10.0" />
@@ -106,7 +109,7 @@
                                  <bottom>
                                     <ToolBar prefHeight="10.0" prefWidth="881.0" BorderPane.alignment="CENTER">
                                       <items>
-                                          <Button mnemonicParsing="false" text="Save" />
+                                          <Button fx:id="adminProfileSaveButton" mnemonicParsing="false" text="Save" />
                                           <Label text="You have 1 change unsaved" />
                                       </items>
                                     </ToolBar>
@@ -142,41 +145,41 @@
                               <Button fx:id="showClaimPoilicyOwnerButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" text="Show specific claim" />
                               <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
                               <Label text="Filter" />
-                              <ComboBox fx:id="filterClaimPoilicyOwnerBox" prefHeight="25.0" prefWidth="263.0" />
+                              <ComboBox prefHeight="25.0" prefWidth="263.0" />
                            </items>
                         </ToolBar>
                      </top>
                   </BorderPane>
                </content>
             </Tab>
-            <Tab fx:id="BeneficiaryTab" text="Account View &amp; Management">
+            <Tab fx:id="AccountTab" text="Account View &amp; Management">
                <content>
                   <BorderPane>
                      <bottom>
-                        <TableView fx:id="policyOwnerTable" prefHeight="438.0" prefWidth="881.0" BorderPane.alignment="CENTER">
+                        <TableView fx:id="SystemAdminTable" prefHeight="438.0" prefWidth="881.0" BorderPane.alignment="CENTER">
                            <columns>
-                              <TableColumn fx:id="idPolicyOwnerTable" prefWidth="63.0" text="ID" />
-                              <TableColumn fx:id="fullnamePolicyOwnerTable" prefWidth="95.0" text="Full Name" />
-                              <TableColumn fx:id="usernamePoilicyOwnerTable" prefWidth="102.0" text="Username" />
-                              <TableColumn fx:id="passwordPoilicyOwnerTable" prefWidth="94.0" text="Password" />
-                              <TableColumn fx:id="emailPoilicyOwnerTable" prefWidth="155.0" text="Email" />
-                              <TableColumn fx:id="phonenumberPoilicyOwnerTable" minWidth="5.0" prefWidth="112.0" text="Phone Number" />
-                              <TableColumn fx:id="addressPoilicyOwnerTable" prefWidth="150.0" text="Address" />
-                              <TableColumn fx:id="rolePoilicyOwnerTable" prefWidth="109.0" text="Role" />
+                              <TableColumn fx:id="idAdminColumn" prefWidth="63.0" text="ID" />
+                              <TableColumn fx:id="fullnameColumn" prefWidth="95.0" text="Full Name" />
+                              <TableColumn fx:id="usernameColumn" prefWidth="102.0" text="Username" />
+                              <TableColumn fx:id="passwordColumn" prefWidth="94.0" text="Password" />
+                              <TableColumn fx:id="emailColumn" prefWidth="155.0" text="Email" />
+                              <TableColumn fx:id="phonenumColumn" minWidth="5.0" prefWidth="112.0" text="Phone Number" />
+                              <TableColumn fx:id="addressColumn" prefWidth="150.0" text="Address" />
+                              <TableColumn fx:id="roleColumn" prefWidth="109.0" text="Role" />
                            </columns>
                         </TableView>
                      </bottom>
                      <top>
                         <ToolBar prefHeight="29.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                            <items>
-                              <Button fx:id="addPolicyHolderButton" mnemonicParsing="false" onAction="#AddPolicyHolderButton" text="Add new policy holder" />
-                              <Button fx:id="addDependentButton" mnemonicParsing="false" onAction="#AddDependentButton" text="Add new dependent" />
-                              <Button fx:id="deleteBeneficiaryButton" onAction="#DeleteBeneficiaryButton" prefHeight="25.0" prefWidth="113.0" text="Delete beneficiary" />
-                              <Button fx:id="updateBeneficiaryButton" mnemonicParsing="false" onAction="#updateBeneficiaryButtonAction" prefHeight="25.0" prefWidth="122.0" text="Update beneficiary" />
-                              <Button fx:id="showInfoBeneficiaryButton" mnemonicParsing="false" onAction="#showBeneficiaryButtonAction" prefHeight="25.0" prefWidth="155.0" text="Show specific beneficiary" />
+                              <Button fx:id="addPolicyHolderButton" mnemonicParsing="false" text="Add new policy holder" />
+                              <Button fx:id="addDependentButton" mnemonicParsing="false" text="Add new dependent" />
+                              <Button fx:id="deleteBeneficiaryButton" prefHeight="25.0" prefWidth="113.0" text="Delete beneficiary" />
+                              <Button fx:id="updateBeneficiaryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Update beneficiary" />
+                              <Button fx:id="showInfoBeneficiaryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Show specific beneficiary" />
                               <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
                               <Label text="Filter" />
-                              <ComboBox fx:id="filterBeneficiaryBox" onAction="#onFilterBox" prefWidth="150.0" />
+                              <ComboBox fx:id="FilterUserBox" onAction="#onFilterBox" prefWidth="150.0" />
                            </items>
                         </ToolBar>
                      </top>
