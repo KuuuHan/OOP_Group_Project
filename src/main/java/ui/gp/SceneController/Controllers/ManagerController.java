@@ -214,7 +214,7 @@ public class ManagerController {
         List<Claim> claims = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM claim WHERE claim_status IN ('Pending');";
+            String query = "SELECT * FROM claim WHERE claim_status IN ('nextStage')";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 ClaimStatus status = ClaimStatus.valueOf(resultSet.getString("claim_status"));

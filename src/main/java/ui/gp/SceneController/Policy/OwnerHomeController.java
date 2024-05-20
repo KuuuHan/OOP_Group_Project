@@ -273,6 +273,11 @@ public class OwnerHomeController {
         }
     }
 
+    @FXML
+    public void addItemOnClick(ActionEvent event) {
+
+    }
+
 
     @FXML
     public void onFilterBox(ActionEvent event) {
