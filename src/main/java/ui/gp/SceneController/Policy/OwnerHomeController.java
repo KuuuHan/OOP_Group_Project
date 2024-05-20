@@ -4,12 +4,15 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import ui.gp.Models.Claim;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.PolicyOwner;
@@ -29,6 +32,24 @@ import java.util.Optional;
 
 public class OwnerHomeController {
 
+    @FXML
+    private TableView smallOwnerTable;
+    @FXML
+    private TableColumn smallOwnerId;
+    @FXML
+    private TableColumn smallOwnerName;
+    @FXML
+    private TableColumn smallOwnerRole;
+    @FXML
+    private TableColumn smallOwnerPhone;
+    @FXML
+    private TableColumn smallOwnerEmail;
+    @FXML
+    private ComboBox<String> smallOwnerFilter;
+    @FXML
+    private TextField smallOwnerSearch;
+    @FXML
+    private Label smallOwnerPayment;
     public TableColumn idPolicyOwnerTable;
     public TableColumn fullnamePolicyOwnerTable;
     public TableColumn usernamePoilicyOwnerTable;
@@ -57,6 +78,8 @@ public class OwnerHomeController {
     public ComboBox <String> filterBeneficiaryBox;
     private User selectedBeneficiary;
     public Tab infoTab;
+    @FXML
+    private Tab paymentTab;
     private ObservableList<User> items;
     private TableView<User> ownerHomeTable;
     @FXML
@@ -67,6 +90,7 @@ public class OwnerHomeController {
     Button logoutButton;
     ViewFactory view;
     private ObservableList<Customer> masterData = FXCollections.observableArrayList();
+    private double moneyAmount;
 
     public OwnerHomeController() {
         this.databaseConnection = DatabaseConnection.getInstance();
@@ -81,12 +105,15 @@ public class OwnerHomeController {
         if (infoTab.isSelected()) {
             handleProfileTabSelection();
         }
+        paymentTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                populateSmallUserTable();
+            }
+        });
+
         BeneficiaryTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 populatePolicyOwnerTable();
-                deleteBeneficiaryButton.setDisable(true);
-                showInfoBeneficiaryButton.setDisable(true);
-                updateBeneficiaryButton.setDisable(true);
             }
         });
 
@@ -114,6 +141,9 @@ public class OwnerHomeController {
         filterList.add("Dependent");
         filterBeneficiaryBox.setItems(FXCollections.observableArrayList(filterList));
         filterBeneficiaryBox.setValue(filterList.get(0));
+
+        smallOwnerFilter.setItems(FXCollections.observableArrayList(filterList));
+        smallOwnerFilter.setValue(filterList.get(0));
 
     }
 
@@ -292,6 +322,23 @@ public class OwnerHomeController {
         }
     }
 
+    public void onSmallFilterBox(ActionEvent event) {
+        String filter = smallOwnerFilter.getSelectionModel().getSelectedItem();
+        if (filter != null) {
+            if (filter.equals("All")) {
+                smallOwnerTable.setItems(FXCollections.observableArrayList(policyOwnerController.retrieveBeneficiaries()));
+            } else {
+                ObservableList<Customer> filteredData = FXCollections.observableArrayList();
+                for (Customer customer : policyOwnerController.retrieveBeneficiaries()) {
+                    if (customer.getRole().name().equals(filter.replace(" ", "_"))) {
+                        filteredData.add(customer);
+                    }
+                }
+                smallOwnerTable.setItems(filteredData);
+            }
+        }
+    }
+
     @FXML
     public void onProfileSaveButton(ActionEvent event){
 
@@ -348,6 +395,54 @@ public class OwnerHomeController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void populateSmallUserTable() {
+
+        List<Customer> customers = policyOwnerController.retrieveBeneficiaries();
+        ObservableList<Customer> dataList = FXCollections.observableArrayList(customers);
+
+        smallOwnerId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        smallOwnerName.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+        smallOwnerRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+        smallOwnerPhone.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
+        smallOwnerEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        FilteredList<Customer> filteredData = new FilteredList<>(dataList, b -> true);
+        moneyAmount = 0;
+        for (Customer customer: customers) {
+            if (customer.getRole().name() == "Dependent") {
+                moneyAmount += 0.6*600;
+            } else moneyAmount += 600;
+        }
+        smallOwnerPayment.setText(Double.toString(moneyAmount));
+        smallOwnerSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(customer -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (customer.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (customer.getFullname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (customer.getRole().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (customer.getEmail().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (customer.getPhonenumber().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                }
+                else return false;
+            });
+        });
+
+        SortedList<Customer> sortedData = new SortedList<>(filteredData);
+
+        sortedData.comparatorProperty().bind(smallOwnerTable.comparatorProperty());
+        smallOwnerTable.setItems(sortedData);
     }
 
 }
