@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerController {
-    private Manager manager;
+    private final Manager manager;
     private Connection connection;
 
     public ManagerController(Manager manager, Connection connection) {
