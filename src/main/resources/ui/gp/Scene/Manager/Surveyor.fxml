@@ -18,6 +18,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
@@ -108,14 +109,14 @@
                               </ToolBar>
                            </top>
                            <left>
-                              <TableView prefHeight="374.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                              <TableView fx:id="surveyorTable" prefHeight="374.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                                  <columns>
-                                    <TableColumn prefWidth="75.0" text="ID" />
-                                    <TableColumn prefWidth="75.0" text="C2" />
-                                    <TableColumn fx:id="claimDateView" prefWidth="81.0" text="Date" />
-                                    <TableColumn fx:id="examDateView" prefWidth="89.0" text="Exam Date" />
-                                    <TableColumn fx:id="claimStatusView" prefWidth="84.0" text="Status" />
-                                    <TableColumn fx:id="claimInsuredPersonView" prefWidth="315.0" text="Insured Person" />
+                                    <TableColumn fx:id="claimIDSurveyor" text="Claim ID" />
+                                    <TableColumn fx:id="insuredPersonSurveyor" prefWidth="294.0" text="Insured Person" />
+                                    <TableColumn fx:id="claimAmountSurveyor" minWidth="0.0" prefWidth="123.0" text="Claim Amount" />
+                                    <TableColumn fx:id="statusSurveyor" prefWidth="123.0" text="Status" />
+                                    <TableColumn fx:id="claimDateSurveyor" prefWidth="128.0" text="Claim Date" />
+                                    <TableColumn fx:id="examDateSurveyor" prefWidth="133.0" text="Exam Date" />
                                  </columns>
                               </TableView>
                            </left>
@@ -134,6 +135,44 @@
                                     </columns>
                                 </TableView>
                             </center>
+                        </BorderPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="managerViewCustomerTab" text="View Customers">
+                    <content>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                            <center>
+                                <TableView fx:id="customerSurveyorTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TableColumn fx:id="customerIDSurveyorView" prefWidth="90.39999693632126" text="ID" />
+                                        <TableColumn fx:id="customerNameSurveyorView" prefWidth="135.99996948242188" text="Full Name" />
+                                        <TableColumn fx:id="customerRoleSurveyorView" prefWidth="86.39988708496094" text="Roles" />
+                                        <TableColumn fx:id="customerPhoneSurveyorView" prefWidth="209.60003662109375" text="Phone Number" />
+                                        <TableColumn fx:id="customerEmailSurveyorView" prefWidth="163.2000732421875" text="Email" />
+                                        <TableColumn fx:id="customerAddressSurveyorView" prefWidth="202.39996337890625" text="Address" />
+                                    </columns>
+                                </TableView>
+                            </center>
+                            <top>
+                                <HBox prefHeight="30.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <ToolBar prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                            <items>
+                                                <Label text="Filter" />
+                                                <ComboBox fx:id="managerCustomerFilter" prefWidth="150.0" promptText="Filter Options" />
+                                                <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
+                                                <TextField fx:id="managerSearchCustomer" promptText="Search Customer" />
+                                                <Button fx:id="managerViewCustomer" mnemonicParsing="false" onAction="#onShowDetail" text="View Customer" />
+                                            </items>
+                                        </ToolBar>
+                                        <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
+                                            <items>
+                                                <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
+                                            </items>
+                                        </ToolBar>
+                                    </children>
+                                </HBox>
+                            </top>
                         </BorderPane>
                     </content>
                 </Tab>

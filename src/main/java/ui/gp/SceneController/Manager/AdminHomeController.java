@@ -168,15 +168,6 @@ public class AdminHomeController {
             }
         });
 
-        // Disable save button when non field is changed
-//        adminProfileSaveButton.disableProperty().bind(Bindings.createBooleanBinding(() -> !isAnyFieldChanged(),
-//                idFieldInfo.textProperty(),
-//                fullnameFieldInfo.textProperty(),
-//                usernameFieldInfo.textProperty(),
-//                passwordFieldInfo.textProperty(),
-//                emailFieldInfo.textProperty(),
-//                phonenumberFieldInfo.textProperty(),
-//                addressFieldInfo.textProperty()));
 
         SystemAdminTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
