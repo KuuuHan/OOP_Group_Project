@@ -77,9 +77,12 @@ public class AdminHomeController {
     TableColumn roleColumn;
     @FXML
     ComboBox<String> FilterUserBox;
+    @FXML
+    Button showDetailButton;
 
     private SystemAdmin systemAdmin;
     private AdminController adminController;
+    DatabaseConnection databaseConnection;
 
     // Fields to store the original values
     private String originalId;
@@ -90,9 +93,15 @@ public class AdminHomeController {
     private String originalPhonenumber;
     private String originalAddress;
     private User selectedUser;
+    private ViewFactory view;
+
     //======================================
 
-    public AdminHomeController(){ }
+
+    public AdminHomeController() {
+        this.databaseConnection = DatabaseConnection.getInstance();
+        this.view = new ViewFactory(Model.getInstance().getDatabaseConnection());
+    }
 
     public void initialize(SystemAdmin systemAdmin, AdminController adminController) {
         this.systemAdmin = systemAdmin;
@@ -116,6 +125,25 @@ public class AdminHomeController {
 //                emailFieldInfo.textProperty(),
 //                phonenumberFieldInfo.textProperty(),
 //                addressFieldInfo.textProperty()));
+
+        SystemAdminTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedUser = (User) newSelection;
+//                deleteBeneficiaryButton.setDisable(false);
+                showDetailButton.setDisable(false);
+//                updateBeneficiaryButton.setDisable(false);
+            } else {
+//                deleteBeneficiaryButton.setDisable(true);
+                showDetailButton.setDisable(true);
+//                updateBeneficiaryButton.setDisable(true);
+            }
+        });
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
+            populateSystemAdminTable();
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
 
         List<String> filterOptions = new ArrayList<>();
         filterOptions.add("All");
@@ -216,6 +244,26 @@ public class AdminHomeController {
                 }
                 SystemAdminTable.setItems(filteredData);
             }
+        }
+    }
+
+    @FXML
+    public void onShowDetail(ActionEvent event){
+        if(selectedUser != null){
+            SystemAdminTable.getSelectionModel().clearSelection();
+            showDetailButton.setDisable(true);
+        } if(selectedUser.getRole().name().equals("Dependent")){
+            view. showDependentInformation(selectedUser);
+        } else if (selectedUser.getRole().name().equals("Policy_Holder")){
+            view. showPolicyHolderInformation(selectedUser);
+        } else if (selectedUser.getRole().name().equals("Insurance_Manager")){
+            view.  showPolicyHolderInformation(selectedUser);
+        } else if (selectedUser.getRole().name().equals("Insurance_Surveyor")){
+            view.  showPolicyHolderInformation(selectedUser);
+        } else if (selectedUser.getRole().name().equals("System_Admin")){
+            view.  showPolicyHolderInformation(selectedUser);
+        } else if (selectedUser.getRole().name().equals("Policy_Owner")){
+            view.  showPolicyHolderInformation(selectedUser);
         }
     }
 

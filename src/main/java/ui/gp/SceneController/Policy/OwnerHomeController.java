@@ -57,7 +57,7 @@ public class OwnerHomeController {
     public Button updateBeneficiaryButton;
     public Button showInfoBeneficiaryButton;
     public ComboBox <String> filterBeneficiaryBox;
-    private Customer selectedBeneficiary;
+    private User selectedBeneficiary;
     public Tab infoTab;
     private ObservableList<User> items;
     private TableView<User> ownerHomeTable;
@@ -69,6 +69,11 @@ public class OwnerHomeController {
     Button logoutButton;
     ViewFactory view;
     private ObservableList<Customer> masterData = FXCollections.observableArrayList();
+
+    public OwnerHomeController() {
+        this.databaseConnection = DatabaseConnection.getInstance();
+        this.view = new ViewFactory(Model.getInstance().getDatabaseConnection());
+    }
 
 
     public void initialize(PolicyOwner policyOwner, PolicyOwnerController policyOwnerController) {
@@ -89,7 +94,7 @@ public class OwnerHomeController {
 
         policyOwnerTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                selectedBeneficiary = (Customer) newSelection;
+                selectedBeneficiary = (User) newSelection;
                 deleteBeneficiaryButton.setDisable(false);
                 showInfoBeneficiaryButton.setDisable(false);
                 updateBeneficiaryButton.setDisable(false);
@@ -164,7 +169,7 @@ public class OwnerHomeController {
         }
     }
 
-    private void deleteBeneficiary(Customer selectedBeneficiary) {
+    private void deleteBeneficiary(User selectedBeneficiary) {
         try {
             Thread deleteThread = new Thread(() -> {
                 try {
@@ -212,11 +217,6 @@ public class OwnerHomeController {
         }
     }
 
-
-    public OwnerHomeController() {
-        this.databaseConnection = DatabaseConnection.getInstance();
-       this.view = new ViewFactory(Model.getInstance().getDatabaseConnection());
-    }
 
     public void bannerNameView(String username) {
         welcomeBannerUser.setText("Welcome " + username + "!");

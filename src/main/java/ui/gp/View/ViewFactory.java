@@ -193,7 +193,7 @@ public class ViewFactory {
         }
     }
 
-    public void showPolicyHolderFormUpdate(Customer user)
+    public void showPolicyHolderFormUpdate(User user)
     {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/PolicyHolderUpdatingForm.fxml"));
@@ -212,7 +212,7 @@ public class ViewFactory {
         }
     }
 
-    public void showPolicyHolderInformation(Customer user)
+    public void showPolicyHolderInformation(User user)
     {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/PolicyHolderShowingForm.fxml"));
@@ -231,7 +231,7 @@ public class ViewFactory {
         }
     }
 
-    public void showDepenentFormUpdate(Customer user)
+    public void showDepenentFormUpdate(User user)
     {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/DependentUpdatingForm.fxml"));
@@ -251,7 +251,7 @@ public class ViewFactory {
         }
     }
 
-    public void showDependentInformation(Customer user)
+    public void showDependentInformation(User user)
     {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/DependentShowingForm.fxml"));
