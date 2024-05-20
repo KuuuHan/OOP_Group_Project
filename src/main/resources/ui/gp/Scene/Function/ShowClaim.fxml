@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gp.Scene.Function.ShowClaim">
    <children>
@@ -27,7 +30,28 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
+         <children>
+            <Label text="Claim ID" GridPane.rowIndex="1" />
+            <TextField fx:id="showClaimIdrow" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="InsuredPersonidshowclaimrow" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="claimdaterow" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="examdaterow" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="claimamountrow" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="claimstatusrow" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="banknumberrow" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="banknamerow" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="cardbankeownernamerow" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="cardnumberinsurancerow" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <TextField fx:id="policyownerinsurancerow" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <TextField fx:id="expirationdateinsurancerow" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <TextField fx:id="cardholdernamerow" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+            <ChoiceBox fx:id="imagebox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+            <Button fx:id="showimagebutton" mnemonicParsing="false" onAction="#ShowimageonAction" prefHeight="26.0" prefWidth="121.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+         </children>
       </GridPane>
    </children>
 </AnchorPane>

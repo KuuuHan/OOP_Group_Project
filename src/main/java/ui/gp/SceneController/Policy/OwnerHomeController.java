@@ -24,6 +24,7 @@ import ui.gp.Database.DatabaseConnection;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -321,6 +322,8 @@ public class OwnerHomeController {
         if (selectedClaim != null) {
             // Cast selectedClaim to Claim type and delete the claim from the database
             Claim claim = PolicyOwnerController.retrieveclaimsforid(((Claim) selectedClaim).getId());
+            List<String> documentNames = retrievelistofimage(claim.getId());
+
 
 
         } else {
@@ -328,6 +331,23 @@ public class OwnerHomeController {
             showErrorDialog("Please select a claim to show.");
         }
 
+    }
+    private List<String> retrievelistofimage(String claimId) {
+        String query = "SELECT documentname FROM claim WHERE id = ?";
+        List<String> documentNames = new ArrayList<>();
+        try {
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, claimId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                documentNames.add(resultSet.getString("documentname"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+
+        }
+        return documentNames;
     }
 
     private void deleteClaimFromDatabase(String claimId) {
