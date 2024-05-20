@@ -5,13 +5,16 @@ import ui.gp.Models.Claim;
 import ui.gp.Models.Role;
 import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.PolicyOwner;
+import ui.gp.Models.Users.User;
+import ui.gp.SceneController.Function.Session;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PolicyOwnerController {
-    private PolicyOwner policyOwner;
+    private final PolicyOwner policyOwner;
     private Connection connection;
 
     public PolicyOwnerController(PolicyOwner policyOwner, Connection connection) {
@@ -29,41 +32,86 @@ public class PolicyOwnerController {
                 "Address: " + policyOwner.getAddress();
     }
     public List<Claim> retrieveAllClaims() {
-        List<Claim> claims = new ArrayList<>();
+        List<Claim> claimList = new ArrayList<>();
         try {
+            User currentUser = Session.getInstance().getUser();
+            String currentUsername = currentUser.getUsername();
+            String currentPassword = currentUser.getPassword();
 
-
-            String query = "SELECT * FROM claim WHERE policy_owner_insurance = ?";
+            String query = "SELECT * FROM claim JOIN Users ON claim.policy_owner_insurance = Users.id WHERE Users.username = ? AND Users.password = ?";
             PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-            statement.setString(1, policyOwner.getId());
-
+            statement.setString(1, currentUsername);
+            statement.setString(2, currentPassword);
             ResultSet rs = statement.executeQuery();
 
-            if (rs.next()) {
-                Claim claim = new Claim(
+            while (rs.next()) {
+                Claim claims = new Claim(
                         rs.getString("id"),
                         rs.getDate("claim_date"),
                         rs.getString("insured_person"),
-                        rs.getString("exam_date"),
-                        rs.getDate("claim_amount"),
-                        rs.getDouble("claim_status"),
+                        rs.getString("card_number_insurance"),
+                        rs.getDate("exam_date"),
+                        rs.getDouble("claim_amount"),
+                        rs.getString("claim_status"),
                         rs.getString("card_number_bank"),
                         rs.getString("bank_name"),
                         rs.getString("card_owner_bank"),
-                        rs.getString("card_number_insurance"),
                         rs.getDate("expiration_date_insurance"),
                         rs.getString("policy_owner_insurance"),
                         rs.getString("card_holder_insurance")
                 );
-                claims.add(claim);
+                claimList.add(claims);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return claimList;
+    }
+    public static Claim retrieveclaimsforid(String Claimid) {
+
+        try {
+            String query = "SELECT * FROM claim WHERE id = Claimid";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+
+                Claim claims = new Claim(
+                        rs.getString("id"),
+                        rs.getDate("claim_date"),
+                        rs.getString("insured_person"),
+                        rs.getString("card_number_insurance"),
+                        rs.getDate("exam_date"),
+                        rs.getDouble("claim_amount"),
+                        rs.getString("claim_status"),
+                        rs.getString("card_number_bank"),
+                        rs.getString("bank_name"),
+                        rs.getString("card_owner_bank"),
+                        rs.getDate("expiration_date_insurance"),
+                        rs.getString("policy_owner_insurance"),
+                        rs.getString("card_holder_insurance")
+                );
+            return claims;
 
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return claims;
+
+        return null;
     }
+//    public Claim(String id,
+//                 java.util.Date date,
+//                 String insuredPersonID,
+//                 String cardNumber,
+//                 java.util.Date examDate,
+//                 double claimAmount,
+//                 String status
+//                 , String
+//                         receiverBankingNumber,
+//                 String receiverBankingName,
+//                 String receiverHolderName,
+//                 Date Expdate,
+//                 String policy_owner_insuranceid,
+//                 String InsuranceCardHolderName)
 
     public List<Customer> retrieveBeneficiaries() {
         List<Customer> beneficiaries = new ArrayList<>();

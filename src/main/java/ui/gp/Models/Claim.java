@@ -40,7 +40,59 @@ public class Claim {
 
     }
 
+    public String getInsuredPersonID() {
+        return insuredPersonID;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public Set<String> getDocuments() {
+        return documents;
+    }
+
+    public double getClaimAmount() {
+        return claimAmount;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getReceiverBankingNumber() {
+        return receiverBankingNumber;
+    }
+
+    public String getReceiverBankingName() {
+        return receiverBankingName;
+    }
+
+    public String getReceiverHolderName() {
+        return receiverHolderName;
+    }
+
+    public String getPolicy_owner_insuranceid() {
+        return policy_owner_insuranceid;
+    }
+
+    public String getInsuranceCardHolderName() {
+        return InsuranceCardHolderName;
+    }
+
+    public Date getExpireDate() {
+        return ExpireDate;
+    }
+
     public Date getExamDate() {
         return examDate;
     }
+
+    public String getId() {
+        return id;
+    }
+    public Date getDate() {
+        return date;
+    }
+
 }

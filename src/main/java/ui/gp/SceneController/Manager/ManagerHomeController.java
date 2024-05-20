@@ -154,6 +154,23 @@ public class ManagerHomeController {
     @FXML
     private TableView<Provider> surveyorManagerTable;
     @FXML
+    TableColumn idClaimPolicyOwnerTable;
+    @FXML
+    TableColumn datePoilicyOwnerTable;
+    @FXML
+    TableColumn insuredPersonPoilicyOwnerTable;
+    @FXML
+    TableColumn examDatePoilicyOwnerTable;
+    @FXML
+    TableColumn documentsPolicyOwnerTable;
+    @FXML
+    TableColumn claimAmountPoilicyOwnerTable;
+    @FXML
+    TableColumn statusPoilicyOwnerTable;
+    @FXML
+    TableColumn bankingInfoPoilicyOwnerTable;
+
+    @FXML
     private TableView<Claim> claimManagerTable;
     private Manager manager;
     private ManagerController managerController;
@@ -231,12 +248,14 @@ public class ManagerHomeController {
         List<Customer> beneficiaries = managerController.retrieveBeneficiaries();
         ObservableList<Customer> dataList = FXCollections.observableArrayList(beneficiaries);
 
-        customerIDManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
-        customerNameManagerView.setCellValueFactory(new PropertyValueFactory<>("fullname"));
-        customerRoleManagerView.setCellValueFactory(new PropertyValueFactory<>("role"));
-        customerPhoneManagerView.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
-        customerEmailManagerView.setCellValueFactory(new PropertyValueFactory<>("email"));
-        customerAddressManagerView.setCellValueFactory(new PropertyValueFactory<>("address"));
+        idClaimPolicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("id"));
+        datePoilicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("claim_date"));
+        insuredPersonPoilicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("insured_person"));
+        examDatePoilicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("exam_date"));
+        documentsPolicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
+        claimAmountPoilicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("claim_amount"));
+        statusPoilicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("claim_status"));
+        bankingInfoPoilicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>(""));
 
         FilteredList<Customer> filteredData = new FilteredList<>(dataList, b -> true);
 
@@ -271,7 +290,7 @@ public class ManagerHomeController {
 
         customerIDManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
         customerNameManagerView.setCellValueFactory(new PropertyValueFactory<>("fullname"));
-        customerRoleManagerView.setCellValueFactory(new PropertyValueFactory<>("role"));
+        customerRoleManagerView.setCellValueFactory(new PropertyValueFactory<>("insured_person"));
         customerPhoneManagerView.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
         customerEmailManagerView.setCellValueFactory(new PropertyValueFactory<>("email"));
         customerAddressManagerView.setCellValueFactory(new PropertyValueFactory<>("address"));
