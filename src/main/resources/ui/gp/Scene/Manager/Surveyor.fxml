@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -16,7 +18,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
@@ -40,123 +41,14 @@
         <Button layoutX="800.0" layoutY="48.0" mnemonicParsing="false" onAction="#SurveyorLogout" prefHeight="25.0" prefWidth="69.0" text="Logout" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="40.0" />
         <TabPane layoutY="130.0" prefHeight="444.0" prefWidth="881.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
             <tabs>
-            <Tab fx:id="surveyorViewClaimTab" text="View claim">
-               <content>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0">
-                     <center>
-                        <TableView fx:id="claimSurveyorTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <columns>
-                              <TableColumn fx:id="claimIDSurveyorView" prefWidth="90.39999693632126" text="Claim ID" />
-                              <TableColumn fx:id="insuredPeopleSurveyorView" prefWidth="258.39991760253906" text="Insured Person" />
-                              <TableColumn fx:id="claimAmountSurveyorView" prefWidth="106.40008544921875" text="Claim Amount" />
-                              <TableColumn fx:id="statusSurveyorView" prefWidth="88.00006103515625" text="Status" />
-                              <TableColumn fx:id="claimDateSurveyorView" prefWidth="170.0" text="Claim Date" />
-                              <TableColumn fx:id="examDateSurveyorView" prefWidth="170.0" text="Exam Date" />
-                           </columns>
-                        </TableView>
-                     </center>
-                     <top>
-                        <HBox prefHeight="30.0" prefWidth="882.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <ToolBar prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                 <items>
-                                    <Label text="Filter" />
-                                    <ComboBox fx:id="surveyorClaimFilter" prefWidth="150.0" promptText="Filter Options" />
-                                    <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
-                                    <TextField fx:id="surveyorSearchClaim" prefHeight="26.0" prefWidth="178.0" promptText="Search Claim" />
-                                    <Button fx:id="surveyorViewClaim" mnemonicParsing="false" text="View Claim" />
-                                 </items>
-                              </ToolBar>
-                              <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" />
-                           </children>
-                        </HBox>
-                     </top>
-                  </BorderPane>
-               </content>
-            </Tab>
-            <Tab fx:id="surveyorViewPendingClaimTab" text="View Pending claim">
-               <content>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0">
-                     <center>
-                        <TableView fx:id="claimPendingSurveyorTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <columns>
-                              <TableColumn fx:id="claimIdPendingSurveyorView" prefWidth="90.39999693632126" text="Claim ID" />
-                              <TableColumn fx:id="insuredPeoplePendingSurveyorView" prefWidth="258.39991760253906" text="Insured Person" />
-                              <TableColumn fx:id="claimAmountPendingSurveyorView" prefWidth="106.40008544921875" text="Claim Amount" />
-                              <TableColumn fx:id="statusPendingSurveyorView" prefWidth="88.00006103515625" text="Status" />
-                              <TableColumn fx:id="claimDatePendingSurveyorView" prefWidth="170.0" text="Claim Date" />
-                              <TableColumn fx:id="examDatePendingSurveyorView" prefWidth="170.0" text="Exam Date" />
-                           </columns>
-                        </TableView>
-                     </center>
-                     <top>
-                        <HBox prefHeight="30.0" prefWidth="882.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <ToolBar prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                 <items>
-                                    <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
-                                    <TextField fx:id="surveyorSearchPendingClaim" prefHeight="26.0" prefWidth="238.0" promptText="Search Claim" />
-                                    <Button fx:id="surveyorViewPendingClaim" mnemonicParsing="false" text="View Claim" />
-                                 </items>
-                              </ToolBar>
-                              <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
-                                 <items>
-                                    <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
-                                    <Button fx:id="surveyorApprovalButton" mnemonicParsing="false" text="Porpose Claim" />
-                                 </items>
-                              </ToolBar>
-                           </children>
-                        </HBox>
-                     </top>
-                  </BorderPane>
-               </content>
-            </Tab>
-            <Tab fx:id="surveyorViewCustomerTab" text="View Customers">
-               <content>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0">
-                     <center>
-                        <TableView fx:id="customerSurveyorTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <columns>
-                              <TableColumn fx:id="customerIDSurveyorView" prefWidth="90.39999693632126" text="ID" />
-                              <TableColumn fx:id="customerNameSurveyorView" prefWidth="135.99996948242188" text="Full Name" />
-                              <TableColumn fx:id="customerRoleSurveyorView" prefWidth="86.39988708496094" text="Roles" />
-                              <TableColumn fx:id="customerPhoneSurveyorView" prefWidth="209.60003662109375" text="Phone Number" />
-                              <TableColumn fx:id="customerEmailSurveyorView" prefWidth="163.2000732421875" text="Email" />
-                              <TableColumn fx:id="customerAddressSurveyorView" prefWidth="202.39996337890625" text="Address" />
-                           </columns>
-                        </TableView>
-                     </center>
-                     <top>
-                        <HBox prefHeight="30.0" prefWidth="882.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <ToolBar prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                 <items>
-                                    <Label text="Filter" />
-                                    <ComboBox fx:id="surveyorCustomerFilter" prefWidth="150.0" promptText="Filter Options" />
-                                    <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
-                                    <TextField fx:id="surveyorSearchCustomer" promptText="Search Customer" />
-                                    <Button fx:id="surveyorViewCustomer" mnemonicParsing="false" text="View Customer" />
-                                 </items>
-                              </ToolBar>
-                              <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
-                                 <items>
-                                    <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
-                                 </items>
-                              </ToolBar>
-                           </children>
-                        </HBox>
-                     </top>
-                  </BorderPane>
-               </content>
-            </Tab>
-            <Tab fx:id="surveyorInfoTab" onSelectionChanged="#handleSurveyorProfileTabSelection" text="Your Information">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <Tab fx:id="infoTab" onSelectionChanged="#handleProfileTabSelection" text="Your Information">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <GridPane prefHeight="405.0" prefWidth="894.0">
+                        <GridPane fx:id="infoView" layoutY="2.0" prefHeight="410.0" prefWidth="844.0">
                            <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.20001220703125" minWidth="10.0" prefWidth="104.60000610351562" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="789.3999938964844" minWidth="10.0" prefWidth="789.3999938964844" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -166,28 +58,71 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="ID" />
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Full Name" GridPane.rowIndex="1" />
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Username" GridPane.rowIndex="2" />
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Password" GridPane.rowIndex="3" />
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Email" GridPane.rowIndex="4" />
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Phone Number" GridPane.rowIndex="5" />
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="479.0" text="Address" GridPane.rowIndex="6" />
-                              <TextField fx:id="surveyorID" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" />
-                              <TextField fx:id="surveyorName" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="surveyorUser" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="surveyorPassword" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <TextField fx:id="surveyorEmail" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <TextField fx:id="surveyorPhone" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <TextField fx:id="surveyorAddress" editable="false" maxWidth="-Infinity" prefWidth="640.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="804.0" text="ID" />
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="996.0" text="Full Name" GridPane.rowIndex="1" />
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="970.0" text="Username" GridPane.rowIndex="2" />
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="843.0" text="Password" GridPane.rowIndex="3" />
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="871.0" text="Address" GridPane.rowIndex="6" />
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="798.0" text="Email" GridPane.rowIndex="4" />
+                              <TextField fx:id="idField" editable="false" maxWidth="-Infinity" prefWidth="350.0" GridPane.columnIndex="1" />
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="871.0" text="Phone Number" GridPane.rowIndex="5" />
+                              <SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="27.0" prefWidth="182.0" GridPane.rowIndex="7">
+                                 <items>
+                                    <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onProfileSaveButton" prefHeight="25.0" prefWidth="90.0" text="Save" />
+                                    <Button fx:id="resetButton" mnemonicParsing="false" onAction="#onProfileResetButton" prefHeight="25.0" prefWidth="90.0" text="Reset" />
+                                 </items>
+                              </SplitPane>
+                              <TextField fx:id="fullnameField" editable="false" maxWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="usernameField" editable="false" maxWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="passwordField" maxWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="emailField" maxWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="phonenumberField" maxWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="addressField" maxWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                            </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" />
+                           </padding>
                         </GridPane>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
+                     </children></AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="View claim list">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane prefHeight="418.0" prefWidth="881.0">
+                           <top>
+                              <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <items>
+                                    <Label text="View" />
+                                    <ComboBox fx:id="claimViewComboBox" prefWidth="150.0" promptText="Choose View" />
+                                    <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
+                                    <TextField fx:id="claimSearchbar" prefHeight="25.0" prefWidth="323.0" promptText="Search Claim" />
+                                    <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
+                                    <Button fx:id="editButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="44.0" text="Edit" />
+                                    <Button mnemonicParsing="false" text="Proccess Claim" />
+                                 </items>
+                              </ToolBar>
+                           </top>
+                           <left>
+                              <TableView prefHeight="374.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="ID" />
+                                    <TableColumn prefWidth="75.0" text="C2" />
+                                    <TableColumn fx:id="claimDateView" prefWidth="81.0" text="Date" />
+                                    <TableColumn fx:id="examDateView" prefWidth="89.0" text="Exam Date" />
+                                    <TableColumn fx:id="claimStatusView" prefWidth="84.0" text="Status" />
+                                    <TableColumn fx:id="claimInsuredPersonView" prefWidth="315.0" text="Insured Person" />
+                                 </columns>
+                              </TableView>
+                           </left>
+                        </BorderPane>
+                     </children></AnchorPane>
+                    </content>
+                </Tab>
             </tabs>
         </TabPane>
     </children>
