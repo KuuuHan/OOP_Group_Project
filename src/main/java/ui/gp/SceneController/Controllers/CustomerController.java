@@ -38,34 +38,7 @@ public class CustomerController {
     /**
      * This function returns a list of VIP instances in the map
      */
-    public List<PolicyOwner> getPolicyOwnerList(){
-        List<PolicyOwner> result = new ArrayList<>();
-        ArrayList<User> userList = new ArrayList<>();
 
-        for(User user : userList){
-            if(user instanceof PolicyOwner){
-                result.add((PolicyOwner) user);
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * This function returns a list of Guest instances in the map
-     */
-    public List<InsuranceSurveyor> getSurveyorList(){
-        List<InsuranceSurveyor> result = new ArrayList<>();
-        ArrayList<User> userList = new ArrayList<>();
-
-        for(User user : userList){
-            if(user instanceof InsuranceSurveyor){
-                result.add((InsuranceSurveyor) user);
-            }
-        }
-
-        return result;
-    }
 
 
 

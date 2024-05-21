@@ -24,31 +24,6 @@ public class PolicyHolderController {
         this.policyHolder = policyHolder;
         this.connection = connection;
     }
-    public PolicyHolder getPolicyHolderByID(String holderID) {
-        PolicyHolder policyHolder = null;
-        try {
-            Statement statement = connection.createStatement();
-            String query = "SELECT * FROM policyholders WHERE id = '" + holderID + "'";
-            ResultSet resultSet = statement.executeQuery(query);
-            if (resultSet.next()) {
-                // Assuming a constructor for PolicyHolder class that accepts necessary parameters
-                Role role = Role.valueOf(resultSet.getString("role"));
-                policyHolder = new PolicyHolder(
-                        resultSet.getString("id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        role,
-                        resultSet.getString("fullname"),
-                        resultSet.getString("email"),
-                        resultSet.getString("phonenumber"),
-                        resultSet.getString("address")
-                );
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return policyHolder;
-    }
 
     public List<String> retrieveHolderIDs() {
         List<String> holderIDs = new ArrayList<>();
@@ -102,27 +77,6 @@ public class PolicyHolderController {
         return beneficiaries;
     }
 
-    public List<InsuranceCard> retrieveInsurance() {
-        List<InsuranceCard> cards = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
-            String query = "SELECT * FROM claim";
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                InsuranceCard card = new InsuranceCard(
-                        resultSet.getString("card_number_insurance"),
-                        resultSet.getString("card_holder_insurance"),
-                        resultSet.getString("policy_owner_insurance"),
-                        resultSet.getDate("expiration_date_insurance")
-
-                );
-                cards.add(card);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return cards;
-    }
 
     public List<ReceiverBankingInfo> retrieveBank() {
         List<ReceiverBankingInfo> banks = new ArrayList<>();

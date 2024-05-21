@@ -104,40 +104,6 @@ public class PolicyOwnerController {
         return claimList;
     }
 
-    public static Claim retrieveclaimsforid(String Claimid) {
-
-        try {
-            String query = "SELECT * FROM claim WHERE id = ?";
-            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-            statement.setString(1, Claimid); // Set the Claimid to the prepared statement
-            ResultSet rs = statement.executeQuery();
-
-            if (rs.next()) {
-                Claim claims = new Claim(
-                        rs.getString("id"),
-                        rs.getDate("claim_date"),
-                        rs.getString("insured_person"),
-                        rs.getString("card_number_insurance"),
-                        rs.getDate("exam_date"),
-                        rs.getDouble("claim_amount"),
-                        rs.getString("claim_status"),
-                        rs.getString("card_number_bank"),
-                        rs.getString("bank_name"),
-                        rs.getString("card_owner_bank"),
-                        rs.getDate("expiration_date_insurance"),
-                        rs.getString("policy_owner_insurance"),
-                        rs.getString("card_holder_insurance")
-                );
-                return claims;
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 
     public List<Pair<String, String>> retrieveHistory() {
         List<Pair<String, String>> data = new ArrayList<>();
