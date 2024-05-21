@@ -149,6 +149,10 @@ public class OwnerHomeController {
     private Button showimagebutton;
     @FXML
     private Tab hIstoryRecord;
+    @FXML
+    private TextField searchingClaimPolicyOwner;
+    @FXML
+    private TableColumn claimStatusPolicyOwner;
 
 
 
@@ -546,21 +550,34 @@ public class OwnerHomeController {
     }
 
     public void populatePolicyOwnerClaimTable() {
-
         List<Claim> Claim = policyOwnerController.retrieveAllClaims();
-        ObservableList<Claim> data = FXCollections.observableArrayList(Claim);
-        for (Claim claims: Claim){
-            System.out.println(claims.getId());
-        }
+        ObservableList<Claim> dataList = FXCollections.observableArrayList(Claim);
 
         idClaimPolicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("id"));
         datePolicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("date"));
         insuredPersonPolicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
-        expiredDate.setCellValueFactory(new PropertyValueFactory<>("ExpireDate"));
+        claimStatusPolicyOwner.setCellValueFactory(new PropertyValueFactory<>("status"));
         claimAmountPolicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
         cardNumInsuranceOwnerTable.setCellValueFactory(new PropertyValueFactory<>("cardNumber"));
 
-        policyOwnerClaimTable.setItems(data);
+        FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);
+
+        searchingClaimPolicyOwner.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(claim -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else return false;
+            });
+        });
+        policyOwnerClaimTable.setItems(filteredData);
         if (selectedBeneficiary != null)
         {
             policyOwnerClaimTable.getSelectionModel().select(selectedBeneficiary);
