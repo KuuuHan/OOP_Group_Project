@@ -10,7 +10,7 @@
         <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <items>
                 <Button mnemonicParsing="false" onAction="#chooseFromFile" text="Choose from Folder" />
-                <Button mnemonicParsing="false" onAction="#onConfirm" text="Confirm" />
+                <Button fx:id="ConfirmImage" mnemonicParsing="false" onAction="#onConfirm" text="Confirm" />
             </items>
         </ToolBar>
     </top>
