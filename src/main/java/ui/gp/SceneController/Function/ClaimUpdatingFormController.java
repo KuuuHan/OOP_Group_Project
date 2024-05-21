@@ -34,10 +34,16 @@ public class ClaimUpdatingFormController {
     Button submitButtonUpdateClaim;
     private User user;
     private Claim claim;
+    private String policyOwnerID;
 
     public void setDatabaseConnection(DatabaseConnection databaseConnection)
     {
         this.databaseConnection = databaseConnection;
+    }
+
+    public void setPolicyOwnerID(String policyOwnerID)
+    {
+        this.policyOwnerID = policyOwnerID;
     }
     public void setUser(User user)
     {
@@ -61,6 +67,7 @@ public class ClaimUpdatingFormController {
         String bankHolderName = BankHoldernameFieldClaim.getText();
         String bankNumber = BankNumberFieldClaim.getText();
         UpdateClaim(claimAmount, expirationDate, bankName, bankHolderName, bankNumber);
+        recordHistory(policyOwnerID,"Update info of claim");
         Stage stage = (Stage) submitButtonUpdateClaim.getScene().getWindow();
         stage.close();
     }
@@ -108,5 +115,17 @@ public class ClaimUpdatingFormController {
 
     public void setClaim(Claim claim) {
         this.claim = claim;
+    }
+
+    private void recordHistory(String userId, String action) {
+        try {
+            String query = "INSERT INTO historyrecord (userid, action) VALUES (?, ?)";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, userId);
+            statement.setString(2, action);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

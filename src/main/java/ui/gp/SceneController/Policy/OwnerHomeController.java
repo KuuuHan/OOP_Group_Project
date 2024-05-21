@@ -165,6 +165,7 @@ public class OwnerHomeController {
 
     public void initialize(PolicyOwner policyOwner, PolicyOwnerController policyOwnerController) {
         bannerNameView(policyOwner.getFullname());
+        this.policyOwnerID = policyOwner.getId();
         this.policyOwner = policyOwner;
         this.policyOwnerController = policyOwnerController;
         if (infoTab.isSelected()) {
@@ -261,9 +262,9 @@ public class OwnerHomeController {
             showInfoBeneficiaryButton.setDisable(true);
             updateBeneficiaryButton.setDisable(true);
             if (selectedBeneficiary.getRole().name().equals("Dependent")) {
-                view.showDepenentFormUpdate(selectedBeneficiary);
+                view.showDepenentFormUpdate(selectedBeneficiary,policyOwnerID);
             } else {
-                view.showPolicyHolderFormUpdate(selectedBeneficiary);
+                view.showPolicyHolderFormUpdate(selectedBeneficiary,policyOwnerID);
             }
         }
     }
@@ -291,7 +292,7 @@ public class OwnerHomeController {
             DeletePolicyClaimbutton.setDisable(true);
             showClaimPoilicyOwnerButton.setDisable(true);
             updateBeneficiaryButton.setDisable(true);
-            view.ShowClaimFormUpdate(selectedClaim);
+            view.ShowClaimFormUpdate(selectedClaim,policyOwnerID);
         }
     }
 
@@ -588,7 +589,7 @@ public class OwnerHomeController {
     @FXML
     public void addItemOnClick( ) throws IOException {
         ViewFactory view = new ViewFactory(databaseConnection);
-        view.showClaimForm(policyOwnerController.retrieveBeneficiaries());
+        view.showClaimForm(policyOwnerController.retrieveBeneficiaries(), policyOwnerID);
 
     }
 
@@ -610,6 +611,7 @@ public class OwnerHomeController {
             // Show an error message if no row has been selected
             showErrorDialog("Please select a claim to delete.");
         }
+        recordHistory(policyOwnerID, "Delete Claim");
     }
 
 
