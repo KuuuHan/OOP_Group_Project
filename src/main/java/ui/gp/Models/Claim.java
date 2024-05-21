@@ -95,4 +95,7 @@ public class Claim {
         return date;
     }
 
+    public String getClaimStatus() {
+        return status;
+    }
 }

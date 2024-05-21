@@ -6,6 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -119,5 +120,6 @@ public class UploadController {
             }
         }
         selectedFiles = updatedFiles; // Update the selectedFiles list to reflect the new file names
+        Stage stage = (Stage) uploadButton.getScene().getWindow();
     }
 }

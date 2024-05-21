@@ -54,7 +54,6 @@ public class ClaimController {
     private TextField bankCardNumberFieldClaim;
     @FXML
     private TextField cardHolderFieldClaim;
-
     @FXML
     private TextField expirationDateFieldClaim;
     @FXML
@@ -69,6 +68,8 @@ public class ClaimController {
     private List<Customer> beneficiariesList;
     private DatabaseConnection databaseConnection;
     private UploadController uploadController;
+    private Claim claim;
+
 
 
     public void setDatabaseConnection(DatabaseConnection databaseConnection) {
@@ -109,7 +110,7 @@ public class ClaimController {
                 e.printStackTrace();
             }
         }
-        // Copy the file to the Documents directory in ui.gp in resources
+        Stage stage = (Stage) uploadButton.getScene().getWindow();
 
 
     }
