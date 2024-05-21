@@ -727,4 +727,21 @@ public void populatedHistoryRecordTable(){
         }
         return documentNames;
     }
+
+    public void onStatusFilterBox(ActionEvent event) {
+        String filter = filterClaimPoilicyOwnerBox.getSelectionModel().getSelectedItem();
+        if (filter != null) {
+            if (filter.equals("All")) {
+                policyOwnerClaimTable.setItems(FXCollections.observableArrayList(policyOwnerController.retrieveAllClaims()));
+            } else {
+                ObservableList<Claim> filteredData = FXCollections.observableArrayList();
+                for (Claim claim : policyOwnerController.retrieveAllClaims()) {
+                    if (claim.getStatus().equals(filter.replace(" ", "_"))) {
+                        filteredData.add(claim);
+                    }
+                }
+                policyOwnerClaimTable.setItems(filteredData);
+            }
+        }
+    }
 }

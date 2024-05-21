@@ -161,7 +161,7 @@
                                     <Button fx:id="showClaimPoilicyOwnerButton" mnemonicParsing="false" onAction="#setShowSpecificClaimAction" prefHeight="25.0" prefWidth="121.0" text="Show specific claim" />
                                     <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
                                     <Label text="Filter" />
-                                    <ComboBox fx:id="filterClaimPoilicyOwnerBox" prefWidth="150.0" />
+                                    <ComboBox fx:id="filterClaimPoilicyOwnerBox" onAction="#onStatusFilterBox" prefWidth="150.0" />
                                     <TextField fx:id="searchingClaimPolicyOwner" promptText="Searching..." />
                                     <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
                                     <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
