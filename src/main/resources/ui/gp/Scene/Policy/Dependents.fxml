@@ -40,38 +40,7 @@
         <Button layoutX="796.0" layoutY="48.0" mnemonicParsing="false" onAction="#dependentsLogout" prefHeight="26.0" prefWidth="73.0" text="Logout" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="796.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="48.0" />
         <TabPane fx:id="dependentsTabPane" layoutY="130.0" prefHeight="444.0" prefWidth="881.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
             <tabs>
-                <Tab text="View claim">
-               <content>
-                  <BorderPane fx:id="ViewClaimPane" prefHeight="200.0" prefWidth="200.0">
-                     <top>
-                        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <items>
-                              <Label text="View" />
-                              <ComboBox fx:id="claimViewComboBox" prefWidth="150.0" promptText="Choose View" />
-                              <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
-                              <TextField fx:id="claimSearchbar" prefHeight="25.0" prefWidth="323.0" promptText="Search Claim" />
-                              <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
-                              <Button fx:id="editButton" disable="true" mnemonicParsing="false" text="Edit" />
-                           </items>
-                        </ToolBar>
-                     </top>
-                     <center>
-                        <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="ID" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                              <TableColumn fx:id="claimDateView" prefWidth="81.0" text="Date" />
-                              <TableColumn fx:id="examDateView" prefWidth="89.0" text="Exam Date" />
-                              <TableColumn fx:id="claimStatusView" prefWidth="84.0" text="Status" />
-                              <TableColumn fx:id="claimInsuredPersonView" prefWidth="315.0" text="Insured Person" />
-                              <TableColumn fx:id="claimInsuredPersonView1" prefWidth="315.0" text="Insured Person" />
-                          </columns>
-                        </TableView>
-                     </center>
-                  </BorderPane>
-               </content>
-                </Tab>
-               <Tab fx:id="profileTab" onSelectionChanged="#handleProfileTabSelection" text="Your Profile">
+               <Tab fx:id="dependentInfoTab" onSelectionChanged="#handleProfileTabSelection" text="Your Profile">
                <content>
                   <GridPane>
                     <columnConstraints>
@@ -135,8 +104,37 @@
                      </padding>
                   </GridPane>
                </content></Tab>
+                <Tab fx:id="dependentClaimTab" text="View claim">
+               <content>
+                  <BorderPane fx:id="ViewClaimPane" prefHeight="200.0" prefWidth="200.0">
+                     <top>
+                        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <items>
+                              <Label text="Filter" />
+                              <ComboBox fx:id="dependentClaimFIlter" onAction="#onStatusFilterBox" prefWidth="150.0" promptText="Filter" />
+                              <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
+                              <TextField fx:id="dependentSearchClaim" prefHeight="25.0" prefWidth="323.0" promptText="Search Claim" />
+                              <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
+                              <Button fx:id="dependentViewClaim" mnemonicParsing="false" onAction="#showClaimButtonAction" text="View Claim" />
+                           </items>
+                        </ToolBar>
+                     </top>
+                     <center>
+                        <TableView fx:id="dependentClaimTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                          <columns>
+                            <TableColumn fx:id="dependentClaimId" prefWidth="131.20001524686813" text="ID" />
+                              <TableColumn fx:id="dependentClaimAmount" prefWidth="182.3999481201172" text="Claim Amount" />
+                              <TableColumn fx:id="dependentClaimStatus" prefWidth="91.99993896484375" text="Status" />
+                              <TableColumn fx:id="dependentClaimDate" prefWidth="140.0" text="Claim Date" />
+                              <TableColumn fx:id="dependentExamDate" prefWidth="140.0" text="Exam Date" />
+                              <TableColumn fx:id="dependentInsurancenNumber" prefWidth="192.0" text="Insurance Number" />
+                          </columns>
+                        </TableView>
+                     </center>
+                  </BorderPane>
+               </content>
+                </Tab>
             </tabs>
         </TabPane>
-      <Button layoutX="677.0" layoutY="48.0" mnemonicParsing="false" onAction="#loadingTest" prefHeight="26.0" prefWidth="97.0" text="Loading test" />
     </children>
 </fx:root>
