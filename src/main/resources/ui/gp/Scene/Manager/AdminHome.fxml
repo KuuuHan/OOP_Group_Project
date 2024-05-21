@@ -146,7 +146,7 @@
                            <items>
                               <TextField fx:id="claimAdminSearch" prefHeight="25.0" prefWidth="425.0" promptText="Searching..." />
                               <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
-                              <Button fx:id="showClaimButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" text="Show specific claim" />
+                              <Button fx:id="showClaimButton" mnemonicParsing="false" onAction="#showClaimButtonAction" prefHeight="25.0" prefWidth="121.0" text="Show specific claim" />
                               <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
                               <Label text="Filter" />
                               <ComboBox fx:id="claimFilter" onAction="#onBigStatusFilterBox" prefHeight="25.0" prefWidth="263.0" promptText="Status" />

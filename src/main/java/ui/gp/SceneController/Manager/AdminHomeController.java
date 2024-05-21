@@ -157,6 +157,7 @@ public class AdminHomeController {
     private Tab historyRecord;
     @FXML
     private Button updateBeneficiaryButton;
+    private Claim selectedClaim;
 
     //======================================
 
@@ -181,6 +182,15 @@ public class AdminHomeController {
                 showDetailButton.setDisable(true);
                 updateBeneficiaryButton.setDisable(true);
 
+            }
+        });
+
+        adminClaimTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedClaim = (Claim) newSelection;
+                showClaimButton.setDisable(false);
+            } else {
+                showClaimButton.setDisable(true);
             }
         });
 
@@ -469,7 +479,6 @@ public class AdminHomeController {
 
         FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);
 
-
         claimAdminSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(claim -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -479,10 +488,6 @@ public class AdminHomeController {
                 String lowerCaseFilter = newValue.toLowerCase();
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else return false;
             });
@@ -663,5 +668,15 @@ public class AdminHomeController {
                 recordHistory(adminID, "View Policy Holder Information");
             }
         }
+    }
+
+    public void showClaimButtonAction() {
+        if (selectedClaim != null) {
+            adminClaimTable.getSelectionModel().clearSelection();
+            showClaimButton.setDisable(true);
+            view.showSpecificClaimForm(selectedClaim);
+        }
+
+
     }
 }
