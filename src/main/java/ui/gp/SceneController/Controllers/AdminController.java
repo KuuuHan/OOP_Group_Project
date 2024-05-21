@@ -1,5 +1,6 @@
 package ui.gp.SceneController.Controllers;
 
+import javafx.util.Pair;
 import ui.gp.Models.Claim;
 import ui.gp.Models.ClaimStatus;
 import ui.gp.Models.Role;
@@ -89,6 +90,23 @@ public class AdminController {
             e.printStackTrace();
         }
         return claims;
+    }
+
+    public List<Pair<String, String>> retrieveHistory() {
+        List<Pair<String, String>> data = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM historyrecord WHERE userid = '" + systemAdmin.getId() + "'";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                String userid = resultSet.getString("userid");
+                String action = resultSet.getString("action");
+                data.add(new Pair<>(userid, action));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 
 }

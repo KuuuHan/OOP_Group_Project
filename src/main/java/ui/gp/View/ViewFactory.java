@@ -34,17 +34,20 @@ public class ViewFactory {
 
     public void showLoginScene() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Login.fxml"));
-        Scene scene = null;
+//        Scene scene = null;
+        Parent scene = null;
         try {
-            scene = new Scene(loader.load());
+//            scene = new Scene(loader.load());
+            scene = loader.load();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         Stage stage = new Stage();
         stage.setTitle("Group Project");
         stage.setResizable(false);
         stage.getIcons().add(new Image(getClass().getResource("/ui/gp/appIcon/appIcon.jpeg").toExternalForm()));
-        stage.setScene(scene);
+        stage.setScene(new Scene(scene));
         stage.show();
     }
 
