@@ -23,9 +23,14 @@ public class UploadController {
 //UploadController uploadController = new UploadController();
 //uploadController.setClaimController(claimControllerInstance);
     private ClaimController claimController;
+    private ClaimControllerPolicyHolder setClaimControllerPolicyHolder;
 
     public void setClaimController(ClaimController claimController) {
         this.claimController = claimController;
+    }
+    public void setClaimControllerPolicyHolder(ClaimControllerPolicyHolder claimControllerPolicyHolder)
+    {
+        this.setClaimControllerPolicyHolder = claimControllerPolicyHolder;
     }
 
     @FXML

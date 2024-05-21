@@ -525,6 +525,13 @@ public void onFilterBox(ActionEvent event) {
     }
 
     @FXML
+    public void addPolicyHolder( ) throws IOException {
+        ViewFactory view = new ViewFactory(databaseConnection);
+        view.showClaimFormPolicyHolder(policyHolderID);
+
+    }
+
+    @FXML
     public void showClaimButtonAction() {
         if (selectedClaim != null) {
             holderClaimTable.getSelectionModel().clearSelection();

@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ClaimController {
+public class ClaimControllerPolicyHolder {
     @FXML
     private TextField idFieldClaim;
     @FXML
@@ -71,13 +71,13 @@ public class ClaimController {
     private Claim claim;
     @FXML
     private Button SubmitClaim;
-
+    private String policyHolderID;
 
 
     public void setDatabaseConnection(DatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
-    public ClaimController() {
+    public ClaimControllerPolicyHolder() {
         uploadController = new UploadController();
 
     }
@@ -88,7 +88,7 @@ public class ClaimController {
     @FXML
     public void onSubmit() {
         String claimDate = claimDateFieldClaim.getText();
-        String insuredPerson = ClaimBeneficieryBox.getValue();
+        String insuredPerson = policyOwner;
         String cardNumber = cardNumberFieldClaim.getText();
         String expirationDate = expirationDateFieldClaim.getText();
         String claimAmount = claimAmountFieldClaim.getText();
@@ -216,15 +216,6 @@ public class ClaimController {
 //        }
 //        return policyHolders;
 //    }
-    public void setBeneficiariesList(List<Customer> beneficiariesList) {
-        this.beneficiariesList = beneficiariesList;
-        ObservableList<String> Beneficiaries = FXCollections.observableArrayList();
-        for (Customer beneficiary : beneficiariesList) {
-            Beneficiaries.add(beneficiary.getId() + ". " + beneficiary.getFullname());
-        }
-        ClaimBeneficieryBox.setItems(Beneficiaries);
-    }
-
 
     public String getFullName(String insuredPersonId) {
         String fullName = null;
@@ -261,7 +252,8 @@ public class ClaimController {
     @FXML
     public void openUploadWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/ProofUploadScene.fxml"));
-        uploadController.setClaimController(this); // set the ClaimController
+        uploadController.setClaimControllerPolicyHolder(this);
+        loader.setController(uploadController);
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage stage = new Stage();

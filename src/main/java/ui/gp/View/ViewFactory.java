@@ -20,6 +20,7 @@ import ui.gp.SceneController.Policy.DependentsHomeController;
 import ui.gp.SceneController.Policy.HolderHomeController;
 import ui.gp.SceneController.Policy.OwnerHomeController;
 import ui.gp.Tab.ClaimController;
+import ui.gp.Tab.ClaimControllerPolicyHolder;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -274,6 +275,24 @@ public class ViewFactory {
             controller.setPolicyOwner(user);
             controller.setDatabaseConnection(databaseConnection);
             controller.setBeneficiariesList(beneficiariesList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showClaimFormPolicyHolder(String user)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/ClaimPolicyHolder.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Claim");
+            stage.setResizable(false);
+            stage.show();
+            ClaimControllerPolicyHolder controller = loader.getController();
+            controller.setPolicyOwner(user);
+            controller.setDatabaseConnection(databaseConnection);
         } catch (IOException e) {
             e.printStackTrace();
         }
