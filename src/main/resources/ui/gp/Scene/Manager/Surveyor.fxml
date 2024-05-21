@@ -90,7 +90,7 @@
                      </children></AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="View claim list">
+                <Tab fx:id="surveyorClaimTab" text="View claim list">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -98,25 +98,24 @@
                            <top>
                               <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <items>
-                                    <Label text="View" />
-                                    <ComboBox fx:id="claimViewComboBox" prefWidth="150.0" promptText="Choose View" />
+                                    <Label text="Filter" />
+                                    <ComboBox fx:id="surveyorClaimFilter" prefWidth="150.0" promptText="Status" />
                                     <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
-                                    <TextField fx:id="claimSearchbar" prefHeight="25.0" prefWidth="323.0" promptText="Search Claim" />
+                                    <TextField fx:id="surveyorSearchClaim" prefHeight="25.0" prefWidth="323.0" promptText="Search Claim" />
                                     <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
-                                    <Button fx:id="editButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="44.0" text="Edit" />
-                                    <Button mnemonicParsing="false" text="Proccess Claim" />
+                                    <Button fx:id="surveyorViewClaim" mnemonicParsing="false" onAction="#showClaimButtonAction" prefHeight="26.0" prefWidth="97.0" text="View Claim" />
                                  </items>
                               </ToolBar>
                            </top>
                            <left>
-                              <TableView fx:id="surveyorTable" prefHeight="374.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                              <TableView fx:id="surveyorClaimTable" prefHeight="374.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                                  <columns>
-                                    <TableColumn fx:id="claimIDSurveyor" text="Claim ID" />
-                                    <TableColumn fx:id="insuredPersonSurveyor" prefWidth="294.0" text="Insured Person" />
-                                    <TableColumn fx:id="claimAmountSurveyor" minWidth="0.0" prefWidth="123.0" text="Claim Amount" />
-                                    <TableColumn fx:id="statusSurveyor" prefWidth="123.0" text="Status" />
-                                    <TableColumn fx:id="claimDateSurveyor" prefWidth="128.0" text="Claim Date" />
-                                    <TableColumn fx:id="examDateSurveyor" prefWidth="133.0" text="Exam Date" />
+                                    <TableColumn fx:id="surveyorClaimId" prefWidth="168.00000303983688" text="Claim ID" />
+                                    <TableColumn fx:id="surveyorInsuredPerson" prefWidth="207.1999969482422" text="Insured Person" />
+                                    <TableColumn fx:id="surveyorClaimAmount" minWidth="0.0" prefWidth="123.0" text="Claim Amount" />
+                                    <TableColumn fx:id="surveyorClaimStatus" prefWidth="96.7999267578125" text="Status" />
+                                    <TableColumn fx:id="surveyorClaimDate" prefWidth="140.0" text="Claim Date" />
+                                    <TableColumn fx:id="surveyorExamDate" prefWidth="140.0" text="Exam Date" />
                                  </columns>
                               </TableView>
                            </left>
@@ -124,20 +123,38 @@
                      </children></AnchorPane>
                     </content>
                 </Tab>
-                <Tab fx:id="hIstoryRecord" text="History Record">
-                    <content>
-                        <BorderPane>
-                            <center>
-                                <TableView fx:id="historyRecordID" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                    <columns>
-                                        <TableColumn prefWidth="75.0" text="ID" />
-                                        <TableColumn fx:id="actionNameID" prefWidth="805.0" text="Action Name " />
-                                    </columns>
-                                </TableView>
-                            </center>
+            <Tab fx:id="surveyorPendingClaimTab" text="View claim list">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane prefHeight="418.0" prefWidth="881.0">
+                           <top>
+                              <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <items>
+                                    <Label text="Filter" />
+                                    <ComboBox fx:id="surveyorPendingClaimFilter" prefWidth="150.0" promptText="Status" />
+                                    <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
+                                    <TextField fx:id="surveyorSearchPendingClaim" prefHeight="25.0" prefWidth="323.0" promptText="Search Claim" />
+                                    <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
+                                    <Button fx:id="surveyorProposeClaim" mnemonicParsing="false" onAction="#ProposeClaimButton" text="Propose Claim" />
+                                 </items>
+                              </ToolBar>
+                           </top>
+                           <left>
+                              <TableView fx:id="surveyorPendingClaimTable" prefHeight="374.0" prefWidth="882.0" BorderPane.alignment="CENTER">
+                                 <columns>
+                                    <TableColumn fx:id="surveyorPendingClaimId" prefWidth="168.00000303983688" text="Claim ID" />
+                                    <TableColumn fx:id="surveyorPendingInsuredPerson" prefWidth="207.1999969482422" text="Insured Person" />
+                                    <TableColumn fx:id="surveyorPendingAmount" minWidth="0.0" prefWidth="200.0" text="Claim Amount" />
+                                    <TableColumn fx:id="surveyorPendingClaimDate" prefWidth="303.199951171875" text="Claim Date" />
+                                 </columns>
+                              </TableView>
+                           </left>
                         </BorderPane>
-                    </content>
-                </Tab>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
                 <Tab fx:id="managerViewCustomerTab" text="View Customers">
                     <content>
                         <BorderPane prefHeight="200.0" prefWidth="200.0">
@@ -161,7 +178,7 @@
                                                 <Label text="Filter" />
                                                 <ComboBox fx:id="managerCustomerFilter" prefWidth="150.0" promptText="Filter Options" />
                                                 <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
-                                                <TextField fx:id="managerSearchCustomer" promptText="Search Customer" />
+                                                <TextField fx:id="surveyorSearchCustomer" promptText="Search Customer" />
                                                 <Button fx:id="managerViewCustomer" mnemonicParsing="false" onAction="#onShowDetail" text="View Customer" />
                                             </items>
                                         </ToolBar>
@@ -173,6 +190,20 @@
                                     </children>
                                 </HBox>
                             </top>
+                        </BorderPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="hIstoryRecord" text="History Record">
+                    <content>
+                        <BorderPane>
+                            <center>
+                                <TableView fx:id="historyRecordID" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TableColumn prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="actionNameID" prefWidth="805.0" text="Action Name " />
+                                    </columns>
+                                </TableView>
+                            </center>
                         </BorderPane>
                     </content>
                 </Tab>

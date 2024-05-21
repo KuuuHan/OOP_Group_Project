@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.Claim;
+import ui.gp.Models.ClaimStatus;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.InsuranceSurveyor;
@@ -31,6 +32,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class SurveyorHomeController {
 
@@ -53,25 +55,28 @@ public class SurveyorHomeController {
     private Claim selectedClaim;
     private InsuranceSurveyor surveyor;
     private SurveyorController surveyorController;
+    @FXML
+    private Button surveyorViewClaim;
 
     @FXML
     Button managerViewCustomer;
 
 
     @FXML
-    TableView <Claim> surveyorTable;
+    TableColumn surveyorClaimId;
     @FXML
-    TableColumn claimIDSurveyor;
+    TableColumn surveyorInsuredPerson;
     @FXML
-    TableColumn insuredPersonSurveyor;
+    TableColumn surveyorClaimAmount;
     @FXML
-    TableColumn claimAmountSurveyor;
+    TableColumn surveyorClaimStatus;
     @FXML
-    TableColumn statusSurveyor;
+    TableColumn surveyorClaimDate;
     @FXML
-    TableColumn claimDateSurveyor;
+    private TableColumn surveyorExamDate;
+
     @FXML
-    TableColumn examDateSurveyor;
+    private Button surveyorProposeClaim;
 
     @FXML
     TableView <Customer> customerSurveyorTable;
@@ -88,10 +93,30 @@ public class SurveyorHomeController {
     @FXML
     TableColumn customerAddressSurveyorView;
     @FXML
-    Button mangerViewCustomer;
+    private TextField surveyorSearchClaim;
+    @FXML
+    private TextField surveyorSearchCustomer;
     @FXML
     private Tab managerViewCustomerTab;
+    @FXML
+    private Tab surveyorClaimTab;
+    @FXML
+    private TableView surveyorClaimTable;
 
+    @FXML
+    private TableView surveyorPendingClaimTable;
+    @FXML
+    private Tab surveyorPendingClaimTab;
+    @FXML
+    private TextField surveyorSearchPendingClaim;
+    @FXML
+    private TableColumn surveyorPendingClaimId;
+    @FXML
+    private TableColumn surveyorPendingInsuredPerson;
+    @FXML
+    private TableColumn surveyorPendingAmount;
+    @FXML
+    private TableColumn surveyorPendingClaimDate;
 
     public void bannerNameView(String username) {
         welcomeBannerUser.setText("Welcome " + username);
@@ -116,12 +141,42 @@ public class SurveyorHomeController {
             }
         });
 
+        surveyorPendingClaimTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                populatePendingClaimTable();
+            }
+        });
+
         customerSurveyorTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 selectedCustomer = (Customer) newSelection;
                 managerViewCustomer.setDisable(false);
             } else {
                 managerViewCustomer.setDisable(true);
+            }
+        });
+
+        surveyorClaimTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedClaim = (Claim) newSelection;
+                surveyorViewClaim.setDisable(false);
+            } else {
+                surveyorViewClaim.setDisable(true);
+            }
+        });
+
+        surveyorPendingClaimTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedClaim = (Claim) newSelection;
+                surveyorProposeClaim.setDisable(false);
+            } else {
+                surveyorProposeClaim.setDisable(true);
+            }
+        });
+
+        surveyorClaimTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                populateSurveyorClaimTable();
             }
         });
 
@@ -221,9 +276,98 @@ public class SurveyorHomeController {
         customerEmailSurveyorView.setCellValueFactory(new PropertyValueFactory<>("email"));
         customerAddressSurveyorView.setCellValueFactory(new PropertyValueFactory<>("address"));
 
-        customerSurveyorTable.setItems(dataList);
+        FilteredList<Customer> filteredData = new FilteredList<>(dataList, b -> true);
+
+        surveyorSearchCustomer.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(customer -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (customer.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (customer.getFullname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (customer.getRole().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else return false;
+            });
+        });
+
+        customerSurveyorTable.setItems(filteredData);
         if (selectedCustomer != null){
             customerSurveyorTable.getSelectionModel().select((Customer) selectedCustomer);
+        }
+
+    }
+
+    public void populateSurveyorClaimTable() {
+        List<Claim> Claim = surveyorController.retrieveClaims();
+        ObservableList<Claim> dataList = FXCollections.observableArrayList(Claim);
+
+        surveyorClaimId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        surveyorInsuredPerson.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
+        surveyorClaimDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        surveyorExamDate.setCellValueFactory(new PropertyValueFactory<>("examDate"));
+        surveyorClaimStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        surveyorClaimAmount.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
+
+        FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);
+
+        surveyorSearchClaim.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(claim -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else return false;
+            });
+        });
+        surveyorClaimTable.setItems(filteredData);
+        if (selectedClaim != null)
+        {
+            surveyorClaimTable.getSelectionModel().select(selectedClaim);
+        }
+    }
+
+    public void populatePendingClaimTable() {
+        List<Claim> Claim = surveyorController.retrievePendingClaims();
+        ObservableList<Claim> dataList = FXCollections.observableArrayList(Claim);
+
+        surveyorPendingClaimId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        surveyorPendingInsuredPerson.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
+        surveyorPendingClaimDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        surveyorPendingAmount.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
+
+        FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);
+
+        surveyorSearchPendingClaim.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(claim -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else return false;
+            });
+        });
+        surveyorPendingClaimTable.setItems(filteredData);
+        if (selectedClaim != null)
+        {
+            surveyorPendingClaimTable.getSelectionModel().select(selectedClaim);
         }
     }
 
@@ -241,6 +385,59 @@ public class SurveyorHomeController {
         } else if (selectedCustomer.getRole().name().equals("Policy_Owner")){
             view.showPolicyHolderInformation(selectedCustomer);
         }
+    }
+
+    public void ProposeClaimButton()
+    {
+        if (selectedClaim != null) {
+            surveyorPendingClaimTable.getSelectionModel().clearSelection();
+            surveyorProposeClaim.setDisable(true);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Your Proposal");
+            alert.setHeaderText("Propose Claim");
+            alert.setContentText("Are you sure you want to propose this claim?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                updateClaimStatus(selectedClaim, ClaimStatus.Pending);
+                populatePendingClaimTable();
+                populateSurveyorClaimTable();
+            }
+        }
+    }
+
+    private void updateClaimStatus(Claim selectedClaim, ClaimStatus status) {
+        try {
+            Thread deleteThread = new Thread(() -> {
+                try {
+                    String userQuery = "UPDATE claim SET claim_status = ? WHERE id = ?";
+                    try (PreparedStatement userStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(userQuery)) {
+                        userStatement.setString(1,status.toString());
+                        userStatement.setString(2, selectedClaim.getId());
+                        userStatement.executeUpdate();
+
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            deleteThread.start();
+            deleteThread.join();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showClaimButtonAction() {
+        if (selectedClaim != null) {
+            surveyorClaimTable.getSelectionModel().clearSelection();
+            surveyorViewClaim.setDisable(true);
+            view.showSpecificClaimForm(selectedClaim);
+        }
+
+
     }
 }
 

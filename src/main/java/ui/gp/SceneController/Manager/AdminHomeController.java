@@ -219,6 +219,7 @@ public class AdminHomeController {
         smallClaimFilter.add("Approved");
         smallClaimFilter.add("Pending");
         smallClaimFilter.add("Rejected");
+        smallClaimFilter.add("NextStage");
         smallStatusFilter.setItems(FXCollections.observableArrayList(smallClaimFilter));
         smallStatusFilter.setValue(filterOptions.get(0));
 
@@ -227,6 +228,7 @@ public class AdminHomeController {
         ClaimFilters.add("Approved");
         ClaimFilters.add("Pending");
         ClaimFilters.add("Rejected");
+        ClaimFilters.add("NextStage");
         claimFilter.setItems(FXCollections.observableArrayList(ClaimFilters));
         claimFilter.setValue(filterOptions.get(0));
 

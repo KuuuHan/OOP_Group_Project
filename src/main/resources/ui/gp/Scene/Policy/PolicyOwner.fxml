@@ -162,10 +162,7 @@
                                     <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
                                     <Label text="Filter" />
                                     <ComboBox fx:id="filterClaimPoilicyOwnerBox" onAction="#onStatusFilterBox" prefWidth="150.0" />
-                                    <TextField fx:id="searchingClaimPolicyOwner" promptText="Searching..." />
-                                    <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
-                                    <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
-                                    <Label text="Filter" />
+                                    <TextField fx:id="searchingClaimPolicyOwner" prefHeight="26.0" prefWidth="212.0" promptText="Searching..." />
                                 </items>
                             </ToolBar>
                         </top>

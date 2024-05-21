@@ -141,7 +141,7 @@ public class DependentsHomeController {
         displayClaimComboList.add("Rejected");
         displayClaimComboList.add("Approved");
         displayClaimComboList.add("Pending");
-        displayClaimComboList.add("nextStage");
+        displayClaimComboList.add("NextStage");
         dependentClaimFIlter.setItems(FXCollections.observableArrayList(displayClaimComboList));
         dependentClaimFIlter.setValue(displayClaimComboList.get(0));
 
