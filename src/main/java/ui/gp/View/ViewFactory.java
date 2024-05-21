@@ -7,8 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import ui.gp.ApplicationStart;
-import ui.gp.Models.Model;
 import ui.gp.Models.Claim;
 import ui.gp.Models.Users.*;
 import ui.gp.SceneController.Controllers.*;
@@ -26,7 +24,6 @@ import ui.gp.Tab.ClaimController;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.PortUnreachableException;
 import java.util.List;
 
 public class ViewFactory {
@@ -204,7 +201,7 @@ public class ViewFactory {
         }
     }
 
-    public void showPolicyHolderFormUpdate(User user) {
+    public void showPolicyHolderFormUpdate(User user,String policyOwnerID) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/PolicyHolderUpdatingForm.fxml"));
             Parent root = loader.load();
@@ -216,6 +213,7 @@ public class ViewFactory {
             PolicyHolderUpdatingFormController controller = loader.getController();
             controller.setDatabaseConnection(databaseConnection);
             controller.setUser(user);
+            controller.setPolicyOwnerID(policyOwnerID);
             controller.initialise();
         } catch (IOException e) {
             e.printStackTrace();
@@ -240,7 +238,7 @@ public class ViewFactory {
         }
     }
 
-    public void showDepenentFormUpdate(User user) {
+    public void showDepenentFormUpdate(User user,String policyOwnerID) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/DependentUpdatingForm.fxml"));
             Parent root = loader.load();
@@ -253,13 +251,14 @@ public class ViewFactory {
             DependentUpdatingFormController controller = loader.getController();
             controller.setDatabaseConnection(databaseConnection);
             controller.setUser(user);
+            controller.setPolicyOwnerID(policyOwnerID);
             controller.initialise();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void showClaimForm(List<Customer> beneficiariesList) {
+    public void showClaimForm(List<Customer> beneficiariesList, String user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/ClaimAdd.fxml"));
             Parent root = loader.load();
@@ -269,6 +268,7 @@ public class ViewFactory {
             stage.setResizable(false);
             stage.show();
             ClaimController controller = loader.getController();
+            controller.setPolicyOwner(user);
             controller.setDatabaseConnection(databaseConnection);
             controller.setBeneficiariesList(beneficiariesList);
         } catch (IOException e) {
@@ -317,7 +317,7 @@ public class ViewFactory {
             }
         }
     }
-    public void ShowClaimFormUpdate(Claim claim) {
+    public void ShowClaimFormUpdate(Claim claim, String policyOwnerID) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/ClaimUpdatingForm.fxml"));
             Parent root = loader.load();
@@ -329,6 +329,7 @@ public class ViewFactory {
             ClaimUpdatingFormController controller = loader.getController();
             controller.setDatabaseConnection(databaseConnection);
             controller.setClaim(claim);
+            controller.setPolicyOwnerID(policyOwnerID);
             controller.initialise();
         } catch (IOException e) {
             e.printStackTrace();

@@ -36,11 +36,16 @@ public class PolicyHolderUpdatingFormController {
     public Button submitButtonAddPolicyOwner;
     private DatabaseConnection databaseConnection;
     private User user;
+    private String policyOwnerID;
     public void setDatabaseConnection(DatabaseConnection databaseConnection)
     {
         this.databaseConnection = databaseConnection;
     }
 
+    public void setPolicyOwnerID(String policyOwnerID)
+    {
+        this.policyOwnerID = policyOwnerID;
+    }
     public PolicyHolderUpdatingFormController getInstance() {
         return instance;
     }

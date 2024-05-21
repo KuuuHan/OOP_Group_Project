@@ -64,7 +64,7 @@ public class ClaimController {
     private Button uploadButton;
     @FXML
     private ComboBox<String> fileNameComboBox;
-    private PolicyOwner policyOwner;
+    private String policyOwner;
     private List<Customer> beneficiariesList;
     private DatabaseConnection databaseConnection;
     private UploadController uploadController;
@@ -81,7 +81,7 @@ public class ClaimController {
         uploadController = new UploadController();
 
     }
-    public void setPolicyOwner(PolicyOwner policyOwner) {
+    public void setPolicyOwner(String policyOwner) {
         this.policyOwner = policyOwner;
     }
 
@@ -128,9 +128,23 @@ public class ClaimController {
             // Insert the changed file name using InsertDocuments
             InsertDocuments(claimID, newFileName);
         }
+        recordHistory(policyOwner, "Add a claim");
         Stage stage = (Stage) SubmitClaim.getScene().getWindow();
         stage.close();
     }
+
+    private void recordHistory(String userId, String action) {
+        try {
+            String query = "INSERT INTO historyrecord (userid, action) VALUES (?, ?)";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, userId);
+            statement.setString(2, action);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String addtoclaim(String claimDate, String insuredpersonid, String cardNumber, String ExpirationDate, String Amount, String bankName, String bankNumber) {
         String id = null;
         try {
