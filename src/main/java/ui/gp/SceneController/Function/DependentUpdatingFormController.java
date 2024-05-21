@@ -32,6 +32,7 @@ public class DependentUpdatingFormController {
     public TextField policyHolderField;
     private DatabaseConnection databaseConnection;
     private User user;
+    private String policyOwnerID;
 
     public void setDatabaseConnection(DatabaseConnection databaseConnection)
     {
@@ -108,7 +109,7 @@ public class DependentUpdatingFormController {
 
         new Thread(() -> {
             updateDependent(username, password, email, phoneNumber, address);
-            recordHistory(user.getId(),"Update info of dependent");
+            recordHistory(policyOwnerID,"Update info of dependent");
             Platform.runLater(() -> {
                 Stage stage = (Stage) submitButtonAddDependent.getScene().getWindow();
                 stage.close();
@@ -165,5 +166,9 @@ public class DependentUpdatingFormController {
             e.printStackTrace();
         }
 
+    }
+
+    public void setPolicyOwnerID(String policyOwnerID) {
+        this.policyOwnerID = policyOwnerID;
     }
 }
