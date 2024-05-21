@@ -641,9 +641,9 @@ public class AdminHomeController {
             showDetailButton.setDisable(true);
             updateBeneficiaryButton.setDisable(true);
             if (selectedUser.getRole().name().equals("Dependent")) {
-                view.showDepenentFormUpdate(selectedUser);
+                view.showDepenentFormUpdate(selectedUser, adminID);
             } else {
-                view.showPolicyHolderFormUpdate(selectedUser);
+                view.showPolicyHolderFormUpdate(selectedUser, adminID);
             }
         }
     }
