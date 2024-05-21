@@ -1,6 +1,5 @@
 package ui.gp.SceneController.Manager;
 
-import com.sun.javafx.menu.MenuItemBase;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
