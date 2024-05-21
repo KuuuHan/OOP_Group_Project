@@ -152,9 +152,10 @@
                                 <ComboBox fx:id="holderClaimFilter" onAction="#onFilterBox" prefWidth="150.0" promptText="Choose View" />
                                 <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
                                 <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
+                              <Button fx:id="addButtonPolicyHolder" mnemonicParsing="false" onAction="#addPolicyHolder" text="Add Claim For Policy Holder" />
                               <Button fx:id="addButtonDependent" mnemonicParsing="false" onAction="#addItemOnClick" text="Add Claim For Dependent" />
                                 <Button fx:id="holderClaimEdit" mnemonicParsing="false" onAction="#showClaimButtonAction" prefHeight="25.0" prefWidth="74.0" text="Edit" />
-                              <Button fx:id="holderClaimShow" mnemonicParsing="false" prefWidth="66.0" text="Show" />
+                              <Button fx:id="holderClaimShow" onAction="#setShowSpecificClaimAction" mnemonicParsing="false" prefWidth="66.0" text="Show" />
                               <TextField fx:id="searchingClaimPolicyHolder" prefHeight="25.0" prefWidth="169.0" promptText="Searching..." />
                             </items>
                         </ToolBar>
