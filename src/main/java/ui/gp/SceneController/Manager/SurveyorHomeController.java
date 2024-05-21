@@ -130,6 +130,7 @@ public class SurveyorHomeController {
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+
     }
 
     @FXML
