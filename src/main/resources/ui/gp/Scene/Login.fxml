@@ -46,7 +46,7 @@
         <items>
             <Button mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="80.0" text="Login" />
             <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="7.0" />
-            <Button fx:id="exitHomeButton" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="80.0" text="Exit" />
+            <Button mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="80.0" text="Exit" />
         </items>
       </ToolBar>
       <Label fx:id="statusText" alignment="CENTER" contentDisplay="CENTER" layoutX="348.0" layoutY="484.0" prefHeight="17.0" prefWidth="531.0" text="Enter your user name and password." textAlignment="CENTER" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="484.0" />

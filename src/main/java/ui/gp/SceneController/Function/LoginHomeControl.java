@@ -106,4 +106,5 @@ public class LoginHomeControl {
                 stage.close();
             }
         }
-    }
+
+}

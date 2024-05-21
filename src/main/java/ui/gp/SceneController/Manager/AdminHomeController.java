@@ -2,6 +2,7 @@ package ui.gp.SceneController.Manager;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
@@ -12,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import javafx.util.Pair;
 import ui.gp.Models.Claim;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.*;
@@ -27,6 +29,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AdminHomeController {
     @FXML
@@ -59,6 +62,8 @@ public class AdminHomeController {
     Button profileReset;
     @FXML
     private TableView<User> SystemAdminTable;
+    @FXML
+    public TableView historyRecordID;
     @FXML
     Button adminProfileSaveButton;
     @FXML
@@ -115,6 +120,8 @@ public class AdminHomeController {
     @FXML
     private Button showClaimButton;
     @FXML
+    private Button deleteBeneficiaryButton;
+    @FXML
     private TableColumn adminClaimId;
     @FXML
     private TableColumn adminClaimAmount;
@@ -144,7 +151,12 @@ public class AdminHomeController {
     private String originalAddress;
     private User selectedUser;
     private ViewFactory view;
+    private String adminID;
     private int claimCount;
+    @FXML
+    private Tab historyRecord;
+    @FXML
+    private Button updateBeneficiaryButton;
 
     //======================================
 
@@ -158,12 +170,16 @@ public class AdminHomeController {
         bannerNameView(systemAdmin.getFullname());
         this.systemAdmin = systemAdmin;
         this.adminController = adminController;
+        this.adminID = systemAdmin.getId();
         if (infoTab.isSelected()) {
             handleProfileTabSelection();
         }
         AccountTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 populateSystemAdminTable();
+                deleteBeneficiaryButton.setDisable(true);
+                showDetailButton.setDisable(true);
+                updateBeneficiaryButton.setDisable(true);
 
             }
         });
@@ -172,13 +188,13 @@ public class AdminHomeController {
         SystemAdminTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 selectedUser = (User) newSelection;
-//                deleteBeneficiaryButton.setDisable(false);
+                deleteBeneficiaryButton.setDisable(false);
                 showDetailButton.setDisable(false);
-//                updateBeneficiaryButton.setDisable(false);
+                updateBeneficiaryButton.setDisable(false);
             } else {
-//                deleteBeneficiaryButton.setDisable(true);
+                deleteBeneficiaryButton.setDisable(true);
                 showDetailButton.setDisable(true);
-//                updateBeneficiaryButton.setDisable(true);
+                updateBeneficiaryButton.setDisable(true);
             }
         });
 
@@ -214,22 +230,35 @@ public class AdminHomeController {
         FilterUserBox.setValue(filterOptions.get(0));
 
 
-        List<String> smallClaimFilter = new ArrayList<>();
-        smallClaimFilter.add("All");
-        smallClaimFilter.add("Approved");
-        smallClaimFilter.add("Pending");
-        smallClaimFilter.add("Rejected");
-        smallStatusFilter.setItems(FXCollections.observableArrayList(smallClaimFilter));
+        List<String> ClaimFilter = new ArrayList<>();
+        ClaimFilter.add("All");
+        ClaimFilter.add("Approved");
+        ClaimFilter.add("Pending");
+        ClaimFilter.add("Rejected");
+        smallStatusFilter.setItems(FXCollections.observableArrayList(ClaimFilter));
         smallStatusFilter.setValue(filterOptions.get(0));
 
-        List<String> ClaimFilters = new ArrayList<>();
-        ClaimFilters.add("All");
-        ClaimFilters.add("Approved");
-        ClaimFilters.add("Pending");
-        ClaimFilters.add("Rejected");
-        claimFilter.setItems(FXCollections.observableArrayList(ClaimFilters));
+        claimFilter.setItems(FXCollections.observableArrayList(ClaimFilter));
         claimFilter.setValue(filterOptions.get(0));
 
+        historyRecord.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                populatedHistoryRecordTable();
+            }
+        });
+
+    }
+
+    private void recordHistory(String userId, String action) {
+        try {
+            String query = "INSERT INTO historyrecord (userid, action) VALUES (?, ?)";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, userId);
+            statement.setString(2, action);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void populateSystemAdminTable() {
@@ -374,6 +403,7 @@ public class AdminHomeController {
         String phoneNumber = phonenumberFieldInfo.getText();
         String address = addressFieldInfo.getText();
         String username = usernameFieldInfo.getText();
+        recordHistory(adminID, "Update Profile");
 
         //Save update data to the database
         updateProfile(password, email, phoneNumber, address, username);
@@ -508,4 +538,130 @@ public class AdminHomeController {
         smallClaimTable.setItems(sortedData);
     }
 
+    public void populatedHistoryRecordTable() {
+
+        List<Pair<String, String>> historyRecords = adminController.retrieveHistory();
+
+        ObservableList<Pair<String, String>> data = FXCollections.observableArrayList(historyRecords);
+
+        TableColumn<Pair<String, String>, String> idColumn = new TableColumn<>("User ID");
+        TableColumn<Pair<String, String>, String> actionColumn = new TableColumn<>("Action");
+
+        idColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
+        actionColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
+
+        historyRecordID.getColumns().setAll(idColumn, actionColumn);
+
+        historyRecordID.setItems(data);
+    }
+
+    public void AddPolicyHolderButton() throws IOException {
+        view.showPolicyHolderForm();
+    }
+
+    public void AddDependentButton() throws IOException {
+        ViewFactory view = new ViewFactory(databaseConnection);
+        view.showDependentForm();
+    }
+
+    private void deleteBeneficiary(User selectedUser) {
+        try {
+            Thread deleteThread = new Thread(() -> {
+                try {
+                    String userQuery = "DELETE FROM Users WHERE id = ?";
+                    try (PreparedStatement userStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(userQuery)) {
+                        userStatement.setString(1, selectedUser.getId());
+                        userStatement.executeUpdate();
+
+                    }
+
+                    if (selectedUser.getRole().name().equals("Dependent")) {
+                        String dependentQuery = "DELETE FROM policyholder WHERE dependentid = ?";
+                        try (PreparedStatement dependentStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(dependentQuery)) {
+                            dependentStatement.setString(1, selectedUser.getId());
+                            dependentStatement.executeUpdate();
+                        }
+                    } else {
+                        String dependentQuery2 = "DELETE FROM Users WHERE id IN (SELECT dependentid FROM policyholder WHERE policyholderid = ?)";
+                        try (PreparedStatement dependentStatement2 = DatabaseConnection.getInstance().getConnection().prepareStatement(dependentQuery2)) {
+                            dependentStatement2.setString(1, selectedUser.getId());
+                            dependentStatement2.executeUpdate();
+                        }
+                        String policyholderQuery = "DELETE FROM policyowner WHERE policyholderid = ?";
+                        try (PreparedStatement policyholderStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(policyholderQuery)) {
+                            policyholderStatement.setString(1, selectedUser.getId());
+                            policyholderStatement.executeUpdate();
+                        }
+
+                        String dependentQuery = "DELETE FROM policyholder WHERE policyholderid = ?";
+                        try (PreparedStatement dependentStatement = DatabaseConnection.getInstance().getConnection().prepareStatement(dependentQuery)) {
+                            dependentStatement.setString(1, selectedUser.getId());
+                            dependentStatement.executeUpdate();
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            deleteThread.start();
+            deleteThread.join();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteAccButton()
+    {
+        if (selectedUser != null) {
+            SystemAdminTable.getSelectionModel().clearSelection();
+            deleteBeneficiaryButton.setDisable(true);
+            showDetailButton.setDisable(true);
+            updateBeneficiaryButton.setDisable(true);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Your Deletion");
+            alert.setHeaderText("Delete Beneficiary");
+            alert.setContentText("Are you sure you want to delete this beneficiary?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                deleteBeneficiary(selectedUser);
+                recordHistory(adminID, "Delete Beneficiary");
+                populatedHistoryRecordTable();
+            }
+        }
+    }
+
+    @FXML
+    public void updateBeneficiaryButtonAction() {
+        if (selectedUser != null) {
+            SystemAdminTable.getSelectionModel().clearSelection();
+            deleteBeneficiaryButton.setDisable(true);
+            showDetailButton.setDisable(true);
+            updateBeneficiaryButton.setDisable(true);
+            if (selectedUser.getRole().name().equals("Dependent")) {
+                view.showDepenentFormUpdate(selectedUser, adminID);
+            } else {
+                view.showPolicyHolderFormUpdate(selectedUser, adminID);
+            }
+        }
+    }
+
+    @FXML
+    public void onShowDetail() {
+        if (selectedUser != null) {
+            SystemAdminTable.getSelectionModel().clearSelection();
+            deleteBeneficiaryButton.setDisable(true);
+            showDetailButton.setDisable(true);
+            updateBeneficiaryButton.setDisable(true);
+            if (selectedUser.getRole().name().equals("Dependent")) {
+                view.showDependentInformation(selectedUser);
+                recordHistory(adminID, "View Dependent Information");
+            } else {
+                view.showPolicyHolderInformation(selectedUser);
+                recordHistory(adminID, "View Policy Holder Information");
+            }
+        }
+    }
 }
