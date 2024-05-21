@@ -23,6 +23,7 @@ import ui.gp.View.ViewFactory;
 import ui.gp.Database.DatabaseConnection;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,6 +32,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class OwnerHomeController {
+    @FXML
+    private AnchorPane ShowClaimPane;
 
     public Tab BeneficiaryTab;
     public TableView policyOwnerTable;
@@ -93,6 +96,7 @@ public class OwnerHomeController {
     private Tab paymentTab;
     public Tab ClaimManageTab;
     private PolicyOwner policyOwner;
+    private Claim selectedClaim;
     private ObservableList<User> items;
     private TableView<User> ownerHomeTable;
     @FXML
@@ -104,6 +108,39 @@ public class OwnerHomeController {
     ViewFactory view;
     private ObservableList<Customer> masterData = FXCollections.observableArrayList();
     private double moneyAmount;
+    @FXML
+    private TextField BankName;
+    @FXML
+    private TextField BankNumber;
+    @FXML
+    private TextField BankOwnerName;
+    @FXML
+    private TextField CardHolderName;
+    @FXML
+    private TextField CardNumber;
+    @FXML
+    private TextField ClaimAmount;
+    @FXML
+    private TextField ClaimDate;
+    @FXML
+    private TextField ClaimStatus;
+    @FXML
+    private TextField ExamDate;
+    @FXML
+    private TextField ExpirationDate;
+    @FXML
+    private TextField InsuredPersonID;
+    @FXML
+    private TextField PolicyOwnerID;
+    @FXML
+    private ChoiceBox<?> imagebox;
+    @FXML
+    public TextField ClaimID;
+    @FXML
+    private Button showimagebutton;
+
+
+
 
     public OwnerHomeController() {
         this.databaseConnection = DatabaseConnection.getInstance();
@@ -135,13 +172,15 @@ public class OwnerHomeController {
         ClaimManageTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 populatePolicyOwnerClaimTable();
+                DeletePolicyClaimbutton.setDisable(false);
+                showClaimPoilicyOwnerButton.setDisable(false);
+                updateBeneficiaryButton.setDisable(false);
             }
         });
         policyOwnerTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 selectedBeneficiary = (User) newSelection;
                 deleteBeneficiaryButton.setDisable(false);
-                showInfoBeneficiaryButton.setDisable(false);
                 showInfoBeneficiaryButton.setDisable(false);
                 updateBeneficiaryButton.setDisable(false);
             } else {
@@ -150,7 +189,19 @@ public class OwnerHomeController {
                 updateBeneficiaryButton.setDisable(true);
             }
         });
-
+        policyOwnerClaimTable.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection) -> {
+            if (newSelection != null)
+            {
+                selectedClaim = (Claim) newSelection;
+                DeletePolicyClaimbutton.setDisable(false);
+                showClaimPoilicyOwnerButton.setDisable(false);
+                updateBeneficiaryButton.setDisable(false);
+            } else{
+                DeletePolicyClaimbutton.setDisable(true);
+                showClaimPoilicyOwnerButton.setDisable(true);
+                updateBeneficiaryButton.setDisable(true);
+            }
+        });
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
             populatePolicyOwnerTable();
         }));
@@ -196,6 +247,16 @@ public class OwnerHomeController {
             } else {
                 view.showPolicyHolderInformation(selectedBeneficiary);
             }
+        }
+    }
+    @FXML
+    public void showClaimButtonAction() {
+        if (selectedClaim != null) {
+            policyOwnerClaimTable.getSelectionModel().clearSelection();
+            DeletePolicyClaimbutton.setDisable(true);
+            showClaimPoilicyOwnerButton.setDisable(true);
+            updateBeneficiaryButton.setDisable(true);
+            view.ShowClaimFormUpdate(selectedClaim);
         }
     }
 
@@ -442,9 +503,11 @@ public class OwnerHomeController {
     @FXML
     public void addItemOnClick( ) throws IOException {
         ViewFactory view = new ViewFactory(databaseConnection);
-        view.showClaimForm(policyOwnerController.retrieveBeneficiaries(), policyOwner);
+        view.showClaimForm(policyOwnerController.retrieveBeneficiaries());
 
     }
+
+
 
     @FXML
     public void deleteClaimButtonAction() {
@@ -464,6 +527,7 @@ public class OwnerHomeController {
         }
     }
 
+
     public void showErrorDialog(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");
@@ -471,40 +535,21 @@ public class OwnerHomeController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    public void ShowimageonAction(){
+
+    }
+
     public void setShowSpecificClaimAction(){
-        //Get the selected claim from the table
-        Object selectedClaim = policyOwnerClaimTable.getSelectionModel().getSelectedItem();
         if (selectedClaim != null) {
-            // Cast selectedClaim to Claim type and delete the claim from the database
-            Claim claim = PolicyOwnerController.retrieveclaimsforid(((Claim) selectedClaim).getId());
-            List<String> documentNames = retrievelistofimage(claim.getId());
-
-
-
-        } else {
-            // Show an error message if no row has been selected
-            showErrorDialog("Please select a claim to show.");
-        }
-
-    }
-
-    private List<String> retrievelistofimage(String claimId) {
-        String query = "SELECT documentname FROM claim WHERE id = ?";
-        List<String> documentNames = new ArrayList<>();
-        try {
-            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-            statement.setString(1, claimId);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                documentNames.add(resultSet.getString("documentname"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-
+            policyOwnerClaimTable.getSelectionModel().clearSelection();
+            DeletePolicyClaimbutton.setDisable(true);
+            showClaimPoilicyOwnerButton.setDisable(true);
+            updateBeneficiaryButton.setDisable(true);
+            view.showSpecificClaimForm(selectedClaim);
 
         }
-        return documentNames;
     }
+
 
     private void deleteClaimFromDatabase(String claimId) {
         try {

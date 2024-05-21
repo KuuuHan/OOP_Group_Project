@@ -140,39 +140,28 @@
                 <Tab fx:id="ClaimManageTab" text="Claim Management">
                     <BorderPane>
                         <bottom>
-                            <TableView fx:id="policyOwnerClaimTable" prefHeight="378.0" prefWidth="882.0"
-                                       BorderPane.alignment="CENTER">
+                            <TableView fx:id="policyOwnerClaimTable" prefHeight="378.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                                 <columns>
-                                    <TableColumn fx:id="idClaimPolicyOwnerTable" prefWidth="75.0" text="ID"/>
-                                    <TableColumn fx:id="datePolicyOwnerTable" prefWidth="112.79998779296875"
-                                                 text="Claim Date"/>
-                                    <TableColumn fx:id="insuredPersonPolicyOwnerTable" prefWidth="116.0"
-                                                 text="Insured Person"/>
-                                    <TableColumn fx:id="expiredDate" prefWidth="132.0" text="Expired Date"/>
-                                    <TableColumn fx:id="claimAmountPolicyOwnerTable" prefWidth="128.0"
-                                                 text="Claim Amount"/>
-                                    <TableColumn fx:id="cardNumInsuranceOwnerTable" prefWidth="316.00006103515625"
-                                                 text="Insurance Card Number"/>
+                                    <TableColumn fx:id="idClaimPolicyOwnerTable" prefWidth="75.0" text="ID" />
+                                    <TableColumn fx:id="datePolicyOwnerTable" prefWidth="112.79998779296875" text="Claim Date" />
+                                    <TableColumn fx:id="insuredPersonPolicyOwnerTable" prefWidth="116.0" text="Insured Person" />
+                                    <TableColumn fx:id="expiredDate" prefWidth="132.0" text="Expired Date" />
+                                    <TableColumn fx:id="claimAmountPolicyOwnerTable" prefWidth="128.0" text="Claim Amount" />
+                                    <TableColumn fx:id="cardNumInsuranceOwnerTable" prefWidth="316.00006103515625" text="Insurance Card Number" />
                                 </columns>
                             </TableView>
                         </bottom>
                         <top>
                             <ToolBar prefHeight="29.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                                 <items>
-                                    <TextField fx:id="searchingClaimPolicyOwner" promptText="Searching..."/>
-                                    <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0"/>
-                                    <Button fx:id="addClaimPoilicyOwnerButton" mnemonicParsing="false"
-                                            onAction="#addItemOnClick" text="Add new claim"/>
-                                    <Button fx:id="DeletePolicyClaimbutton" mnemonicParsing="false"
-                                            onAction="#deleteClaimButtonAction" prefHeight="14.0" prefWidth="106.0"
-                                            text="Delete claim"/>
-                                    <Button fx:id="updateClaimPoilicyOwnerButton" mnemonicParsing="false"
-                                            prefHeight="9.0" prefWidth="108.0" text="Update claim"/>
-                                    <Button fx:id="showClaimPoilicyOwnerButton" mnemonicParsing="false"
-                                            prefHeight="25.0" prefWidth="121.0" text="Show specific claim"/>
-                                    <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0"/>
-                                    <Label text="Filter"/>
-                                    <ComboBox fx:id="filterClaimPoilicyOwnerBox" prefWidth="150.0"/>
+                                    <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
+                                    <Button fx:id="addClaimPoilicyOwnerButton" mnemonicParsing="false" onAction="#addItemOnClick" text="Add new claim" />
+                                    <Button fx:id="DeletePolicyClaimbutton" mnemonicParsing="false" onAction="#deleteClaimButtonAction" prefHeight="14.0" prefWidth="106.0" text="Delete claim" />
+                                    <Button fx:id="updateClaimPoilicyOwnerButton" mnemonicParsing="false" onAction="#showClaimButtonAction" prefHeight="9.0" prefWidth="108.0" text="Update claim" />
+                                    <Button fx:id="showClaimPoilicyOwnerButton" mnemonicParsing="false" onAction="#setShowSpecificClaimAction" prefHeight="25.0" prefWidth="121.0" text="Show specific claim" />
+                                    <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
+                                    <Label text="Filter" />
+                                    <ComboBox fx:id="filterClaimPoilicyOwnerBox" prefWidth="150.0" />
                                 </items>
                             </ToolBar>
                         </top>
