@@ -2,6 +2,7 @@ package ui.gp.SceneController.Manager;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -12,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import javafx.util.Pair;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.Claim;
 import ui.gp.Models.ClaimStatus;
@@ -189,6 +191,14 @@ public class ManagerHomeController {
     private TableView<Provider> surveyorManagerTable;
     @FXML
     private TableView<Claim> claimManagerTable;
+    @FXML
+    private TableColumn managerHistoryId;
+    @FXML
+    private TableColumn managerHistoryActions;
+    @FXML
+    private TableView managerHistoryTable;
+    @FXML
+    private Tab managerHistoryTab;
     private Manager manager;
     private ManagerController managerController;
     private String search;
@@ -241,6 +251,13 @@ public class ManagerHomeController {
         managerViewPendingClaimTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 populatePendingClaimTable();
+            }
+
+        });
+
+        managerHistoryTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                populatedHistoryRecordTable();
             }
 
         });
@@ -685,5 +702,22 @@ public class ManagerHomeController {
         }
 
 
+    }
+
+    public void populatedHistoryRecordTable(){
+
+        List<Pair<String, String>> historyRecords = managerController.retrieveHistory();
+
+        ObservableList<Pair<String, String>> data = FXCollections.observableArrayList(historyRecords);
+
+        TableColumn<Pair<String, String>, String> idColumn = new TableColumn<>("User ID");
+        TableColumn<Pair<String, String>, String> actionColumn = new TableColumn<>("Action");
+
+        idColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
+        actionColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
+
+        managerHistoryTable.getColumns().setAll(idColumn, actionColumn);
+
+        managerHistoryTable.setItems(data);
     }
 }
