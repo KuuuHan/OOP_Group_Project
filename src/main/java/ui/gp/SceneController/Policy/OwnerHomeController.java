@@ -78,6 +78,7 @@ public class OwnerHomeController {
     public Button addClaimPoilicyOwnerButton;
     public Button DeletePolicyClaimbutton;
     public Button showClaimPoilicyOwnerButton;
+    @FXML
     public Button updateClaimPoilicyOwnerButton;
     private PolicyOwnerController policyOwnerController;
     private DatabaseConnection databaseConnection;

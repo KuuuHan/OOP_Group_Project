@@ -176,10 +176,10 @@
                      <top>
                         <ToolBar prefHeight="29.0" prefWidth="882.0" BorderPane.alignment="CENTER">
                            <items>
-                              <Button fx:id="addPolicyHolderButton" mnemonicParsing="false" text="Add new policy holder" />
-                              <Button fx:id="addDependentButton" mnemonicParsing="false" text="Add new dependent" />
-                              <Button fx:id="deleteBeneficiaryButton" prefHeight="25.0" prefWidth="113.0" text="Delete beneficiary" />
-                              <Button fx:id="updateBeneficiaryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Update beneficiary" />
+                              <Button fx:id="addPolicyHolderButton" mnemonicParsing="false" onAction="#AddPolicyHolderButton" text="Add new policy holder" />
+                              <Button fx:id="addDependentButton" mnemonicParsing="false" onAction="#AddDependentButton" text="Add new dependent" />
+                              <Button fx:id="deleteBeneficiaryButton" onAction="#deleteAccButton" prefHeight="25.0" prefWidth="113.0" text="Delete Account" />
+                              <Button fx:id="updateBeneficiaryButton" mnemonicParsing="false" onAction="#updateBeneficiaryButtonAction" prefHeight="25.0" prefWidth="122.0" text="Update Account" />
                               <Button fx:id="showDetailButton" mnemonicParsing="false" onAction="#onShowDetail" prefHeight="25.0" prefWidth="155.0" text="Show Detail Information" />
                               <Separator orientation="VERTICAL" prefHeight="5.0" prefWidth="0.0" />
                               <Label text="Filter" />
@@ -251,7 +251,7 @@
                   </BorderPane>
                </content>
             </Tab>
-                <Tab fx:id="hIstoryRecord" text="History Record">
+                <Tab fx:id="historyRecord" text="History Record">
                     <content>
                         <BorderPane>
                             <center>
