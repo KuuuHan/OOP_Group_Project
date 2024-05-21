@@ -14,4 +14,20 @@ public class InsuranceCard {
         this.policyOwner = policyOwner;
         this.expirationDate = expirationDate;
     }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public String getCardHolder() {
+        return cardHolder;
+    }
+
+    public String getPolicyOwner() {
+        return policyOwner;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
 }
