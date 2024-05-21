@@ -299,18 +299,24 @@ public class ViewFactory {
         }
     }
     public void showImage(String imageName) {
-        File imageFile = new File("src/main/resources/Documents/" + imageName);
-        if (imageFile.exists()) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/ShowImage.fxml"));
-                Parent root = loader.load();
-                ImageView imageView = (ImageView) root.lookup("#imageView");
-                imageView.setImage(new Image(new FileInputStream(imageFile)));
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
+        File documentsDirectory = new File("src/main/resources/Documents/");
+        File[] files = documentsDirectory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.getName().contains(imageName)) {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/ShowImage.fxml"));
+                        Parent root = loader.load();
+                        ImageView imageView = (ImageView) root.lookup("#imageView");
+                        imageView.setImage(new Image(new FileInputStream(file)));
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                        break; // Exit the loop after showing the first matching image
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
