@@ -2,6 +2,7 @@ package ui.gp.SceneController.Policy;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
@@ -12,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import javafx.util.Pair;
 import ui.gp.Models.Claim;
 import ui.gp.Models.Model;
 import ui.gp.Models.Users.Customer;
@@ -26,9 +28,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class OwnerHomeController {
 
@@ -42,6 +42,8 @@ public class OwnerHomeController {
     public TableColumn expiredDate;
     public TableColumn claimAmountPolicyOwnerTable;
     public TableColumn cardNumInsuranceOwnerTable;
+    public Tab hIstoryRecord;
+    public TableView historyRecordID;
 
     @FXML
     private TableView smallOwnerTable;
@@ -72,6 +74,7 @@ public class OwnerHomeController {
     public Button DeletePolicyClaimbutton;
     public Button showClaimPoilicyOwnerButton;
     public Button updateClaimPoilicyOwnerButton;
+    public ComboBox filterClaimPoilicyOwnerBox;
     private PolicyOwnerController policyOwnerController;
     private DatabaseConnection databaseConnection;
     public TextField idFieldInfo;
@@ -92,7 +95,7 @@ public class OwnerHomeController {
     @FXML
     private Tab paymentTab;
     public Tab ClaimManageTab;
-    private PolicyOwner policyOwner;
+    private String policyOwnerID;
     private ObservableList<User> items;
     private TableView<User> ownerHomeTable;
     @FXML
@@ -113,7 +116,7 @@ public class OwnerHomeController {
 
     public void initialize(PolicyOwner policyOwner, PolicyOwnerController policyOwnerController) {
         bannerNameView(policyOwner.getFullname());
-        this.policyOwner = policyOwner;
+        this.policyOwnerID = policyOwner.getId();
         this.policyOwnerController = policyOwnerController;
         if (infoTab.isSelected()) {
             handleProfileTabSelection();
@@ -151,6 +154,12 @@ public class OwnerHomeController {
             }
         });
 
+        hIstoryRecord.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                populatedHistoryRecordTable();
+            }
+        });
+
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
             populatePolicyOwnerTable();
         }));
@@ -163,6 +172,15 @@ public class OwnerHomeController {
         filterList.add("Dependent");
         filterBeneficiaryBox.setItems(FXCollections.observableArrayList(filterList));
         filterBeneficiaryBox.setValue(filterList.get(0));
+
+        List<String> displayClaimComboList = new ArrayList<>();
+        displayClaimComboList.add("All");
+        displayClaimComboList.add("Rejected");
+        displayClaimComboList.add("Approved");
+        displayClaimComboList.add("Pending");
+        displayClaimComboList.add("nextStage");
+        filterClaimPoilicyOwnerBox.setItems(FXCollections.observableArrayList(displayClaimComboList));
+        filterClaimPoilicyOwnerBox.setValue(displayClaimComboList.get(0));
 
         smallOwnerFilter.setItems(FXCollections.observableArrayList(filterList));
         smallOwnerFilter.setValue(filterList.get(0));
@@ -193,11 +211,26 @@ public class OwnerHomeController {
             updateBeneficiaryButton.setDisable(true);
             if (selectedBeneficiary.getRole().name().equals("Dependent")) {
                 view.showDependentInformation(selectedBeneficiary);
+                recordHistory(policyOwnerID, "View Dependent Information");
             } else {
                 view.showPolicyHolderInformation(selectedBeneficiary);
+                recordHistory(policyOwnerID, "View Policy Holder Information");
             }
         }
     }
+
+    private void recordHistory(String userId, String action) {
+        try {
+            String query = "INSERT INTO historyrecord (userid, action) VALUES (?, ?)";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, userId);
+            statement.setString(2, action);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void DeleteBeneficiaryButton()
     {
@@ -214,6 +247,7 @@ public class OwnerHomeController {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
                 deleteBeneficiary(selectedBeneficiary);
+                recordHistory(policyOwnerID, "Delete Beneficiary");
                 populatePolicyOwnerTable();
             }
         }
@@ -344,6 +378,25 @@ public class OwnerHomeController {
         }
     }
 
+    @FXML
+    public void onFilterClaim(ActionEvent event) {
+        String filter = (String) filterClaimPoilicyOwnerBox.getSelectionModel().getSelectedItem();
+        if (filter != null) {
+            if (filter.equals("All")) {
+                populatePolicyOwnerClaimTable();
+            } else {
+                ObservableList<Claim> filteredData = FXCollections.observableArrayList();
+                for (Claim claim : policyOwnerController.retrieveAllClaims()) {
+                    if (claim.getStatus().equals(filter)) {
+                        filteredData.add(claim);
+                    }
+                }
+                policyOwnerClaimTable.setItems(filteredData);
+            }
+        }
+    }
+
+
     public void onSmallFilterBox(ActionEvent event) {
         String filter = smallOwnerFilter.getSelectionModel().getSelectedItem();
         if (filter != null) {
@@ -369,6 +422,7 @@ public class OwnerHomeController {
         String phoneNumber = phonenumberFieldInfo.getText();
         String address = addressFieldInfo.getText();
         String username = usernameFieldInfo.getText();
+        recordHistory(policyOwnerID, "Update Profile");
 
         //Save update data to the database
         updateProfile(password, email, phoneNumber, address, username);
@@ -442,7 +496,7 @@ public class OwnerHomeController {
     @FXML
     public void addItemOnClick( ) throws IOException {
         ViewFactory view = new ViewFactory(databaseConnection);
-        view.showClaimForm(policyOwnerController.retrieveBeneficiaries(), policyOwner);
+        view.showClaimForm(policyOwnerController.retrieveBeneficiaries());
 
     }
 
@@ -523,6 +577,23 @@ public class OwnerHomeController {
         }
     }
 
+    public void populatedHistoryRecordTable() {
+
+        List<Pair<String, String>> historyRecords = policyOwnerController.retrieveHistory();
+
+        ObservableList<Pair<String, String>> data = FXCollections.observableArrayList(historyRecords);
+
+        TableColumn<Pair<String, String>, String> idColumn = new TableColumn<>("User ID");
+        TableColumn<Pair<String, String>, String> actionColumn = new TableColumn<>("Action");
+
+        idColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
+        actionColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
+
+        historyRecordID.getColumns().setAll(idColumn, actionColumn);
+
+        historyRecordID.setItems(data);
+    }
+
     public void populateSmallUserTable() {
 
         List<Customer> customers = policyOwnerController.retrieveBeneficiaries();
@@ -570,5 +641,7 @@ public class OwnerHomeController {
         sortedData.comparatorProperty().bind(smallOwnerTable.comparatorProperty());
         smallOwnerTable.setItems(sortedData);
     }
+
+
 
 }

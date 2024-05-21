@@ -461,10 +461,10 @@ public class ManagerHomeController {
         ObservableList<Claim> dataList = FXCollections.observableArrayList(claims);
 
         claimIDManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
-        insuredPeopleManagerView.setCellValueFactory(new PropertyValueFactory<>("insuredPerson"));
+        insuredPeopleManagerView.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
         claimAmountManagerView.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
         statusManagerView.setCellValueFactory(new PropertyValueFactory<>("status"));
-        claimDateManagerView.setCellValueFactory(new PropertyValueFactory<>("claimDate"));
+        claimDateManagerView.setCellValueFactory(new PropertyValueFactory<>("date"));
         examDateManagerView.setCellValueFactory(new PropertyValueFactory<>("examDate"));
 
         FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);
@@ -501,10 +501,10 @@ public class ManagerHomeController {
         ObservableList<Claim> dataList = FXCollections.observableArrayList(claims);
 
         claimIDManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
-        insuredPeopleManagerView.setCellValueFactory(new PropertyValueFactory<>("insuredPerson"));
+        insuredPeopleManagerView.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
         claimAmountManagerView.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
         statusManagerView.setCellValueFactory(new PropertyValueFactory<>("status"));
-        claimDateManagerView.setCellValueFactory(new PropertyValueFactory<>("claimDate"));
+        claimDateManagerView.setCellValueFactory(new PropertyValueFactory<>("date"));
         examDateManagerView.setCellValueFactory(new PropertyValueFactory<>("examDate"));
 
         FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);
@@ -539,10 +539,10 @@ public class ManagerHomeController {
         ObservableList<Claim> dataList = FXCollections.observableArrayList(claims);
 
         claimIDManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
-        insuredPeopleManagerView.setCellValueFactory(new PropertyValueFactory<>("insuredPerson"));
+        insuredPeopleManagerView.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
         claimAmountManagerView.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
         statusManagerView.setCellValueFactory(new PropertyValueFactory<>("status"));
-        claimDateManagerView.setCellValueFactory(new PropertyValueFactory<>("claimDate"));
+        claimDateManagerView.setCellValueFactory(new PropertyValueFactory<>("date"));
         examDateManagerView.setCellValueFactory(new PropertyValueFactory<>("examDate"));
 
         FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);
@@ -577,10 +577,10 @@ public class ManagerHomeController {
         ObservableList<Claim> dataList = FXCollections.observableArrayList(claims);
 
         claimIDPendingManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
-        insuredPeoplePendingManagerView.setCellValueFactory(new PropertyValueFactory<>("insuredPerson"));
+        insuredPeoplePendingManagerView.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
         claimAmountPendingManagerView.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
         statusManagerPendingView.setCellValueFactory(new PropertyValueFactory<>("status"));
-        claimDatePendingManagerView.setCellValueFactory(new PropertyValueFactory<>("claimDate"));
+        claimDatePendingManagerView.setCellValueFactory(new PropertyValueFactory<>("date"));
         examDatePendingManagerView.setCellValueFactory(new PropertyValueFactory<>("examDate"));
 
         FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);
@@ -613,10 +613,10 @@ public class ManagerHomeController {
         ObservableList<Claim> dataList = FXCollections.observableArrayList(claims);
 
         claimIDPendingManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
-        insuredPeoplePendingManagerView.setCellValueFactory(new PropertyValueFactory<>("insuredPerson"));
+        insuredPeoplePendingManagerView.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
         claimAmountPendingManagerView.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
         statusManagerPendingView.setCellValueFactory(new PropertyValueFactory<>("status"));
-        claimDatePendingManagerView.setCellValueFactory(new PropertyValueFactory<>("claimDate"));
+        claimDatePendingManagerView.setCellValueFactory(new PropertyValueFactory<>("date"));
         examDatePendingManagerView.setCellValueFactory(new PropertyValueFactory<>("examDate"));
 
         FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);

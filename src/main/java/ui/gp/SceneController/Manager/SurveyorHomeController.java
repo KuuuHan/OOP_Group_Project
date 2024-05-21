@@ -1,5 +1,8 @@
 package ui.gp.SceneController.Manager;
 
+import com.sun.javafx.menu.MenuItemBase;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -10,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 import ui.gp.Database.DatabaseConnection;
 import ui.gp.Models.Claim;
 import ui.gp.Models.Model;
@@ -46,14 +50,57 @@ public class SurveyorHomeController {
     public TextField idField;
     private DatabaseConnection databaseConnection;
     private ViewFactory view;
-    private User selectedCustomer;
+    private Customer selectedCustomer;
     private Claim selectedClaim;
     private InsuranceSurveyor surveyor;
     private SurveyorController surveyorController;
 
+    @FXML
+    Button managerViewCustomer;
+
+
+    @FXML
+    TableView <Claim> surveyorTable;
+    @FXML
+    TableColumn claimIDSurveyor;
+    @FXML
+    TableColumn insuredPersonSurveyor;
+    @FXML
+    TableColumn claimAmountSurveyor;
+    @FXML
+    TableColumn statusSurveyor;
+    @FXML
+    TableColumn claimDateSurveyor;
+    @FXML
+    TableColumn examDateSurveyor;
+
+    @FXML
+    TableView <Customer> customerSurveyorTable;
+    @FXML
+    TableColumn customerIDSurveyorView;
+    @FXML
+    TableColumn customerNameSurveyorView;
+    @FXML
+    TableColumn customerRoleSurveyorView;
+    @FXML
+    TableColumn customerPhoneSurveyorView;
+    @FXML
+    TableColumn customerEmailSurveyorView;
+    @FXML
+    TableColumn customerAddressSurveyorView;
+    @FXML
+    Button mangerViewCustomer;
+    @FXML
+    private Tab managerViewCustomerTab;
+
 
     public void bannerNameView(String username) {
         welcomeBannerUser.setText("Welcome " + username);
+    }
+
+    public void SurveyorController(){
+        this.databaseConnection = DatabaseConnection.getInstance();
+        this.view = new ViewFactory(Model.getInstance().getDatabaseConnection());
     }
 
     public void initialize(InsuranceSurveyor surveyor, SurveyorController surveyorController) {
@@ -64,6 +111,26 @@ public class SurveyorHomeController {
         if (infoTab.isSelected()) {
             handleProfileTabSelection();
         }
+        managerViewCustomerTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                populateCustomerSurveyorTable();
+            }
+        });
+
+        customerSurveyorTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedCustomer = (Customer) newSelection;
+                managerViewCustomer.setDisable(false);
+            } else {
+                managerViewCustomer.setDisable(true);
+            }
+        });
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
+            populateCustomerSurveyorTable();
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     @FXML
@@ -141,6 +208,39 @@ public class SurveyorHomeController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void populateCustomerSurveyorTable(){
+        List<Customer> customers = surveyorController.retrieveBeneficiaries();
+        ObservableList<Customer> dataList = FXCollections.observableArrayList(customers);
+
+        customerIDSurveyorView.setCellValueFactory(new PropertyValueFactory<>("id"));
+        customerNameSurveyorView.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+        customerRoleSurveyorView.setCellValueFactory(new PropertyValueFactory<>("role"));
+        customerPhoneSurveyorView.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
+        customerEmailSurveyorView.setCellValueFactory(new PropertyValueFactory<>("email"));
+        customerAddressSurveyorView.setCellValueFactory(new PropertyValueFactory<>("address"));
+
+        customerSurveyorTable.setItems(dataList);
+        if (selectedCustomer != null){
+            customerSurveyorTable.getSelectionModel().select((Customer) selectedCustomer);
+        }
+    }
+
+    @FXML
+    public void onShowDetail(ActionEvent event){
+        if(selectedCustomer != null){
+            customerSurveyorTable.getSelectionModel().clearSelection();
+            managerViewCustomer.setDisable(true);
+        } if(selectedCustomer.getRole().name().equals("Dependent")){
+            view.showDependentInformation(selectedCustomer);
+        } else if (selectedCustomer.getRole().name().equals("Policy_Holder")){
+            view.showPolicyHolderInformation(selectedCustomer);
+        } else if (selectedCustomer.getRole().name().equals("Insurance_Surveyor")){
+            view.showPolicyHolderInformation(selectedCustomer);
+        } else if (selectedCustomer.getRole().name().equals("Policy_Owner")){
+            view.showPolicyHolderInformation(selectedCustomer);
         }
     }
 }

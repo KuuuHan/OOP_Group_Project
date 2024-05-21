@@ -168,15 +168,6 @@ public class AdminHomeController {
             }
         });
 
-        // Disable save button when non field is changed
-//        adminProfileSaveButton.disableProperty().bind(Bindings.createBooleanBinding(() -> !isAnyFieldChanged(),
-//                idFieldInfo.textProperty(),
-//                fullnameFieldInfo.textProperty(),
-//                usernameFieldInfo.textProperty(),
-//                passwordFieldInfo.textProperty(),
-//                emailFieldInfo.textProperty(),
-//                phonenumberFieldInfo.textProperty(),
-//                addressFieldInfo.textProperty()));
 
         SystemAdminTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -288,15 +279,6 @@ public class AdminHomeController {
             emailFieldInfo.setText(information[4].split(": ")[1]);
             phonenumberFieldInfo.setText(information[5].split(": ")[1]);
             addressFieldInfo.setText(information[6].split(": ")[1]);
-
-            // Store the original values to check if any field has been changed
-//            idFieldInfo.setText(originalId);
-//            fullnameFieldInfo.setText(originalFullname);
-//            usernameFieldInfo.setText(originalUsername);
-//            passwordFieldInfo.setText(originalPassword);
-//            emailFieldInfo.setText(originalEmail);
-//            phonenumberFieldInfo.setText(originalPhonenumber);
-//            addressFieldInfo.setText(originalAddress);
         }
 
     }

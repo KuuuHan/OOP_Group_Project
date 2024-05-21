@@ -68,11 +68,24 @@ public class PolicyHolderAddingFormController {
             User user = session.getUser();
             String policyOwnerID = user.getId();
             addPolicyOwner(policyOwnerID,policyHolderID);
+            recordHistory(policyOwnerID,"Add new policy holder");
             Platform.runLater(() -> {
                 Stage stage = (Stage) submitButtonAddPolicyOwner.getScene().getWindow();
                 stage.close();
             });
         }).start();
+    }
+
+    private void recordHistory(String userId, String action) {
+        try {
+            String query = "INSERT INTO historyrecord (userid, action) VALUES (?, ?)";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, userId);
+            statement.setString(2, action);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
