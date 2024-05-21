@@ -4,10 +4,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ui.gp.ApplicationStart;
 import ui.gp.Models.Model;
+import ui.gp.Models.Claim;
 import ui.gp.Models.Users.*;
 import ui.gp.SceneController.Controllers.*;
 import ui.gp.SceneController.Function.DependentAddingFormController;
@@ -21,6 +23,8 @@ import ui.gp.SceneController.Policy.HolderHomeController;
 import ui.gp.SceneController.Policy.OwnerHomeController;
 import ui.gp.Tab.ClaimController;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.PortUnreachableException;
 import java.util.List;
@@ -59,7 +63,7 @@ public class ViewFactory {
             stage.getScene().setRoot(root);
             DependentsHomeController controller = loader.getController();
             Dependent dependents = (Dependent) model;
-            DependentController dependentController = new DependentController(dependents,databaseConnection.getConnection());
+            DependentController dependentController = new DependentController(dependents, databaseConnection.getConnection());
             controller.initialize(dependents, dependentController);
 
         } catch (IOException e) {
@@ -79,7 +83,7 @@ public class ViewFactory {
             stage.getScene().setRoot(root);
             OwnerHomeController controller = loader.getController();
             PolicyOwner policyOwner = (PolicyOwner) model;
-            PolicyOwnerController policyOwnerController = new PolicyOwnerController(policyOwner,databaseConnection.getConnection());
+            PolicyOwnerController policyOwnerController = new PolicyOwnerController(policyOwner, databaseConnection.getConnection());
             controller.initialize(policyOwner, policyOwnerController);
 
         } catch (IOException e) {
@@ -99,7 +103,7 @@ public class ViewFactory {
             stage.getScene().setRoot(root);
             HolderHomeController controller = loader.getController();
             PolicyHolder policyHolder = (PolicyHolder) model;
-            PolicyHolderController policyHolderController = new PolicyHolderController(policyHolder,databaseConnection.getConnection());
+            PolicyHolderController policyHolderController = new PolicyHolderController(policyHolder, databaseConnection.getConnection());
             controller.initialize(policyHolder, policyHolderController);
 
         } catch (IOException e) {
@@ -119,7 +123,7 @@ public class ViewFactory {
             stage.getScene().setRoot(root);
             ManagerHomeController controller = loader.getController();
             Manager manager = (Manager) model;
-            ManagerController managerController = new ManagerController(manager,databaseConnection.getConnection());
+            ManagerController managerController = new ManagerController(manager, databaseConnection.getConnection());
             controller.initialize(manager, managerController);
         } catch (IOException e) {
             e.printStackTrace();
@@ -138,7 +142,7 @@ public class ViewFactory {
             stage.getScene().setRoot(root);
             SurveyorHomeController controller = loader.getController();
             InsuranceSurveyor surveyor = (InsuranceSurveyor) model;
-            SurveyorController surveyorController = new SurveyorController(surveyor,databaseConnection.getConnection());
+            SurveyorController surveyorController = new SurveyorController(surveyor, databaseConnection.getConnection());
             controller.initialize(surveyor, surveyorController);
         } catch (IOException e) {
             e.printStackTrace();
@@ -157,7 +161,7 @@ public class ViewFactory {
             stage.getScene().setRoot(root);
             AdminHomeController controller = loader.getController();
             SystemAdmin systemAdmin = (SystemAdmin) model;
-            AdminController adminController = new AdminController(systemAdmin,databaseConnection.getConnection());
+            AdminController adminController = new AdminController(systemAdmin, databaseConnection.getConnection());
             controller.initialize(systemAdmin, adminController);
 
         } catch (IOException e) {
@@ -200,8 +204,7 @@ public class ViewFactory {
         }
     }
 
-    public void showPolicyHolderFormUpdate(User user)
-    {
+    public void showPolicyHolderFormUpdate(User user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/PolicyHolderUpdatingForm.fxml"));
             Parent root = loader.load();
@@ -219,8 +222,7 @@ public class ViewFactory {
         }
     }
 
-    public void showPolicyHolderInformation(User user)
-    {
+    public void showPolicyHolderInformation(User user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/PolicyHolderShowingForm.fxml"));
             Parent root = loader.load();
@@ -238,8 +240,7 @@ public class ViewFactory {
         }
     }
 
-    public void showDepenentFormUpdate(User user)
-    {
+    public void showDepenentFormUpdate(User user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/DependentUpdatingForm.fxml"));
             Parent root = loader.load();
@@ -264,7 +265,7 @@ public class ViewFactory {
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Add New Claim");
+            stage.setTitle("Claim");
             stage.setResizable(false);
             stage.show();
             ClaimController controller = loader.getController();
@@ -275,8 +276,60 @@ public class ViewFactory {
         }
     }
 
-    public void showDependentInformation(User user)
+    public void showSpecificClaimForm(Claim claim)
     {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/ShowClaims.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Claim");
+            stage.setResizable(false);
+            stage.show();
+            ShowClaimController controller = loader.getController();
+            controller.setDatabaseConnection(databaseConnection);
+            controller.setViewFactory(new ViewFactory(databaseConnection));
+            controller.setClaim(claim);
+            controller.initialise();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void showImage(String imageName) {
+        File imageFile = new File("src/main/resources/Documents/" + imageName);
+        if (imageFile.exists()) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/ShowImage.fxml"));
+                Parent root = loader.load();
+                ImageView imageView = (ImageView) root.lookup("#imageView");
+                imageView.setImage(new Image(new FileInputStream(imageFile)));
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void ShowClaimFormUpdate(Claim claim) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/ClaimUpdatingForm.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Update The Claim Information");
+            stage.setResizable(false);
+            stage.show();
+            ClaimUpdatingFormController controller = loader.getController();
+            controller.setDatabaseConnection(databaseConnection);
+            controller.setClaim(claim);
+            controller.initialise();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showDependentInformation(User user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/DependentShowingForm.fxml"));
             Parent root = loader.load();
