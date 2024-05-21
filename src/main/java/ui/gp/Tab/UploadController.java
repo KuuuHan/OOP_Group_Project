@@ -6,6 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,6 +33,8 @@ public class UploadController {
 
     @FXML
     private ImageView imageView;
+    @FXML
+    private Button ConfirmImage;
 
     @FXML
     private Button nextButton;
@@ -99,25 +102,19 @@ public class UploadController {
 
     @FXML
     public void onConfirm() {
-        // Assuming 'files' is the list of selected files
         List<File> updatedFiles = new ArrayList<>();
         for (File file : selectedFiles) {
-            String fileName = file.getName();
-            String[] parts = fileName.split("\\."); // Split the file name at the dot
-            String newFileName = parts[0] + ".pdf"; // Attach the first part to .pdf
-            if (parts.length > 1) {
-                newFileName += "." + parts[1]; // Reattach the last part
-            }
-            File newFile = new File(file.getParent(), newFileName);
+            File newFile = new File(file.getParent(), file.getName());
             try {
-                Files.move(file.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                claimController.updateFileNameComboBox(newFileName); // update the ComboBox in ClaimController
+                Files.copy(file.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 updatedFiles.add(newFile); // Add the new file to the updatedFiles list
             } catch (IOException e) {
-                System.out.println("Failed to rename file: " + fileName);
+                System.out.println("Failed to copy file: " + file.getName());
                 e.printStackTrace();
             }
         }
         selectedFiles = updatedFiles; // Update the selectedFiles list to reflect the new file names
+        Stage stage = (Stage) ConfirmImage.getScene().getWindow();
+        stage.close();
     }
 }

@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" >
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <items>
                 <Button mnemonicParsing="false" onAction="#chooseFromFile" text="Choose from Folder" />
-                <Button mnemonicParsing="false" onAction="#onConfirm" text="Confirm" />
-                <Button mnemonicParsing="false" text="Delete" />
-                <Button mnemonicParsing="false" text="Delete All" />
+                <Button fx:id="ConfirmImage" mnemonicParsing="false" onAction="#onConfirm" text="Confirm" />
             </items>
         </ToolBar>
     </top>
@@ -25,10 +21,6 @@
             <items>
                 <Button fx:id="prevButton" mnemonicParsing="false" onAction="#showPrevImage" text="&lt;" />
                 <Button fx:id="nextButton" mnemonicParsing="false" onAction="#showNextImage" text="&gt;" />
-                <Label prefHeight="17.0" prefWidth="384.0" text="Image Name.jpg">
-                    <padding>
-                        <Insets right="10.0" />
-                    </padding></Label>
             </items>
         </ToolBar>
     </bottom>

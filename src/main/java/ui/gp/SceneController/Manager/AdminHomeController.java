@@ -431,11 +431,11 @@ public class AdminHomeController {
 
         adminClaimId.setCellValueFactory(new PropertyValueFactory<>("id"));
         adminClaimAmount.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
-        adminInsuredPerson.setCellValueFactory(new PropertyValueFactory<>("insuredPerson"));
-        adminClaimDate.setCellValueFactory(new PropertyValueFactory<>("claimDate"));
+        adminInsuredPerson.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
+        adminClaimDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         adminExamDate.setCellValueFactory(new PropertyValueFactory<>("examDate"));
         adminClaimStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        adminInsuranceNumber.setCellValueFactory(new PropertyValueFactory<>("bankNumber"));
+        adminInsuranceNumber.setCellValueFactory(new PropertyValueFactory<>("receiverBankingNumber"));
 
         FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);
 
@@ -471,8 +471,8 @@ public class AdminHomeController {
 
         smallClaimID.setCellValueFactory(new PropertyValueFactory<>("id"));
         smallClaimAmount.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
-        smallInsuredPerson.setCellValueFactory(new PropertyValueFactory<>("insuredPerson"));
-        smallClaimDate.setCellValueFactory(new PropertyValueFactory<>("claimDate"));
+        smallInsuredPerson.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
+        smallClaimDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         smallExamDate.setCellValueFactory(new PropertyValueFactory<>("examDate"));
         smallStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 

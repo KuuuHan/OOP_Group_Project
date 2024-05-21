@@ -10,4 +10,16 @@ public class ReceiverBankingInfo {
         this.ownerName = ownerName;
         this.number = number;
     }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public String getNumber() {
+        return number;
+    }
 }

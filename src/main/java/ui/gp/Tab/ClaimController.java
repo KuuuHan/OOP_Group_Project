@@ -54,7 +54,6 @@ public class ClaimController {
     private TextField bankCardNumberFieldClaim;
     @FXML
     private TextField cardHolderFieldClaim;
-
     @FXML
     private TextField expirationDateFieldClaim;
     @FXML
@@ -69,6 +68,10 @@ public class ClaimController {
     private List<Customer> beneficiariesList;
     private DatabaseConnection databaseConnection;
     private UploadController uploadController;
+    private Claim claim;
+    @FXML
+    private Button SubmitClaim;
+
 
 
     public void setDatabaseConnection(DatabaseConnection databaseConnection) {
@@ -99,19 +102,34 @@ public class ClaimController {
         List<File> selectedFiles = uploadController.getSelectedFiles();
         // You can use claimID for further processing if needed
         for (File file : selectedFiles) {
-            // For each file, insert the file name and claim ID into the database
-            InsertDocuments(claimID, file.getName());
+            // Save the original file name to the Documents directory
             Path sourcePath = file.toPath();
-            Path targetPath = Paths.get("src/main/resources/ui/gp/Documents", file.getName());
+            Path targetPath = Paths.get("src/main/resources/Documents", file.getName());
             try {
                 Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            // Change the file name in the Documents directory
+            String fileName = file.getName();
+            String[] nameParts = fileName.split("\\."); // Split the file name at the dot
+            String newFileName = nameParts[0] + ".pdf"; // Attach the first part to .pdf
+            if (nameParts.length > 1) {
+                newFileName += "." + nameParts[1]; // Reattach the last part
+            }
+            File newFile = new File(targetPath.getParent().toString(), newFileName);
+            try {
+                Files.move(targetPath, newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // Insert the changed file name using InsertDocuments
+            InsertDocuments(claimID, newFileName);
         }
-        // Copy the file to the Documents directory in ui.gp in resources
-
-
+        Stage stage = (Stage) SubmitClaim.getScene().getWindow();
+        stage.close();
     }
     public String addtoclaim(String claimDate, String insuredpersonid, String cardNumber, String ExpirationDate, String Amount, String bankName, String bankNumber) {
         String id = null;
