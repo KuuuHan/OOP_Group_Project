@@ -2,6 +2,7 @@ package ui.gp.SceneController.Policy;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -13,15 +14,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
+import javafx.util.Pair;
 import ui.gp.Database.DatabaseConnection;
+import ui.gp.Models.Claim;
 import ui.gp.Models.InsuranceCard;
+import ui.gp.Models.Model;
 import ui.gp.Models.ReceiverBankingInfo;
-import ui.gp.Models.Users.Customer;
-import ui.gp.Models.Users.PolicyHolder;
-import ui.gp.Models.Users.PolicyOwner;
+import ui.gp.Models.Users.*;
 import ui.gp.SceneController.Controllers.PolicyHolderController;
-import ui.gp.SceneController.Controllers.PolicyOwnerController;
 import ui.gp.SceneController.Function.SceneUtil;
+import ui.gp.View.ViewFactory;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -31,6 +33,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HolderHomeController {
+    public Button addButtonPolicyHolder;
+    public Button addButtonDependent;
+    public Button holderClaimShow;
+    public TableColumn holderClaimInsuredCard;
+    public TextField searchingClaimPolicyHolder;
     @FXML
     Label welcomeBannerUser;
     @FXML
@@ -167,51 +174,85 @@ public class HolderHomeController {
 
     private PolicyHolder policyHolder;
     private PolicyHolderController policyHolderController;
+    private User selectedDependent;
     private String holderName;
+    private ViewFactory view;
+    private DatabaseConnection databaseConnection;
+    private String policyHolderID;
+    private Claim selectedClaim;
 
 
-
+    public HolderHomeController() {
+        this.databaseConnection = DatabaseConnection.getInstance();
+        this.view = new ViewFactory(Model.getInstance().getDatabaseConnection());
+    }
     public void initialize(PolicyHolder policyHolder, PolicyHolderController policyHolderController) {
         bannerNameView(policyHolder.getFullname());
+        this.policyHolderID = policyHolder.getId();
         this.policyHolder = policyHolder;
         this.policyHolderController = policyHolderController;
         if (holderProfileTab.isSelected()) {
             handleProfileTabSelection();
         }
+
         holderDependentTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 populateHolderTable();
-                holderDependentEdit.setDisable(true);
             }
         });
 
-//        policyOwnerTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-//            if (newSelection != null) {
-//                selectedBeneficiary = (Customer) newSelection;
-//                deleteBeneficiaryButton.setDisable(false);
-//                showInfoBeneficiaryButton.setDisable(false);
-//                updateBeneficiaryButton.setDisable(false);
-//            } else {
-//                deleteBeneficiaryButton.setDisable(true);
-//                showInfoBeneficiaryButton.setDisable(true);
-//                updateBeneficiaryButton.setDisable(true);
-//            }
-//        });
+        holderViewClaimTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                populatePolicyOwnerClaimTable();
+            }
+        });
+
+        holderDependentTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedDependent = (User) newSelection;
+            }
+        });
+
+        hIstoryRecord.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                populatedHistoryRecordTable();
+            }
+        });
+
+        holderClaimTable.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection) -> {
+            if (newSelection != null)
+            {
+                selectedClaim = (Claim) newSelection;
+            } else{
+            }
+        });
+
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
-//            populatePolicyOwnerTable();
+            populateHolderTable();
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-//        List<String> filterList = new ArrayList<>();
-//        filterList.add("All");
-//        filterList.add("Policy Holder");
-//        filterList.add("Dependent");
-//        filterBeneficiaryBox.setItems(FXCollections.observableArrayList(filterList));
-//        filterBeneficiaryBox.setValue(filterList.get(0));
+        List<String> filterList = new ArrayList<>();
+        filterList.add("All");
+        filterList.add("Rejected");
+        filterList.add("Approved");
+        filterList.add("Pending");
+        filterList.add("NextStage");
+        holderClaimFilter.setItems(FXCollections.observableArrayList(filterList));
+        holderClaimFilter.setValue(filterList.get(0));
 
     }
 
+
+    @FXML
+    public void updateDependentButtonAction() {
+        if (selectedDependent != null) {
+            holderDependentTable.getSelectionModel().clearSelection();
+            holderDependentEdit.setDisable(true);
+                view.showDepenentFormUpdate(selectedDependent,policyHolderID);
+        }
+    }
 
     public void handleProfileTabSelection() {
         if (holderProfileTab.isSelected() && policyHolderController != null) {
@@ -235,6 +276,59 @@ public class HolderHomeController {
     public void logoutOwner(ActionEvent logoutAction) throws IOException {
         SceneUtil.logout(policyHolderHomeScene);
         System.out.println("Policy Holder logout");
+    }
+
+        public void populatePolicyOwnerClaimTable() {
+            List<Claim> Claim = policyHolderController.retrieveAllClaims();
+            ObservableList<Claim> dataList = FXCollections.observableArrayList(Claim);
+
+            holderClaimId.setCellValueFactory(new PropertyValueFactory<>("id"));
+            holderClaimDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+            holderInsuredPerson.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
+            holderStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+            holderClaimAmount.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
+            holderClaimInsuredCard.setCellValueFactory(new PropertyValueFactory<>("cardNumber"));
+
+            FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);
+
+            searchingClaimPolicyHolder.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate(claim -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+
+                    String lowerCaseFilter = newValue.toLowerCase();
+
+                    if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        return true;
+                    } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        return true;
+                    } else return false;
+                });
+            });
+            holderClaimTable.setItems(filteredData);
+            if (selectedDependent != null)
+            {
+                holderClaimTable.getSelectionModel().select(selectedDependent);
+            }
+        }
+
+
+        public void populatedHistoryRecordTable() {
+        List<Pair<String, String>> historyRecords = policyHolderController.retrieveHistory();
+
+        ObservableList<Pair<String, String>> data = FXCollections.observableArrayList(historyRecords);
+
+        TableColumn<Pair<String, String>, String> idColumn = new TableColumn<>("User ID");
+        TableColumn<Pair<String, String>, String> actionColumn = new TableColumn<>("Action");
+
+        idColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
+        actionColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
+
+        TableView<Pair<String, String>> historyRecordTable = (TableView<Pair<String, String>>) historyRecordID;
+
+        historyRecordTable.getColumns().setAll(idColumn, actionColumn);
+        historyRecordTable.setItems(data);
     }
 
     public void populateHolderTable() {
@@ -308,7 +402,23 @@ public class HolderHomeController {
 //        updateProfile(password, email, phoneNumber, address, username);
 //
 //    }
-
+@FXML
+public void onFilterBox(ActionEvent event) {
+    String filter = holderClaimFilter.getSelectionModel().getSelectedItem();
+    if (filter != null) {
+        if (filter.equals("All")) {
+            holderClaimTable.setItems(FXCollections.observableArrayList(policyHolderController.retrieveBeneficiaries()));
+        } else {
+            ObservableList<Customer> filteredData = FXCollections.observableArrayList();
+            for (Customer customer : policyHolderController.retrieveBeneficiaries()) {
+                if (customer.getRole().name().equals(filter.replace(" ", "_"))) {
+                    filteredData.add(customer);
+                }
+            }
+            holderClaimTable.setItems(filteredData);
+        }
+    }
+}
     private void createClaim(String password, String email, String phoneNumber, String address,String username)
     {
         try {
@@ -405,5 +515,28 @@ public class HolderHomeController {
             }
         }
         return null;
+    }
+
+    @FXML
+    public void addItemOnClick( ) throws IOException {
+        ViewFactory view = new ViewFactory(databaseConnection);
+        view.showClaimForm(policyHolderController.retrieveBeneficiaries(), policyHolderID);
+
+    }
+
+    @FXML
+    public void showClaimButtonAction() {
+        if (selectedClaim != null) {
+            holderClaimTable.getSelectionModel().clearSelection();
+            view.ShowClaimFormUpdate(selectedClaim,policyHolderID);
+        }
+    }
+
+    public void setShowSpecificClaimAction() {
+        if (selectedClaim != null) {
+            holderClaimTable.getSelectionModel().clearSelection();
+            view.showSpecificClaimForm(selectedClaim);
+        }
+
     }
 }

@@ -336,6 +336,8 @@ public class ViewFactory {
         }
     }
 
+
+
     public void showDependentInformation(User user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/gp/Scene/Function/DependentShowingForm.fxml"));

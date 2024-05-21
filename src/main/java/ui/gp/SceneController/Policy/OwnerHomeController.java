@@ -229,6 +229,9 @@ public class OwnerHomeController {
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
             populatePolicyOwnerTable();
+            populatePolicyOwnerClaimTable();
+            populatedHistoryRecordTable();
+            populateSmallUserTable();
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
@@ -631,7 +634,6 @@ public class OwnerHomeController {
             updateBeneficiaryButton.setDisable(true);
             view.showSpecificClaimForm(selectedClaim);
         }
-
 
     }
 public void populatedHistoryRecordTable(){
