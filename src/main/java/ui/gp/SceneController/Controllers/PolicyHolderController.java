@@ -1,8 +1,10 @@
 package ui.gp.SceneController.Controllers;
 
+import ui.gp.Models.InsuranceCard;
+import ui.gp.Models.ReceiverBankingInfo;
 import ui.gp.Models.Role;
+import ui.gp.Models.Users.Customer;
 import ui.gp.Models.Users.PolicyHolder;
-import ui.gp.Models.Users.PolicyOwner;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -69,5 +71,73 @@ public class PolicyHolderController {
                 "Email: " + policyHolder.getEmail() + "\n" +
                 "Phone Number: " + policyHolder.getPhonenumber() + "\n" +
                 "Address: " + policyHolder.getAddress();
+    }
+
+    public List<Customer> retrieveBeneficiaries() {
+        List<Customer> beneficiaries = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM users WHERE role IN ('Dependent');";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                Role role = Role.valueOf(resultSet.getString("role"));
+                Customer beneficiary = new Customer(
+                        resultSet.getString("id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("password"),
+                        role,
+                        resultSet.getString("fullname"),
+                        resultSet.getString("email"),
+                        resultSet.getString("phonenumber"),
+                        resultSet.getString("address")
+                );
+                beneficiaries.add(beneficiary);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return beneficiaries;
+    }
+
+    public List<InsuranceCard> retrieveInsurance() {
+        List<InsuranceCard> cards = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM claim";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                InsuranceCard card = new InsuranceCard(
+                        resultSet.getString("card_number_insurance"),
+                        resultSet.getString("card_holder_insurance"),
+                        resultSet.getString("policy_owner_insurance"),
+                        resultSet.getDate("expiration_date_insurance")
+
+                );
+                cards.add(card);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cards;
+    }
+
+    public List<ReceiverBankingInfo> retrieveBank() {
+        List<ReceiverBankingInfo> banks = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM claim";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                ReceiverBankingInfo bank = new ReceiverBankingInfo(
+                        resultSet.getString("bank_name"),
+                        resultSet.getString("card_owner_bank"),
+                        resultSet.getString("card_number_bank")
+                );
+                banks.add(bank);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return banks;
     }
 }
