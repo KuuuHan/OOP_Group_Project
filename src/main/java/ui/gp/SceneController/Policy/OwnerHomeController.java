@@ -116,6 +116,7 @@ public class OwnerHomeController {
     ViewFactory view;
     private ObservableList<Customer> masterData = FXCollections.observableArrayList();
     private double moneyAmount;
+    private String policyOwnerID;
     @FXML
     private TextField BankName;
     @FXML
@@ -167,7 +168,7 @@ public class OwnerHomeController {
         }
         paymentTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                populateSmallUserTable;
+                populateSmallUserTable();
             }
         });
 
@@ -220,6 +221,7 @@ public class OwnerHomeController {
                 updateBeneficiaryButton.setDisable(true);
             }
         });
+
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
             populatePolicyOwnerTable();
         }));
@@ -547,6 +549,9 @@ public class OwnerHomeController {
 
         List<Claim> Claim = policyOwnerController.retrieveAllClaims();
         ObservableList<Claim> data = FXCollections.observableArrayList(Claim);
+        for (Claim claims: Claim){
+            System.out.println(claims.getId());
+        }
 
         idClaimPolicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("id"));
         datePolicyOwnerTable.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -607,103 +612,102 @@ public class OwnerHomeController {
             updateBeneficiaryButton.setDisable(true);
             view.showSpecificClaimForm(selectedClaim);
         }
-        }
 
-        private List<String> retrievelistofimage (String claimId){
-            String query = "SELECT documentname FROM claim WHERE id = ?";
-            List<String> documentNames = new ArrayList<>();
-            try {
-                PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-                statement.setString(1, claimId);
-                ResultSet resultSet = statement.executeQuery();
-                while (resultSet.next()) {
-                    documentNames.add(resultSet.getString("documentname"));
+
+    }
+public void populatedHistoryRecordTable(){
+
+    List<Pair<String, String>> historyRecords = policyOwnerController.retrieveHistory();
+
+    ObservableList<Pair<String, String>> data = FXCollections.observableArrayList(historyRecords);
+
+    TableColumn<Pair<String, String>, String> idColumn = new TableColumn<>("User ID");
+    TableColumn<Pair<String, String>, String> actionColumn = new TableColumn<>("Action");
+
+    idColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
+    actionColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
+
+    historyRecordID.getColumns().setAll(idColumn, actionColumn);
+
+    historyRecordID.setItems(data);
+}
+
+    private void deleteClaimFromDatabase(String claimId){
+        try {
+            String query = "DELETE FROM claim WHERE id = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, claimId);
+            int rowsAffected = statement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Claim with ID: " + claimId + " deleted successfully from the database.");
+            } else {
+                System.out.println("No claim found with ID: " + claimId + " in the database.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void populateSmallUserTable() {
+
+        List<Customer> customers = policyOwnerController.retrieveBeneficiaries();
+        ObservableList<Customer> dataList = FXCollections.observableArrayList(customers);
+
+        smallOwnerId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        smallOwnerName.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+        smallOwnerRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+        smallOwnerPhone.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
+        smallOwnerEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        FilteredList<Customer> filteredData = new FilteredList<>(dataList, b -> true);
+        moneyAmount = 0;
+        for (Customer customer : customers) {
+            if (customer.getRole().name() == "Dependent") {
+                moneyAmount += 0.6 * 600;
+            } else moneyAmount += 600;
+        }
+        smallOwnerPayment.setText(Double.toString(moneyAmount));
+        smallOwnerSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(customer -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return documentNames;
-        }
 
-        private void deleteClaimFromDatabase(String claimId){
-            try {
-                String query = "DELETE FROM claim WHERE id = ?";
-                PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-                statement.setString(1, claimId);
-                int rowsAffected = statement.executeUpdate();
+                String lowerCaseFilter = newValue.toLowerCase();
 
-                if (rowsAffected > 0) {
-                    System.out.println("Claim with ID: " + claimId + " deleted successfully from the database.");
-                } else {
-                    System.out.println("No claim found with ID: " + claimId + " in the database.");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void populatedHistoryRecordTable(){
-
-            List<Pair<String, String>> historyRecords = policyOwnerController.retrieveHistory();
-
-            ObservableList<Pair<String, String>> data = FXCollections.observableArrayList(historyRecords);
-
-            TableColumn<Pair<String, String>, String> idColumn = new TableColumn<>("User ID");
-            TableColumn<Pair<String, String>, String> actionColumn = new TableColumn<>("Action");
-
-            idColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
-            actionColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
-
-            historyRecordID.getColumns().setAll(idColumn, actionColumn);
-
-            historyRecordID.setItems(data);
-        }
-
-        public void populateSmallUserTable() {
-
-            List<Customer> customers = policyOwnerController.retrieveBeneficiaries();
-            ObservableList<Customer> dataList = FXCollections.observableArrayList(customers);
-
-            smallOwnerId.setCellValueFactory(new PropertyValueFactory<>("id"));
-            smallOwnerName.setCellValueFactory(new PropertyValueFactory<>("fullname"));
-            smallOwnerRole.setCellValueFactory(new PropertyValueFactory<>("role"));
-            smallOwnerPhone.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
-            smallOwnerEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-
-            FilteredList<Customer> filteredData = new FilteredList<>(dataList, b -> true);
-            moneyAmount = 0;
-            for (Customer customer : customers) {
-                if (customer.getRole().name() == "Dependent") {
-                    moneyAmount += 0.6 * 600;
-                } else moneyAmount += 600;
-            }
-            smallOwnerPayment.setText(Double.toString(moneyAmount));
-            smallOwnerSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-                filteredData.setPredicate(customer -> {
-                    if (newValue == null || newValue.isEmpty()) {
-                        return true;
-                    }
-
-                    String lowerCaseFilter = newValue.toLowerCase();
-
-                    if (customer.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                        return true;
-                    } else if (customer.getFullname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                        return true;
-                    } else if (customer.getRole().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                        return true;
-                    } else if (customer.getEmail().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                        return true;
-                    } else if (customer.getPhonenumber().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                        return true;
-                    } else return false;
-                });
+                if (customer.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (customer.getFullname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (customer.getRole().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (customer.getEmail().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (customer.getPhonenumber().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else return false;
             });
+        });
 
-            SortedList<Customer> sortedData = new SortedList<>(filteredData);
+        SortedList<Customer> sortedData = new SortedList<>(filteredData);
 
-            sortedData.comparatorProperty().bind(smallOwnerTable.comparatorProperty());
-            smallOwnerTable.setItems(sortedData);
+        sortedData.comparatorProperty().bind(smallOwnerTable.comparatorProperty());
+        smallOwnerTable.setItems(sortedData);
+    }
+
+    private List<String> retrievelistofimage (String claimId){
+        String query = "SELECT documentname FROM claim WHERE id = ?";
+        List<String> documentNames = new ArrayList<>();
+        try {
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+            statement.setString(1, claimId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                documentNames.add(resultSet.getString("documentname"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return documentNames;
     }
 }
