@@ -178,7 +178,7 @@ public class OwnerHomeController {
         displayClaimComboList.add("Rejected");
         displayClaimComboList.add("Approved");
         displayClaimComboList.add("Pending");
-        displayClaimComboList.add("nextStage");
+        displayClaimComboList.add("NextStage");
         filterClaimPoilicyOwnerBox.setItems(FXCollections.observableArrayList(displayClaimComboList));
         filterClaimPoilicyOwnerBox.setValue(displayClaimComboList.get(0));
 
