@@ -117,6 +117,10 @@ public class SurveyorHomeController {
     private TableColumn surveyorPendingAmount;
     @FXML
     private TableColumn surveyorPendingClaimDate;
+    @FXML
+    private ComboBox<String> surveyorCustomerFilter;
+    @FXML
+    private ComboBox<String> surveyorClaimFilter;
 
     public void bannerNameView(String username) {
         welcomeBannerUser.setText("Welcome " + username);
@@ -179,6 +183,24 @@ public class SurveyorHomeController {
                 populateSurveyorClaimTable();
             }
         });
+
+        List<String> filterList = new ArrayList<>();
+        filterList.add("All");
+        filterList.add("Policy Holder");
+        filterList.add("Dependent");
+        surveyorCustomerFilter.setItems(FXCollections.observableArrayList(filterList));
+        surveyorCustomerFilter.setValue(filterList.get(0));
+
+        List<String> displayClaimComboList = new ArrayList<>();
+        displayClaimComboList.add("All");
+        displayClaimComboList.add("Rejected");
+        displayClaimComboList.add("Approved");
+        displayClaimComboList.add("Pending");
+        displayClaimComboList.add("NextStage");
+        surveyorClaimFilter.setItems(FXCollections.observableArrayList(displayClaimComboList));
+        surveyorClaimFilter.setValue(displayClaimComboList.get(0));
+
+
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
             populateCustomerSurveyorTable();
@@ -399,7 +421,7 @@ public class SurveyorHomeController {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
-                updateClaimStatus(selectedClaim, ClaimStatus.Pending);
+                updateClaimStatus(selectedClaim, ClaimStatus.NextStage);
                 populatePendingClaimTable();
                 populateSurveyorClaimTable();
             }
@@ -439,6 +461,40 @@ public class SurveyorHomeController {
 
 
     }
+    public void ClaimFilterBox(ActionEvent event) {
+        String filter = surveyorClaimFilter.getSelectionModel().getSelectedItem();
+        if (filter != null) {
+            if (filter.equals("All")) {
+                surveyorClaimTable.setItems(FXCollections.observableArrayList(surveyorController.retrieveClaims()));
+            } else {
+                ObservableList<Claim> filteredData = FXCollections.observableArrayList();
+                for (Claim claim : surveyorController.retrieveClaims()) {
+                    if (claim.getStatus().equals(filter.replace(" ", "_"))) {
+                        filteredData.add(claim);
+                    }
+                }
+                surveyorClaimTable.setItems(filteredData);
+            }
+        }
+    }
+
+    public void CustomerFilterBox(ActionEvent event) {
+        String filter = surveyorCustomerFilter.getSelectionModel().getSelectedItem();
+        if (filter != null) {
+            if (filter.equals("All")) {
+                customerSurveyorTable.setItems(FXCollections.observableArrayList(surveyorController.retrieveBeneficiaries()));
+            } else {
+                ObservableList<Customer> filteredData = FXCollections.observableArrayList();
+                for (Customer customer : surveyorController.retrieveBeneficiaries()) {
+                    if (customer.getRole().name().equals(filter.replace(" ", "_"))) {
+                        filteredData.add(customer);
+                    }
+                }
+                customerSurveyorTable.setItems(filteredData);
+            }
+        }
+    }
+
 }
 
 

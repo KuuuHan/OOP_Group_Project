@@ -99,7 +99,7 @@
                               <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <items>
                                     <Label text="Filter" />
-                                    <ComboBox fx:id="surveyorClaimFilter" prefWidth="150.0" promptText="Status" />
+                                    <ComboBox fx:id="surveyorClaimFilter" onAction="#ClaimFilterBox" prefWidth="150.0" promptText="Status" />
                                     <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
                                     <TextField fx:id="surveyorSearchClaim" prefHeight="25.0" prefWidth="323.0" promptText="Search Claim" />
                                     <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
@@ -123,7 +123,7 @@
                      </children></AnchorPane>
                     </content>
                 </Tab>
-            <Tab fx:id="surveyorPendingClaimTab" text="View claim list">
+            <Tab fx:id="surveyorPendingClaimTab" text="View Pending Claim">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -131,8 +131,6 @@
                            <top>
                               <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <items>
-                                    <Label text="Filter" />
-                                    <ComboBox fx:id="surveyorPendingClaimFilter" prefWidth="150.0" promptText="Status" />
                                     <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
                                     <TextField fx:id="surveyorSearchPendingClaim" prefHeight="25.0" prefWidth="323.0" promptText="Search Claim" />
                                     <Separator orientation="VERTICAL" prefHeight="35.0" prefWidth="0.0" />
@@ -176,7 +174,7 @@
                                         <ToolBar prefWidth="200.0" HBox.hgrow="ALWAYS">
                                             <items>
                                                 <Label text="Filter" />
-                                                <ComboBox fx:id="managerCustomerFilter" prefWidth="150.0" promptText="Filter Options" />
+                                                <ComboBox fx:id="surveyorCustomerFilter" onAction="#CustomerFilterBox" prefWidth="150.0" promptText="Role" />
                                                 <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
                                                 <TextField fx:id="surveyorSearchCustomer" promptText="Search Customer" />
                                                 <Button fx:id="managerViewCustomer" mnemonicParsing="false" onAction="#onShowDetail" text="View Customer" />

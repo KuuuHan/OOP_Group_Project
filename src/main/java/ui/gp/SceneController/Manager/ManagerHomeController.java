@@ -197,6 +197,7 @@ public class ManagerHomeController {
     private User selectedCustomer;
     private DatabaseConnection databaseConnection;
     private ViewFactory view;
+    private Claim selectedPendingClaim;
 
     public void bannerNameView(String username) {
         welcomeBannerUser.setText("Welcome " + username + "!");
@@ -249,18 +250,28 @@ public class ManagerHomeController {
         displayClaimComboList.add("Rejected");
         displayClaimComboList.add("Approved");
         displayClaimComboList.add("Pending");
+        displayClaimComboList.add("NextStage");
         managerClaimFilter.setItems(FXCollections.observableArrayList(displayClaimComboList));
         managerClaimFilter.setValue(displayClaimComboList.get(0));
 
         claimPendingManagerTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                selectedClaim = (Claim) newSelection;
+                selectedPendingClaim = (Claim) newSelection;
                 managerApprovalButton.setDisable(false);
                 managerDeclineButton.setDisable(false);
-                managerViewClaim.setDisable(false);
+                managerViewPendingClaim.setDisable(false);
             } else {
                 managerApprovalButton.setDisable(true);
                 managerDeclineButton.setDisable(true);
+                managerViewPendingClaim.setDisable(true);
+            }
+        });
+
+        claimManagerTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedClaim = (Claim) newSelection;
+                managerViewClaim.setDisable(false);
+            } else {
                 managerViewClaim.setDisable(true);
             }
         });
@@ -317,104 +328,28 @@ public class ManagerHomeController {
 
         FilteredList<Customer> filteredData = new FilteredList<>(dataList, b -> true);
 
-            managerSearchCustomer.textProperty().addListener((observable, oldValue, newValue) -> {
-                filteredData.setPredicate(benefeciaries -> {
-                    if (newValue == null || newValue.isEmpty()) {
-                        return true;
-                    }
+        managerSearchCustomer.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(customer -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
 
-                    String lowerCaseFilter = newValue.toLowerCase();
+                String lowerCaseFilter = newValue.toLowerCase();
 
-                    if (benefeciaries.getFullname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                        return true;
-                    } else if (benefeciaries.getRole().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                        return true;
-                    } else if (benefeciaries.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                        return true;
-                    } else return false;
-                });
+                if (customer.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (customer.getFullname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (customer.getRole().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else return false;
             });
+        });
 
             SortedList<Customer> sortedData = new SortedList<>(filteredData);
 
             sortedData.comparatorProperty().bind(customerManagerTable.comparatorProperty());
             customerManagerTable.setItems(sortedData);
-    }
-
-    public void populateHolderTable() {
-
-        List<Customer> beneficiaries = managerController.retrieveHolderBeneficiaries();
-        ObservableList<Customer> dataList = FXCollections.observableArrayList(beneficiaries);
-
-        customerIDManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
-        customerNameManagerView.setCellValueFactory(new PropertyValueFactory<>("fullname"));
-        customerRoleManagerView.setCellValueFactory(new PropertyValueFactory<>("role"));
-        customerPhoneManagerView.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
-        customerEmailManagerView.setCellValueFactory(new PropertyValueFactory<>("email"));
-        customerAddressManagerView.setCellValueFactory(new PropertyValueFactory<>("address"));
-
-        FilteredList<Customer> filteredData = new FilteredList<>(dataList, b -> true);
-
-        managerSearchCustomer.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(benefeciaries -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (benefeciaries.getFullname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (benefeciaries.getRole().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (benefeciaries.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else return false;
-            });
-        });
-
-        SortedList<Customer> sortedData = new SortedList<>(filteredData);
-
-        sortedData.comparatorProperty().bind(customerManagerTable.comparatorProperty());
-        customerManagerTable.setItems(sortedData);
-    }
-    public void populateDependentTable() {
-
-        List<Customer> beneficiaries = managerController.retrieveDependentBeneficiaries();
-        ObservableList<Customer> dataList = FXCollections.observableArrayList(beneficiaries);
-
-        customerIDManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
-        customerNameManagerView.setCellValueFactory(new PropertyValueFactory<>("fullname"));
-        customerRoleManagerView.setCellValueFactory(new PropertyValueFactory<>("role"));
-        customerPhoneManagerView.setCellValueFactory(new PropertyValueFactory<>("phonenumber"));
-        customerEmailManagerView.setCellValueFactory(new PropertyValueFactory<>("email"));
-        customerAddressManagerView.setCellValueFactory(new PropertyValueFactory<>("address"));
-
-        FilteredList<Customer> filteredData = new FilteredList<>(dataList, b -> true);
-
-        managerSearchCustomer.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(benefeciaries -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (benefeciaries.getFullname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (benefeciaries.getRole().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (benefeciaries.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else return false;
-            });
-        });
-
-
-        SortedList<Customer> sortedData = new SortedList<>(filteredData);
-
-        sortedData.comparatorProperty().bind(customerManagerTable.comparatorProperty());
-        customerManagerTable.setItems(sortedData);
     }
 
 
@@ -432,18 +367,18 @@ public class ManagerHomeController {
         FilteredList<Provider> filteredData = new FilteredList<>(dataList, b -> true);
 
         managerSearchSurveyor.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(beneficiaries -> {
+            filteredData.setPredicate(customer -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
 
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                if (beneficiaries.getFullname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                if (customer.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (beneficiaries.getRole().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (customer.getFullname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (beneficiaries.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (customer.getRole().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else return false;
             });
@@ -479,11 +414,10 @@ public class ManagerHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
                 } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else return false;
+                } else
+                    return false;
             });
         });
 
@@ -495,81 +429,6 @@ public class ManagerHomeController {
 
 
 
-    public void populateRejectedFilterClaimTable() {
-
-        List<Claim> claims = managerController.retrieveRejectedClaims();
-        ObservableList<Claim> dataList = FXCollections.observableArrayList(claims);
-
-        claimIDManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
-        insuredPeopleManagerView.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
-        claimAmountManagerView.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
-        statusManagerView.setCellValueFactory(new PropertyValueFactory<>("status"));
-        claimDateManagerView.setCellValueFactory(new PropertyValueFactory<>("date"));
-        examDateManagerView.setCellValueFactory(new PropertyValueFactory<>("examDate"));
-
-        FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);
-
-        managerSearchClaim.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(claim -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else return false;
-            });
-        });
-
-        SortedList<Claim> sortedData = new SortedList<>(filteredData);
-
-        sortedData.comparatorProperty().bind(claimManagerTable.comparatorProperty());
-        claimManagerTable.setItems(sortedData);
-    }
-
-    public void populateApprovedFilterClaimTable() {
-
-        List<Claim> claims = managerController.retrieveApprovedClaims();
-        ObservableList<Claim> dataList = FXCollections.observableArrayList(claims);
-
-        claimIDManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
-        insuredPeopleManagerView.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
-        claimAmountManagerView.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
-        statusManagerView.setCellValueFactory(new PropertyValueFactory<>("status"));
-        claimDateManagerView.setCellValueFactory(new PropertyValueFactory<>("date"));
-        examDateManagerView.setCellValueFactory(new PropertyValueFactory<>("examDate"));
-
-        FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);
-
-        managerSearchClaim.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(claim -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (claim.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else return false;
-            });
-        });
-
-        SortedList<Claim> sortedData = new SortedList<>(filteredData);
-
-        sortedData.comparatorProperty().bind(claimManagerTable.comparatorProperty());
-        claimManagerTable.setItems(sortedData);
-    }
 
     public void populatePendingClaimTable() {
 
@@ -595,8 +454,6 @@ public class ManagerHomeController {
 
                 if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
                 } else return false;
             });
         });
@@ -607,41 +464,6 @@ public class ManagerHomeController {
         claimPendingManagerTable.setItems(sortedData);
     }
 
-    public void populatePendingFilterClaimTable() {
-
-        List<Claim> claims = managerController.retrievePendingClaims();
-        ObservableList<Claim> dataList = FXCollections.observableArrayList(claims);
-
-        claimIDPendingManagerView.setCellValueFactory(new PropertyValueFactory<>("id"));
-        insuredPeoplePendingManagerView.setCellValueFactory(new PropertyValueFactory<>("insuredPersonID"));
-        claimAmountPendingManagerView.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
-        statusManagerPendingView.setCellValueFactory(new PropertyValueFactory<>("status"));
-        claimDatePendingManagerView.setCellValueFactory(new PropertyValueFactory<>("date"));
-        examDatePendingManagerView.setCellValueFactory(new PropertyValueFactory<>("examDate"));
-
-        FilteredList<Claim> filteredData = new FilteredList<>(dataList, b -> true);
-
-        managerSearchPendingClaim.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(claim -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (claim.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (claim.getInsuredPersonID().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else return false;
-            });
-        });
-
-        SortedList<Claim> sortedData = new SortedList<>(filteredData);
-
-        sortedData.comparatorProperty().bind(claimManagerTable.comparatorProperty());
-        claimManagerTable.setItems(sortedData);
-    }
 
     @FXML
     public void logoutOwner(ActionEvent logoutAction) throws IOException {
@@ -651,46 +473,45 @@ public class ManagerHomeController {
 
 
     @FXML
-    protected void customerDisplayComboBox(ActionEvent event){
-        String result = "Displayed all ";
-
-        switch (managerCustomerFilter.getSelectionModel().getSelectedItem()){
-            case "All":
-                populateCustomerTable();
-                break;
-            case "Policy Holder":
-                populateHolderTable();
-                break;
-            case "Dependent":
-                populateDependentTable();
-                break;
+    public void customerDisplayComboBox(ActionEvent event) {
+        String filter = managerCustomerFilter.getSelectionModel().getSelectedItem();
+        if (filter != null) {
+            if (filter.equals("All")) {
+                customerManagerTable.setItems(FXCollections.observableArrayList(managerController.retrieveBeneficiaries()));
+            } else {
+                ObservableList<Customer> filteredData = FXCollections.observableArrayList();
+                for (Customer customer : managerController.retrieveBeneficiaries()) {
+                    if (customer.getRole().name().equals(filter.replace(" ", "_"))) {
+                        filteredData.add(customer);
+                    }
+                }
+                customerManagerTable.setItems(filteredData);
+            }
         }
     }
 
     @FXML
-    protected void claimDisplayComboBox(ActionEvent event){
-        String result = "Displayed all ";
-
-        switch (managerClaimFilter.getSelectionModel().getSelectedItem()){
-            case "All":
-                populateClaimTable();
-                break;
-            case "Rejected":
-                populateRejectedFilterClaimTable();
-                break;
-            case "Pending":
-                populatePendingFilterClaimTable();
-                break;
-            case "Approved":
-                populateApprovedFilterClaimTable();
-                break;
+    public void claimDisplayComboBox(ActionEvent event) {
+        String filter = managerClaimFilter.getSelectionModel().getSelectedItem();
+        if (filter != null) {
+            if (filter.equals("All")) {
+                claimManagerTable.setItems(FXCollections.observableArrayList(managerController.retrieveClaims()));
+            } else {
+                ObservableList<Claim> filteredData = FXCollections.observableArrayList();
+                for (Claim claim : managerController.retrieveClaims()) {
+                    if (claim.getStatus().equals(filter.replace(" ", "_"))) {
+                        filteredData.add(claim);
+                    }
+                }
+                claimManagerTable.setItems(filteredData);
+            }
         }
     }
 
 
     public void ApproveClaimButton()
     {
-        if (selectedClaim != null) {
+        if (selectedPendingClaim != null) {
             claimManagerTable.getSelectionModel().clearSelection();
             managerApprovalButton.setDisable(true);
             managerDeclineButton.setDisable(true);
@@ -702,7 +523,7 @@ public class ManagerHomeController {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
-                updateClaimStatus(selectedClaim, ClaimStatus.Approved);
+                updateClaimStatus(selectedPendingClaim, ClaimStatus.Approved);
                 populatePendingClaimTable();
                 populateClaimTable();
             }
@@ -711,7 +532,7 @@ public class ManagerHomeController {
 
     public void DeclineClaimButton()
     {
-        if (selectedClaim != null) {
+        if (selectedPendingClaim != null) {
             claimManagerTable.getSelectionModel().clearSelection();
             managerApprovalButton.setDisable(true);
             managerDeclineButton.setDisable(true);
@@ -723,7 +544,7 @@ public class ManagerHomeController {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
-                updateClaimStatus(selectedClaim, ClaimStatus.Rejected);
+                updateClaimStatus(selectedPendingClaim, ClaimStatus.Rejected);
                 populatePendingClaimTable();
                 populateClaimTable();
             }
@@ -844,5 +665,25 @@ public class ManagerHomeController {
         } else if (selectedCustomer.getRole().name().equals("Policy_Owner")){
             view.  showPolicyHolderInformation(selectedCustomer);
         }
+    }
+
+    public void showClaimButtonAction() {
+        if (selectedClaim != null) {
+            claimManagerTable.getSelectionModel().clearSelection();
+            managerViewClaim.setDisable(true);
+            view.showSpecificClaimForm(selectedClaim);
+        }
+
+
+    }
+
+    public void showPendingClaimButtonAction() {
+        if (selectedPendingClaim != null) {
+            claimPendingManagerTable.getSelectionModel().clearSelection();
+            managerViewPendingClaim.setDisable(true);
+            view.showSpecificClaimForm(selectedPendingClaim);
+        }
+
+
     }
 }

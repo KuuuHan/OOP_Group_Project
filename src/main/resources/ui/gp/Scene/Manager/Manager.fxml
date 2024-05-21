@@ -113,8 +113,8 @@
                                     <Label text="Filter" />
                                     <ComboBox fx:id="managerClaimFilter" onAction="#claimDisplayComboBox" prefWidth="150.0" promptText="Filter Options" />
                                     <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
-                                    <TextField fx:id="managerSearchClaim" promptText="Search Claim" />
-                                    <Button fx:id="managerViewClaim" mnemonicParsing="false" text="View Claim" />
+                                    <TextField fx:id="managerSearchClaim" promptText="Search Claim ID" />
+                                    <Button fx:id="managerViewClaim" mnemonicParsing="false" onAction="#showClaimButtonAction" text="View Claim" />
                                 </items>
                               </ToolBar>
                               <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" />
@@ -124,7 +124,7 @@
                         </BorderPane>
                     </content>
                 </Tab>
-                <Tab fx:id="managerViewPendingClaimTab" text="View Pending claim">
+                <Tab fx:id="managerViewPendingClaimTab" text="View Proposed Claim">
                     <content>
                         <BorderPane prefHeight="200.0" prefWidth="200.0">
                             <center>
@@ -145,8 +145,8 @@
                                         <ToolBar prefWidth="200.0" HBox.hgrow="ALWAYS">
                                             <items>
                                                 <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="0.0" />
-                                                <TextField fx:id="managerSearchPendingClaim" prefHeight="26.0" prefWidth="238.0" promptText="Search Claim" />
-                                                <Button fx:id="managerViewPendingClaim" mnemonicParsing="false" text="View Claim" />
+                                                <TextField fx:id="managerSearchPendingClaim" prefHeight="26.0" prefWidth="238.0" promptText="Search Claim ID" />
+                                    <Button fx:id="managerViewPendingClaim" mnemonicParsing="false" onAction="#showPendingClaimButtonAction" text="View Claim" />
                                             </items>
                                         </ToolBar>
                                         <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">

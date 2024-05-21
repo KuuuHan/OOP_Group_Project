@@ -82,93 +82,7 @@ public class ManagerController {
         return beneficiaries;
     }
 
-    public List<Customer> retrieveDependentBeneficiaries() {
-        List<Customer> beneficiaries = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
-            String query = "SELECT * FROM users WHERE role IN ('Dependent');";
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                Role role = Role.valueOf(resultSet.getString("role"));
-                Customer beneficiary = new Customer(
-                        resultSet.getString("id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        role,
-                        resultSet.getString("fullname"),
-                        resultSet.getString("email"),
-                        resultSet.getString("phonenumber"),
-                        resultSet.getString("address")
-                );
-                beneficiaries.add(beneficiary);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return beneficiaries;
-    }
 
-    public List<Claim> retrieveRejectedClaims() {
-        List<Claim> claims = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
-            String query = "SELECT * FROM claim WHERE claim_status IN ('Rejected');";
-            ResultSet rs = statement.executeQuery(query);
-            while (rs.next()) {
-                ClaimStatus status = ClaimStatus.valueOf(rs.getString("claim_status"));
-                Claim claim = new Claim(
-                        rs.getString("id"),
-                        rs.getDate("claim_date"),
-                        rs.getString("insured_person"),
-                        rs.getString("card_number_insurance"),
-                        rs.getDate("exam_date"),
-                        rs.getDouble("claim_amount"),
-                        rs.getString("claim_status"),
-                        rs.getString("card_number_bank"),
-                        rs.getString("bank_name"),
-                        rs.getString("card_owner_bank"),
-                        rs.getDate("expiration_date_insurance"),
-                        rs.getString("policy_owner_insurance"),
-                        rs.getString("card_holder_insurance")
-                );
-                claims.add(claim);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return claims;
-    }
-
-    public List<Claim> retrieveApprovedClaims() {
-        List<Claim> claims = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
-            String query = "SELECT * FROM claim WHERE claim_status IN ('Approved');";
-            ResultSet rs = statement.executeQuery(query);
-            while (rs.next()) {
-                ClaimStatus status = ClaimStatus.valueOf(rs.getString("claim_status"));
-                Claim claim = new Claim(
-                        rs.getString("id"),
-                        rs.getDate("claim_date"),
-                        rs.getString("insured_person"),
-                        rs.getString("card_number_insurance"),
-                        rs.getDate("exam_date"),
-                        rs.getDouble("claim_amount"),
-                        rs.getString("claim_status"),
-                        rs.getString("card_number_bank"),
-                        rs.getString("bank_name"),
-                        rs.getString("card_owner_bank"),
-                        rs.getDate("expiration_date_insurance"),
-                        rs.getString("policy_owner_insurance"),
-                        rs.getString("card_holder_insurance")
-                );
-                claims.add(claim);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return claims;
-    }
 
     public List<Claim> retrieveClaims() {
         List<Claim> claims = new ArrayList<>();
@@ -232,7 +146,7 @@ public class ManagerController {
         List<Claim> claims = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM claim WHERE claim_status IN ('nextStage')";
+            String query = "SELECT * FROM claim WHERE claim_status IN ('NextStage')";
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
                 ClaimStatus status = ClaimStatus.valueOf(rs.getString("claim_status"));
