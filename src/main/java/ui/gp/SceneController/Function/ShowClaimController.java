@@ -76,7 +76,11 @@ public class ShowClaimController {
         ExpirationDate.setText(information[11]);
         CardHolderName.setText(information[12]);
         List<String> imageNames = retrievelistofimage(claim.getId());
-        imagebox.getItems().addAll(imageNames);
+        List <String> imageNameBox = imageNames;
+        for (String imageName : imageNameBox) {
+            imageName = imageName.split("\\.")[0] + ".pdf";
+            imagebox.getItems().add(imageName);
+        }
     }
     @FXML
     public void ShowimageonAction() {

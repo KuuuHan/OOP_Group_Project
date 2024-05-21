@@ -81,7 +81,7 @@
             <Button fx:id="uploadButton" mnemonicParsing="false" onAction="#openUploadWindow" prefHeight="26.0" prefWidth="146.0" text="Upload File" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <ComboBox fx:id="fileNameComboBox" prefHeight="26.0" prefWidth="68.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
             </ComboBox>
-            <Button mnemonicParsing="false" onAction="#onSubmit" prefHeight="59.0" prefWidth="191.0" text="Submit" GridPane.rowIndex="13" />
+            <Button fx:id="SubmitClaim"  mnemonicParsing="false" onAction="#onSubmit" prefHeight="59.0" prefWidth="191.0" text="Submit" GridPane.rowIndex="13" />
             <ChoiceBox fx:id="ClaimBeneficieryBox" prefHeight="26.0" prefWidth="236.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />        </children>
     </GridPane>
     <columnConstraints>
